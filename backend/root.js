@@ -1,3 +1,5 @@
+// import Device from './Device';
+
 var http = require('http');
 
 http.createServer(function (req, res) {
@@ -16,7 +18,7 @@ var message = Buffer.from('M-SEARCH * HTTP/1.1\r\nHOST:239.255.255.250:1982\r\nM
 s.on('message', function(msg, rinfo){
   console.log(rinfo.address + ':' + rinfo.port +' - ' + message);
   const response = queryString.parse(msg.toString('utf8'), '\r\n', ':');
-  turnLight(response, "off");
+  turnLight(response, "on");
 })
 
 s.on('error', function(err){
