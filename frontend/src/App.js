@@ -31,6 +31,9 @@ class App extends Component {
     //     });
     // });
 
+    // const dgram = require('dgram');
+    // dgram.createSocket('udp4');
+
     const yeelight = new Yeelight();
 
     if(this.state.isToggleOn) {
