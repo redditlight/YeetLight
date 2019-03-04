@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+// import dgram from 'dgram';
 
 const dgram = require('dgram');
 
 export default class Yeelight {
 
-  socket: Object;
-  message: Buffer;
-
   constructor(){
 
     // CreateSocket not a function????
+    // Is it possible browser doesn't allow udp? Then that means this is impossible
     this.socket = dgram.createSocket('udp4');
     this.message = new Buffer('M-SEARCH * HTTP/1.1\r\nHOST:239.255.255.250:1982\r\nMAN:"ssdp:discover"\r\nST:wifi_bulb\r\n');
     // this.discover();
@@ -31,8 +30,6 @@ export default class Yeelight {
 
   toggleYeelight(isOn) {
     console.log(isOn);
-
-
 
   }
 }

@@ -7,7 +7,9 @@
     "node-ssdp": "^4.0.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-native-udp": "^2.5.0",
     "react-scripts": "2.1.5",
+    "udp": "^1.0.0",
     "yeelight-wifi": "^2.3.0"
   },
   "scripts": {
