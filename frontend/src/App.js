@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import toggleYeelight from './yeelight.js';
+import Yeelight from './yeelight.js';
 
 class App extends Component {
 
@@ -31,10 +31,12 @@ class App extends Component {
     //     });
     // });
 
+    const yeelight = new Yeelight();
+
     if(this.state.isToggleOn) {
-      toggleYeelight(true);
+      yeelight.toggleYeelight(true);
     } else {
-      toggleYeelight(false);
+      yeelight.toggleYeelight(false);
     }
   }
 
