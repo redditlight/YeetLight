@@ -4,8 +4,6 @@ function SideMenu() {
   return (
       <body style={menuStyle}>
       <ul>
-
-
         <p style={settingStyle}>
           SETTINGS
         </p>
