@@ -28,12 +28,6 @@ function initialize() {
     myDevice.address = rinfo.address;
     myDevice.port = rinfo.port;
     myDevice.location = response.Location;
-
-    console.log(myDevice);
-
-    // new Device(response.id, rinfo.address, rinfo.port);
-    // console.log(myDevice);
-    // turnLight(response, "on");
   })
 
   s.on('error', function(err){
@@ -56,43 +50,6 @@ function initialize() {
     console.log('SUCCESS');
   }
 }
-
-// function toggleLight(response){
-//   const call = JSON.stringify({"id":response.id,"method":"toggle","params":[]});
-//   const tcpS = new net.Socket();
-//   const urlData = url.parse(response.Location);
-//   tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
-// }
-//
-// function turnLight(response, turnOn){
-//   const call = JSON.stringify({"id":response.id,"method":"set_power","params":[turnOn, "smooth", 500]});
-//   const tcpS = new net.Socket();
-//   const urlData = url.parse(response.Location);
-//   tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
-// }
-
-
-
-// var s2 = dgram.createSocket('udp4');
-//
-// s2.on('message', function(msg, rinfo){
-//   console.log(rinfo.address + ':' + rinfo.port +' - ' + message);
-//   console.log(rinfo.ID);
-//   // console.log(message.id);
-//   // console.log(msg.id);
-// })
-//
-// s2.on('error', function(err){
-//   console.log(err.stack);
-//   s2.close();
-// })
-//
-// s2.on('listening', function(){
-//   var address = s2.address();
-//   console.log('UDP Server listening on ' + address.address + ":" + address.port);
-// })
-//
-// s2.bind(1982, () => s2.addMembership('239.255.255.250'));
 
 // var promise = new Promise(function(resolve, reject) {
 //
