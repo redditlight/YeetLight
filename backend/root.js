@@ -52,6 +52,8 @@ function initialize() {
   }
 }
 
+// initialize().then(myDevice.printInformation());
+
 // var promise = new Promise(function(resolve, reject){
 //   resolve(myDevice.printInformation());
 // });
