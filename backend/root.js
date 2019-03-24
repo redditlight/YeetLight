@@ -1,11 +1,10 @@
 // import Device from './Device';
-
 var http = require('http');
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.end('Hello World!');
-}).listen(8080);
+}).listen(65010);
 
 const dgram = require('dgram');
 const queryString = require('querystring');
@@ -111,3 +110,17 @@ function success(){
 //     });
 // });
 
+var snoowrap = require('snoowrap');
+
+const r = new snoowrap({
+    userAgent: 'YeetLight',
+    clientId: 'LhIe-MiAlC4e2Q',
+    clientSecret: 'OSutkDPi3aIYij21mYMFn2KetrI',
+    refreshToken: '38789487-hUBkRQno0H0Smi83U446t_sZR8g'
+  });
+
+ex =  r.getSubmission('b3pekn').name;
+ 
+ console.log(ex);
+ console.log('test');
+ 
