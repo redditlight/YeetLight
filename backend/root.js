@@ -1,5 +1,10 @@
 // import Device from './Device';
 var http = require('http');
+var express = require("express");
+var myParser = require("body-parser");
+var app = express();
+var cors = require('cors')
+app.use(cors())
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
@@ -110,17 +115,53 @@ function success(){
 //     });
 // });
 
-var snoowrap = require('snoowrap');
+app.use(myParser.urlencoded({extended : true}));
+app.post("/auth", function(request, response) {
+  console.log(request.body);
+  console.log("wtf");
+  return "hello";
+});
+app.post("/test", function(request, response) {
+  console.log(request.body);
+  console.log("wtf");
+  return "hello";
+});
 
-const r = new snoowrap({
-    userAgent: 'YeetLight',
-    clientId: 'LhIe-MiAlC4e2Q',
-    clientSecret: 'OSutkDPi3aIYij21mYMFn2KetrI',
-    refreshToken: '38789487-hUBkRQno0H0Smi83U446t_sZR8g'
-  });
+app.listen(8080);
+// var snoowrap = require('snoowrap');
 
-ex =  r.getSubmission('b3pekn').name;
- 
- console.log(ex);
- console.log('test');
+// // const r = new snoowrap({
+// //     userAgent: 'YeetLight',
+// //     clientId: 'LhIe-MiAlC4e2Q',
+// //     clientSecret: 'OSutkDPi3aIYij21mYMFn2KetrI',
+// //     refreshToken: '38789487-hUBkRQno0H0Smi83U446t_sZR8g',
+// //   });
+
+//   var authenticationUrl = snoowrap.getAuthUrl({
+//     clientId: 'LhIe-MiAlC4e2Q',
+//     scope: ['identity', 'read', 'privatemessages', 'history', 'submit'],
+//     redirectUri: 'http://localhost:3000',
+//     permanent: false,
+//     // state: 'fe211bebc52eb3da9bef8db6e63104d3' // a random string, this could be validated when the user is redirected back
+//   });
+//   var code = new URL(window.location.href).searchParams.get('code');
+
+//   snoowrap.fromAuthCode({
+//     code: code,
+//     userAgent: 'Reddit Light',
+//     clientId: 'LhIe-MiAlC4e2Q',
+//     redirectUri: 'http://localhost:3000'
+//   }).then(r => {
+//     // Now we have a requester that can access reddit through the user's account
+//     r.getKarma().then(console.log);
+//   })
+  // http://localhost:65010/authorize_callback
+//  ex = r.getUser('kixxe').getSubmissions.then( response => {
+//    console.log(response);
+   
+//  });
+// r.getMe().then(console.log);
+// console.log(authenticationUrl);
+// r.config({debug: true});
+//  console.log(ex);
  
