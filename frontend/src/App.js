@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Yeelight from './yeelight.js';
-
+import Header from './components/layout/Header';
+import SideMenu from './components/SideMenu';
 class App extends Component {
+
 
   constructor(props) {
     super(props);
     this.state = {isToggleOn: true};
+
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
@@ -41,15 +44,43 @@ class App extends Component {
     } else {
       yeelight.toggleYeelight(false);
     }
+
+
   }
 
   render() {
     return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
+        <div>
+        <button onClick={this.handleClick}>
+          {this.state.isToggleOn ? 'ON' : 'OFF'}
+                </button>
+          <h1>
+          <Header/>
+            <ul style={menuStyle}>
+            <p>
+              User Connected/Not Connected.
+            </p>
+            <p>
+              Current post tracking:
+              <p>
+              <input
+                  type="text"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+              />
+              </p>
+            </p>
+            </ul>
+            <SideMenu/>
+          </h1>
+        </div>
     );
   }
 }
 
+const menuStyle = {
+  textAlign: 'left',
+  padding: '0px',
+  fontSize: '15px'
+}
 export default App;

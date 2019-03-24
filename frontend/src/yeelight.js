@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+//import React, { Component } from 'react';
 // import dgram from 'dgram';
 
 export default class Yeelight {
