@@ -12,3 +12,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.ui.borderless.menu {
+  background-color: #388BBB;
+  box-shadow: black;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar{
+  padding-top: 50px;
+}
+
+
+ui.visible.left.thin.sidebar{
+  padding-top: 50px;
+}
