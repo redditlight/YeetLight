@@ -1,59 +1,77 @@
 // import Device from './Device';
+const Device = require('./Device.js');
 
-var http = require('http');
+const http = require('http');
+const dgram = require('dgram');
+const queryString = require('querystring');
+const url = require('url');
+
+const net = require('net');
+
+const myDevice = new Device('', '', '', '');
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.end('Hello World!');
 }).listen(8080);
 
-const dgram = require('dgram');
-const queryString = require('querystring');
-const url = require('url');
+function initialize() {
 
-var net = require('net');
-var s = dgram.createSocket('udp4');
-var message = Buffer.from('M-SEARCH * HTTP/1.1\r\nHOST:239.255.255.250:1982\r\nMAN:"ssdp:discover"\r\nST:wifi_bulb\r\n');
+  var s = dgram.createSocket('udp4');
+  var message = Buffer.from('M-SEARCH * HTTP/1.1\r\nHOST:239.255.255.250:1982\r\nMAN:"ssdp:discover"\r\nST:wifi_bulb\r\n');
 
-s.on('message', function(msg, rinfo){
-  console.log(rinfo.address + ':' + rinfo.port +' - ' + message);
-  const response = queryString.parse(msg.toString('utf8'), '\r\n', ':');
-  turnLight(response, "on");
-})
+  s.on('message', function(msg, rinfo){
+    console.log(rinfo.address + ':' + rinfo.port +' - ' + message);
+    const response = queryString.parse(msg.toString('utf8'), '\r\n', ':');
 
-s.on('error', function(err){
-  console.log(err.stack);
-  s.close();
-})
+    myDevice.id = response.id;
+    myDevice.address = rinfo.address;
+    myDevice.port = rinfo.port;
+    myDevice.location = response.Location;
 
-s.on('listening', function(){
-  var address = s.address();
-  console.log('UDP Server listening on ' + address.address + ":" + address.port);
-})
+    console.log(myDevice);
 
-s.bind(1982, ()=>onBind());
+    // new Device(response.id, rinfo.address, rinfo.port);
+    // console.log(myDevice);
+    // turnLight(response, "on");
+  })
 
-function toggleLight(response){
-  const call = JSON.stringify({"id":response.id,"method":"toggle","params":[]});
-  const tcpS = new net.Socket();
-  const urlData = url.parse(response.Location);
-  tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
+  s.on('error', function(err){
+    console.log(err.stack);
+    s.close();
+  })
+
+  s.on('listening', function(){
+    var address = s.address();
+    console.log('UDP Server listening on ' + address.address + ":" + address.port);
+  })
+
+  s.bind(1982, ()=>onBind());
+
+  function onBind(){
+    s.send(message, 0, message.length, 1982, '239.255.255.250', success());
+  }
+
+  function success(){
+    console.log('SUCCESS');
+  }
 }
 
-function turnLight(response, turnOn){
-  const call = JSON.stringify({"id":response.id,"method":"set_power","params":[turnOn, "smooth", 500]});
-  const tcpS = new net.Socket();
-  const urlData = url.parse(response.Location);
-  tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
-}
+// function toggleLight(response){
+//   const call = JSON.stringify({"id":response.id,"method":"toggle","params":[]});
+//   const tcpS = new net.Socket();
+//   const urlData = url.parse(response.Location);
+//   tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
+// }
+//
+// function turnLight(response, turnOn){
+//   const call = JSON.stringify({"id":response.id,"method":"set_power","params":[turnOn, "smooth", 500]});
+//   const tcpS = new net.Socket();
+//   const urlData = url.parse(response.Location);
+//   tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
+// }
 
-function onBind(){
-  s.send(message, 0, message.length, 1982, '239.255.255.250', success());
-}
 
-function success(){
-  console.log('SUCCESS');
-}
 
 // var s2 = dgram.createSocket('udp4');
 //
