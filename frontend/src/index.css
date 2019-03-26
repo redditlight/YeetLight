@@ -21,11 +21,18 @@ code {
   padding: 0;
 }
 
-#sidebar{
-  padding-top: 50px;
+
+.b-background {
+  background-color: #388BBB;
+  font-family: monospace;
+  color: WHITE;
+  height: 175px;
+  line-height: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
 }
 
-
-ui.visible.left.thin.sidebar{
-  padding-top: 50px;
+.b-background .item {
+  color: white;
 }

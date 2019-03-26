@@ -1,10 +1,12 @@
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import * as serviceWorker from './serviceWorker';
-import { Container, Feed, Card , Menu, Button, Icon } from 'semantic-ui-react';
+import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, List, Image, Divider } from 'semantic-ui-react';
+
+var itemStyle3 = { fontFamily: 'monospace', fontSize: '30px', color: 'black'};
+var itemStyle4 = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
 
 
 class TopMenu extends React.Component{
@@ -14,8 +16,10 @@ class TopMenu extends React.Component{
   handleItemClick = (e, {name}) => this.setState({activeItem: name});
 
   render() {
+
     const itemStyle = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
     const itemStyle2 = { fontFamily: 'Times', fontSize: '15px', color: 'white'};
+    
     const { activeItem } = this.state;
     return (
         <Container fluid>
@@ -44,26 +48,51 @@ class TopMenu extends React.Component{
 
 }
 
-class SideBar extends React.Component{
+
+
+class FooterMenu extends React.Component {
   render(){
     return(
-        <div class = "ui visible left thin sidebar">
-          <a class = "item">
-            <i class = "home icon"></i>
-            Home
-          </a>
-        </div>
+      <Container fluid className='b-background'>
+      <Grid columns='equal' colorblocktop>
+        <Grid.Column style = {itemStyle4}>
+          YeeLight
+        </Grid.Column>
+
+        <Grid.Column>
+          Created by <Divider/>
+          <List>
+            <List.Item>Blaine</List.Item>
+            <List.Item>Sam</List.Item>
+            <List.Item>Sunny</List.Item>
+            <List.Item>Justin</List.Item>
+          </List>
+        </Grid.Column>
+
+        <Grid.Column>
+          Contact <Divider/>
+          <List>
+            <List.Item>(707)775-5629</List.Item>
+            <List.Item>https://github.com/redditlight/YeetLight</List.Item>
+            <List.Item>2500 Campus Rd, Honolulu, HI 96822</List.Item>
+          </List>
+        </Grid.Column>
+      </Grid>
+    </Container>
     )
   }
-
 }
+
+
 
 
 
 const CardExampleContentBlock = () => (
   <div class = "ui centered card">
     <Card.Content>
-      <Card.Header>Activity</Card.Header>
+      <Card.Header style = {itemStyle3}> 
+      Activity
+      </Card.Header>
     </Card.Content>
     <Card.Content>
       <Feed>
@@ -85,7 +114,20 @@ const CardExampleContentBlock = () => (
         <Feed.Event>
           <Feed.Content>
             <Feed.Summary>
-              Insert reddit input form stuff here
+            <div class = "ui basic center aligned segment">
+              Reddit Login:
+              </div>
+              <Form class = "ui form">
+              <div class = "field">
+              <label>Username</label>
+              <input name = "empty" type = "text"></input>
+              </div>
+              <div class="field">
+               <label>Password</label>
+               <input type="text" name="Password" ></input>
+               </div>
+              </Form>
+              
             </Feed.Summary>
           </Feed.Content>
         </Feed.Event>
@@ -95,7 +137,7 @@ const CardExampleContentBlock = () => (
           </Feed.Label>
           <Feed.Content>
             <Feed.Summary>
-            <Button animated>
+            <Button animated = 'vertical'>
       <Button.Content visible>On</Button.Content>
       <Button.Content hidden>
         <Icon name='lightbulb' />
@@ -125,6 +167,7 @@ class YeeLight extends React.Component{
         <div>
           <TopMenu/>
           <CardExampleContentBlock/>
+          <FooterMenu/>
         </div>
     );
   }
