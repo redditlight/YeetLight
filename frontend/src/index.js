@@ -4,7 +4,7 @@ import App from './App';
 import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import * as serviceWorker from './serviceWorker';
-import { Container, Divider, Grid, Menu, Image, List } from 'semantic-ui-react';
+import { Container, Feed, Card , Menu, Button, Icon } from 'semantic-ui-react';
 
 
 class TopMenu extends React.Component{
@@ -58,13 +58,73 @@ class SideBar extends React.Component{
 
 }
 
+
+
+const CardExampleContentBlock = () => (
+  <div class = "ui centered card">
+    <Card.Content>
+      <Card.Header>Activity</Card.Header>
+    </Card.Content>
+    <Card.Content>
+      <Feed>
+        <Feed.Event>
+          <Feed.Content>
+            <Feed.Summary>
+              <div class = "ui basic center aligned segment">
+              Current post tracking:
+              </div>
+
+              <div class = "ui fluid icon input">
+              <input type = "text"></input>
+              <i class = "users icon"></i>
+              </div>
+            </Feed.Summary>
+          </Feed.Content>
+        </Feed.Event>
+
+        <Feed.Event>
+          <Feed.Content>
+            <Feed.Summary>
+              Insert reddit input form stuff here
+            </Feed.Summary>
+          </Feed.Content>
+        </Feed.Event>
+
+        <Feed.Event>
+          <Feed.Label> <i class = "blind icon"></i>
+          </Feed.Label>
+          <Feed.Content>
+            <Feed.Summary>
+            <Button animated>
+      <Button.Content visible>On</Button.Content>
+      <Button.Content hidden>
+        <Icon name='lightbulb' />
+      </Button.Content>
+    </Button>
+    <Button animated='vertical'>
+      <Button.Content hidden>
+      <Icon name='moon' />
+      </Button.Content>
+      <Button.Content visible>
+        Off
+      </Button.Content>
+    </Button>
+            </Feed.Summary>
+          </Feed.Content>
+        </Feed.Event>
+      </Feed>
+    </Card.Content>
+    </div>
+  )
+
+
 class YeeLight extends React.Component{
 
   render(){
     return(
         <div>
           <TopMenu/>
-          <SideBar/>
+          <CardExampleContentBlock/>
         </div>
     );
   }
