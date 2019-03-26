@@ -153,10 +153,19 @@ app.post("/auth", function (req, res) {
   return "hello";
 });
 
-app.post("/test", function (request, response) {
-  console.log(request.body);
-  console.log("wtf");
-  return "hello";
+app.post("/test", function (req, res) {
+  snoowrap.fromAuthCode({
+    code: req.body.code,
+    userAgent: 'Reddit Light',
+    clientId: 'LhIe-MiAlC4e2Q',
+    clientSecret: 'OSutkDPi3aIYij21mYMFn2KetrI',
+    redirectUri: 'http://localhost:3000'
+  }).then(r => {
+    // Now we have a requester that can access reddit through the user's account
+    r.getKarma().then(console.log);
+    res = r.getKarma();
+  });
+  return res;
 });
 
 app.listen(8080);
@@ -181,16 +190,7 @@ app.listen(8080);
 //   });
 //   var code = new URL(window.location.href).searchParams.get('code');
 
-  snoowrap.fromAuthCode({
-    code: 'TDUaemJhN5LKC-0n5GVfSTnt3Rc',
-    userAgent: 'Reddit Light',
-    clientId: 'LhIe-MiAlC4e2Q',
-    clientSecret: 'OSutkDPi3aIYij21mYMFn2KetrI',
-    redirectUri: 'http://localhost:3000'
-  }).then(r => {
-    // Now we have a requester that can access reddit through the user's account
-    r.getKarma().then(console.log);
-  })
+
 //   http://localhost:65010/authorize_callback
 //  ex = r.getUser('kixxe').getSubmissions.then( response => {
 //    console.log(response);

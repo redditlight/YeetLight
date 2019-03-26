@@ -61,21 +61,6 @@ class App extends Component {
     // window.open(authenticationUrl, '_self');
     window.location = authenticationUrl;
 
-
-    // console.log(authenticationUrl);
-    // window.open(authenticationUrl);
-
-
-
-    // this.snoowrap.fromAuthCode({
-    //   code: code,
-    //   userAgent: 'Reddit Light',
-    //   clientId: 'LhIe-MiAlC4e2Q',
-    //   redirectUri: 'http://localhost:3000'
-    // }).then(r => {
-    //   // Now we have a requester that can access reddit through the user's account
-    //   r.getKarma().then(console.log);
-    // });
   }
 
   handleClick2() {
@@ -97,43 +82,33 @@ class App extends Component {
   }
 
   handleClick3() {
-    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    // var url = "http://localhost:8080/test";
-    // const data = {
-    //   // code: new URL(window.location.href).searchParams.get('code'),
-    //   test: "test"
-    // }
-    // const params = {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: 'application/json',
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(data)
 
-    // };
-    console.log(this.code);
-    
-    // fetch(url, params).then(res => { console.log(res)});
-    var code = new URL(window.location.href).searchParams.get('code');
-    this.snoowrap.fromAuthCode({
-      code: code,
-      userAgent: 'Reddit Light',
-      clientId: 'LhIe-MiAlC4e2Q',
-      redirectUri: 'http://localhost:3000'
-    });
+    var url = "http://localhost:8080/test";
+    const data = {
+      code: new URL(window.location.href).searchParams.get('code'),
+      test: "test"
+    }
+    const params = {
+      method: "POST",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+      method: "POST"
+    };
+      fetch(url, params).then(res => { console.log(res)});
 
   }
 
   render() {
-    // var code = new URL(window.location.href).searchParams.get('code');
 
     console.log(this.props.code);
     return (
       <div>      
-        <button onClick={this.handleClick}> Auth </button>
-        <button onClick={this.handleClick2}> test Request </button>
-        <button onClick={this.handleClick3}> test </button>
+        <button onClick={this.handleClick}> Reddit Sign In </button>
+        <button onClick={this.handleClick2}> Authentication/deprecated </button>
+        <button onClick={this.handleClick3}> Get karma </button>
       </div>
 
 
