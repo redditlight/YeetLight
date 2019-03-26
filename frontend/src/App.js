@@ -49,7 +49,8 @@ class App extends Component {
     // }
     var authenticationUrl = this.snoowrap.getAuthUrl({
       clientId: 'LhIe-MiAlC4e2Q',
-      scope: ['identity', 'read', 'privatemessages', 'history', 'submit'],
+      // scope: ['identity', 'read', 'privatemessages', 'history', 'submit'],
+      scope: ['identity', 'edit', 'flair', 'history', 'mysubreddits', 'privatemessages', 'read', 'report', 'save', 'submit', 'subscribe', 'vote', 'wikiedit', 'wikiread'],
       redirectUri: 'http://localhost:3000',
       permanent: false,
       // state: 'fe211bebc52eb3da9bef8db6e63104d3' // a random string, this could be validated when the user is redirected back
@@ -57,7 +58,8 @@ class App extends Component {
     this.setState({
       url: authenticationUrl
     });
-    window.open(authenticationUrl, '_self');
+    // window.open(authenticationUrl, '_self');
+    window.location = authenticationUrl;
 
 
     // console.log(authenticationUrl);
@@ -80,43 +82,46 @@ class App extends Component {
     // const proxyurl = "https://cors-anywhere.herokuapp.com/";
     var url = "http://localhost:8080/auth";
     const data = {
-      // code: new URL(window.location.href).searchParams.get('code'),
-      test: 'test'
+      code: new URL(window.location.href).searchParams.get('code')
     }
     const params = {
       headers: {
         "content-type": "application/json"
       },
-      body: data,
+      body: JSON.stringify(data),
       method: "POST"
     };
 
     fetch(url, params).then(res => { console.log(res)});
-    console.log("test");
-    console.log(new URL(window.location.href).searchParams.get('code').toString());
-    
 
   }
 
   handleClick3() {
     // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    var url = "http://localhost:8080/test";
-    const data = {
-      // code: new URL(window.location.href).searchParams.get('code'),
-      test: "test"
-    }
-    const params = {
-      method: "POST",
-      headers: {
-        Accept: 'application/json',
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
+    // var url = "http://localhost:8080/test";
+    // const data = {
+    //   // code: new URL(window.location.href).searchParams.get('code'),
+    //   test: "test"
+    // }
+    // const params = {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: 'application/json',
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(data)
 
-    };
-
-    fetch(url, params).then(res => { console.log(res)});
+    // };
+    console.log(this.code);
     
+    // fetch(url, params).then(res => { console.log(res)});
+    var code = new URL(window.location.href).searchParams.get('code');
+    this.snoowrap.fromAuthCode({
+      code: code,
+      userAgent: 'Reddit Light',
+      clientId: 'LhIe-MiAlC4e2Q',
+      redirectUri: 'http://localhost:3000'
+    });
 
   }
 

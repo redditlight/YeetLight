@@ -1,13 +1,14 @@
 // import Device from './Device';
 var http = require('http');
 var express = require("express");
-var myParser = require("body-parser");
+var parser = require("body-parser");
 var app = express();
 var cors = require('cors')
-app.use(cors())
+app.use(cors());
+var snoowrap = require('snoowrap');
 
 http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.writeHead(200, { 'Content-Type': 'text/html' });
   res.end('Hello World!');
 }).listen(65010);
 
@@ -19,43 +20,43 @@ var net = require('net');
 var s = dgram.createSocket('udp4');
 var message = Buffer.from('M-SEARCH * HTTP/1.1\r\nHOST:239.255.255.250:1982\r\nMAN:"ssdp:discover"\r\nST:wifi_bulb\r\n');
 
-s.on('message', function(msg, rinfo){
-  console.log(rinfo.address + ':' + rinfo.port +' - ' + message);
+s.on('message', function (msg, rinfo) {
+  console.log(rinfo.address + ':' + rinfo.port + ' - ' + message);
   const response = queryString.parse(msg.toString('utf8'), '\r\n', ':');
   turnLight(response, "on");
 })
 
-s.on('error', function(err){
+s.on('error', function (err) {
   console.log(err.stack);
   s.close();
 })
 
-s.on('listening', function(){
+s.on('listening', function () {
   var address = s.address();
   console.log('UDP Server listening on ' + address.address + ":" + address.port);
 })
 
-s.bind(1982, ()=>onBind());
+s.bind(1982, () => onBind());
 
-function toggleLight(response){
-  const call = JSON.stringify({"id":response.id,"method":"toggle","params":[]});
+function toggleLight(response) {
+  const call = JSON.stringify({ "id": response.id, "method": "toggle", "params": [] });
   const tcpS = new net.Socket();
   const urlData = url.parse(response.Location);
   tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
 }
 
-function turnLight(response, turnOn){
-  const call = JSON.stringify({"id":response.id,"method":"set_power","params":[turnOn, "smooth", 500]});
+function turnLight(response, turnOn) {
+  const call = JSON.stringify({ "id": response.id, "method": "set_power", "params": [turnOn, "smooth", 500] });
   const tcpS = new net.Socket();
   const urlData = url.parse(response.Location);
   tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
 }
 
-function onBind(){
+function onBind() {
   s.send(message, 0, message.length, 1982, '239.255.255.250', success());
 }
 
-function success(){
+function success() {
   console.log('SUCCESS');
 }
 
@@ -115,19 +116,53 @@ function success(){
 //     });
 // });
 
-app.use(myParser.urlencoded({extended : true}));
-app.post("/auth", function(request, response) {
-  console.log(request.body);
-  console.log("wtf");
+// app.use(myParser.urlencoded({extended : true}));
+app.use(parser.json());
+app.post("/auth", function (req, res) {
+  console.log(req.body.code);
+
+  var data = {
+    grant_type: 'authorization_code',
+    code: req.body.code,
+    redirect_uri: 'http://localhost:3000'
+  }
+
+  var querystring = require('querystring')
+  console.log(querystring.stringify(data));
+  
+
+  var options = {
+    method: 'post',
+    body: querystring.stringify(data), // Javascript object
+    // json: true, // Use,If you are sending JSON data
+    url: 'https://www.reddit.com/api/v1/access_token',
+    headers: {
+      Authorization: 'Basic TGhJZS1NaUFsQzRlMlE6T1N1dGtEUGkzYUlZaWoyMW1ZTUZuMktldHJJ',
+      'content-type': 'application/x-www-form-urlencoded'
+    }
+  }
+  const request = require('request');
+  request(options, function (err, res, body) {
+    if (err) {
+      console.log('Error :', err)
+      return
+    }
+    console.log(' Body :', body)
+  });
+  // .auth('LhIe-MiAlC4e2Q', 'OSutkDPi3aIYij21mYMFn2KetrI')
   return "hello";
 });
-app.post("/test", function(request, response) {
+
+app.post("/test", function (request, response) {
   console.log(request.body);
   console.log("wtf");
   return "hello";
 });
 
 app.listen(8080);
+
+
+
 // var snoowrap = require('snoowrap');
 
 // // const r = new snoowrap({
@@ -146,22 +181,22 @@ app.listen(8080);
 //   });
 //   var code = new URL(window.location.href).searchParams.get('code');
 
-//   snoowrap.fromAuthCode({
-//     code: code,
-//     userAgent: 'Reddit Light',
-//     clientId: 'LhIe-MiAlC4e2Q',
-//     redirectUri: 'http://localhost:3000'
-//   }).then(r => {
-//     // Now we have a requester that can access reddit through the user's account
-//     r.getKarma().then(console.log);
-//   })
-  // http://localhost:65010/authorize_callback
+  snoowrap.fromAuthCode({
+    code: 'TDUaemJhN5LKC-0n5GVfSTnt3Rc',
+    userAgent: 'Reddit Light',
+    clientId: 'LhIe-MiAlC4e2Q',
+    clientSecret: 'OSutkDPi3aIYij21mYMFn2KetrI',
+    redirectUri: 'http://localhost:3000'
+  }).then(r => {
+    // Now we have a requester that can access reddit through the user's account
+    r.getKarma().then(console.log);
+  })
+//   http://localhost:65010/authorize_callback
 //  ex = r.getUser('kixxe').getSubmissions.then( response => {
 //    console.log(response);
-   
+
 //  });
 // r.getMe().then(console.log);
 // console.log(authenticationUrl);
 // r.config({debug: true});
 //  console.log(ex);
- 
