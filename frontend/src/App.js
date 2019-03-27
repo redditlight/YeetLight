@@ -5,6 +5,7 @@ import Yeelight from './yeelight.js';
 import Header from './components/layout/Header';
 import SideMenu from './components/SideMenu';
 
+
 class App extends Component {
 
   constructor(props) {

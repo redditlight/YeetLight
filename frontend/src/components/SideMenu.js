@@ -1,11 +1,11 @@
 import React from 'react';
 import './SideMenu.css';
+
+
 function SideMenu() {
   return (
       <body style={menuStyle}>
       <ul>
-
-
         <p style={settingStyle}>
           SETTINGS
         </p>
