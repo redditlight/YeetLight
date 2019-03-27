@@ -116,9 +116,15 @@ function initialize() {
   }
 }
 
+// initialize().then(myDevice.printInformation());
+
+// var promise = new Promise(function(resolve, reject){
+//   resolve(myDevice.printInformation());
+// });
+
 // var promise = new Promise(function(resolve, reject) {
 //
-//   toggleLight();
+//   initialize();
 //   if(true){
 //     resolve('It worked!');
 //   } else {
@@ -126,6 +132,18 @@ function initialize() {
 //   }
 //
 // });
+//
+//   promise.then(function(res){
+//     console.log('SUCCESS');
+//     // myDevice.turnLight("off");
+//     myDevice.printInformation();
+//   }, function(err) {
+//     console.log('ERROR');
+//   });
+
+// initialize().then(myDevice.printInformation());
+
+
 //
 // setTimeout(usePromise, 5000);
 //
