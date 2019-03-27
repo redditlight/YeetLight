@@ -16,83 +16,13 @@ var snoowrap = require('snoowrap');
 
 const myDevice = new Device('', '', '', '');
 
+// Create server
 http.createServer(function (req, res) {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.end('Hello World!');
 }).listen(65010);
 
-function initialize() {
-
-  var s = dgram.createSocket('udp4');
-  var message = Buffer.from('M-SEARCH * HTTP/1.1\r\nHOST:239.255.255.250:1982\r\nMAN:"ssdp:discover"\r\nST:wifi_bulb\r\n');
-
-  s.on('message', function (msg, rinfo) {
-    console.log(rinfo.address + ':' + rinfo.port + ' - ' + message);
-    const response = queryString.parse(msg.toString('utf8'), '\r\n', ':');
-
-    myDevice.id = response.id;
-    myDevice.address = rinfo.address;
-    myDevice.port = rinfo.port;
-    myDevice.location = response.Location;
-  })
-
-  s.on('error', function (err) {
-    console.log(err.stack);
-    s.close();
-  })
-
-  s.on('listening', function () {
-    var address = s.address();
-    console.log('UDP Server listening on ' + address.address + ":" + address.port);
-  })
-
-  s.bind(1982, () => onBind());
-}
-
-function onBind() {
-  s.send(message, 0, message.length, 1982, '239.255.255.250', success());
-}
-
-function success() {
-  console.log('SUCCESS');
-}
-
-// var promise = new Promise(function(resolve, reject) {
-//
-//   toggleLight();
-//   if(true){
-//     resolve('It worked!');
-//   } else {
-//     reject(Error('Error!'));
-//   }
-//
-// });
-//
-// setTimeout(usePromise, 5000);
-//
-// function usePromise(){
-//   promise.then(function(res){
-//     console.log('SUCCESS');
-//   }, function(err) {
-//     console.log('ERROR');
-//   });
-// }
-
-// This package works
-// const YeelightSearch = require('yeelight-wifi');
-//
-// const yeelightSearch = new YeelightSearch();
-// yeelightSearch.on('found', (lightBulb) => {
-//   lightBulb.toggle()
-//     .then(() => {
-//       console.log('toggled');
-//     })
-//     .catch((err) => {
-//       console.log(`received some error: ${err}`);
-//     });
-// });
-
-// app.use(myParser.urlencoded({extended : true}));
+// Reddit API connection
 app.use(parser.json());
 app.post("/auth", function (req, res) {
   console.log(req.body.code);
@@ -105,7 +35,7 @@ app.post("/auth", function (req, res) {
 
   var querystring = require('querystring')
   console.log(querystring.stringify(data));
-  
+
 
   var options = {
     method: 'post',
@@ -145,6 +75,83 @@ app.post("/test", function (req, res) {
 });
 
 app.listen(8080);
+
+
+// Yeelight functions
+function initialize() {
+
+  var s = dgram.createSocket('udp4');
+  var message = Buffer.from('M-SEARCH * HTTP/1.1\r\nHOST:239.255.255.250:1982\r\nMAN:"ssdp:discover"\r\nST:wifi_bulb\r\n');
+
+  s.on('message', function (msg, rinfo) {
+    console.log(rinfo.address + ':' + rinfo.port + ' - ' + message);
+    const response = queryString.parse(msg.toString('utf8'), '\r\n', ':');
+
+    myDevice.id = response.id;
+    myDevice.address = rinfo.address;
+    myDevice.port = rinfo.port;
+    myDevice.location = response.Location;
+
+    // myDevice.turnLight("on");
+  })
+
+  s.on('error', function (err) {
+    console.log(err.stack);
+    s.close();
+  })
+
+  s.on('listening', function () {
+    var address = s.address();
+    console.log('UDP Server listening on ' + address.address + ":" + address.port);
+  })
+
+  s.bind(1982, () => onBind());
+
+  function onBind() {
+    s.send(message, 0, message.length, 1982, '239.255.255.250', success());
+  }
+
+  function success() {
+    console.log('SUCCESS');
+  }
+}
+
+// var promise = new Promise(function(resolve, reject) {
+//
+//   toggleLight();
+//   if(true){
+//     resolve('It worked!');
+//   } else {
+//     reject(Error('Error!'));
+//   }
+//
+// });
+//
+// setTimeout(usePromise, 5000);
+//
+// function usePromise(){
+//   promise.then(function(res){
+//     console.log('SUCCESS');
+//   }, function(err) {
+//     console.log('ERROR');
+//   });
+// }
+
+// This package works
+// const YeelightSearch = require('yeelight-wifi');
+//
+// const yeelightSearch = new YeelightSearch();
+// yeelightSearch.on('found', (lightBulb) => {
+//   lightBulb.toggle()
+//     .then(() => {
+//       console.log('toggled');
+//     })
+//     .catch((err) => {
+//       console.log(`received some error: ${err}`);
+//     });
+// });
+
+// app.use(myParser.urlencoded({extended : true}));
 
 // var snoowrap = require('snoowrap');
 
