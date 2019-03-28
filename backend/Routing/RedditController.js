@@ -10,9 +10,7 @@ app.use(cors());
 var snoowrap = require('snoowrap');
 
 module.exports = {
-  auth: function(req, response) {
-
-    console.log(req.body.code);
+  auth: function(req, res) {
 
     var data = {
       grant_type: 'authorization_code',
@@ -21,9 +19,6 @@ module.exports = {
     }
 
     var querystring = require('querystring')
-    console.log(querystring.stringify(data));
-
-
     var options = {
       method: 'post',
       body: querystring.stringify(data), // Javascript object
@@ -35,25 +30,42 @@ module.exports = {
       }
     }
     const request = require('request');
-    request(options, function (err, res, body) {
+    request(options, function (err, resp, body) {
       if (err) {
         console.log('Error :', err)
         return
       }
       console.log(' Body :', body);
-      return response.json({ accessToken: JSON.parse(body).access_token });     
+      return res.json({ accessToken: JSON.parse(body).access_token });     
     });
-    // .auth('LhIe-MiAlC4e2Q', 'OSutkDPi3aIYij21mYMFn2KetrI')
   },
 
-  subreddits: function(req, res) {
-    const r = new snoowrap({
-          userAgent: 'YeetLight',
-          clientId: 'LhIe-MiAlC4e2Q',
-          clientSecret: 'OSutkDPi3aIYij21mYMFn2KetrI',
-          accessToken: req.body.accessToken
-        });
-    return res;
+
+  subreddits: function(req, res) { 
+    var subreddits = [];
+    var options = {
+      method: 'get',
+      url: 'https://oauth.reddit.com/api/v1/me/karma',
+      headers: {
+        'User-Agent': 'YeetLight',
+        Authorization: `bearer ${req.body.accessToken}`
+      }
+    }
+    const request = require('request');
+    request(options, function (err, resp, body) {
+      if (err) {
+        console.log('Error :', err)
+        return
+      }
+      console.log(' Body :', JSON.parse(body).data);
+      JSON.parse(body).data.forEach((x) => {
+        subreddits.push(x.sr);
+        
+      });
+        
+      
+      return res.json({ subreddits: subreddits });     
+    });          
   },    
   
 
@@ -66,6 +78,8 @@ module.exports = {
       redirectUri: 'http://localhost:3000'
     }).then(r => {
       // Now we have a requester that can access reddit through the user's account
+      console.log(r);
+      
       r.getKarma().then(console.log);
       res = r.getKarma();
     });

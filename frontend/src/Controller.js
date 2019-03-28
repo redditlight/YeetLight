@@ -35,10 +35,9 @@ class Controller extends React.Component {
   }
 
   handleClick2() {
-    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    var url = "http://localhost:8080/auth";
+    var url = "http://localhost:8080/subreddits";
     const data = {
-      code: new URL(window.location.href).searchParams.get('code')
+      accessToken: this.state.accessToken
     }
     const params = {
       headers: {
@@ -49,7 +48,7 @@ class Controller extends React.Component {
     };
 
     fetch(url, params).then(res => res.json()).then(data => {
-      console.log(data.accessToken);
+      // console.log(data.accessToken);
     });
 
   }
