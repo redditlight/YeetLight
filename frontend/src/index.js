@@ -3,6 +3,7 @@ import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import App from './App';
+import Controller from './Controller';
 import * as serviceWorker from './serviceWorker';
 import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, List, Image, Divider } from 'semantic-ui-react';
 
@@ -169,14 +170,11 @@ class YeeLight extends React.Component{
           <TopMenu/>
           <CardExampleContentBlock/>
           <FooterMenu/>
+          <Controller/>
         </div>
     );
   }
 }
-
-
-
-
 
 ReactDOM.render(<YeeLight/>, document.getElementById('root'));
 
