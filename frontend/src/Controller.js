@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Yeelight from './yeelight.js';
-import Header from './components/layout/Header';
-import SideMenu from './components/SideMenu';
 
-
-class App extends Component {
+class Controller extends React.Component {
 
   constructor(props) {
     super(props);
@@ -86,15 +80,9 @@ class App extends Component {
   handleClick4() {
 
     var url = "http://localhost:8080/yeelight/initialize";
-    const data = {
-      code: new URL(window.location.href).searchParams.get('code')
-    }
+
     const params = {
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(data),
-      method: "POST"
+      method: "GET"
     };
 
     fetch(url, params).then(res => {
@@ -102,20 +90,13 @@ class App extends Component {
     });
 
   }
-
 
   handleClick5() {
 
     var url = "http://localhost:8080/yeelight/toggle";
-    const data = {
-      code: new URL(window.location.href).searchParams.get('code')
-    }
+
     const params = {
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(data),
-      method: "POST"
+      method: "GET"
     };
 
     fetch(url, params).then(res => {
@@ -124,30 +105,9 @@ class App extends Component {
 
   }
 
-  render() {
-
-    console.log(this.props.code);
-    return (
+  render(){
+    return(
       <div>
-        <h1>
-          <Header/>
-          <ul style={menuStyle}>
-            <p>
-              User Connected/Not Connected.
-            </p>
-            <p>
-              Current post tracking:
-              <p>
-                <input
-                  type="text"
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                />
-              </p>
-            </p>
-          </ul>
-          <SideMenu/>
-        </h1>
         <button onClick={this.handleClick}> Reddit Sign In</button>
         <button onClick={this.handleClick2}> Authentication/deprecated</button>
         <button onClick={this.handleClick3}> Get karma</button>
@@ -158,10 +118,4 @@ class App extends Component {
   }
 }
 
-const menuStyle = {
-  textAlign: 'left',
-  padding: '0px',
-  fontSize: '15px'
-}
-
-export default App;
+export default Controller;
