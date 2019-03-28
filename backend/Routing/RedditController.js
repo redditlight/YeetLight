@@ -10,7 +10,7 @@ app.use(cors());
 var snoowrap = require('snoowrap');
 
 module.exports = {
-  auth: function(req, res) {
+  auth: function(req, response) {
 
     console.log(req.body.code);
 
@@ -40,12 +40,23 @@ module.exports = {
         console.log('Error :', err)
         return
       }
-      console.log(' Body :', body)
+      console.log(' Body :', body);
+      return response.json({ accessToken: JSON.parse(body).access_token });     
     });
     // .auth('LhIe-MiAlC4e2Q', 'OSutkDPi3aIYij21mYMFn2KetrI')
-    return "hello";
-
   },
+
+  subreddits: function(req, res) {
+    const r = new snoowrap({
+          userAgent: 'YeetLight',
+          clientId: 'LhIe-MiAlC4e2Q',
+          clientSecret: 'OSutkDPi3aIYij21mYMFn2KetrI',
+          accessToken: req.body.accessToken
+        });
+    return res;
+  },    
+  
+
   test: function(req, res) {
     snoowrap.fromAuthCode({
       code: req.body.code,

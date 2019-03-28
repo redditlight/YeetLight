@@ -6,9 +6,9 @@ class Controller extends React.Component {
     super(props);
     this.state = {
       isToggleOn: true,
-      url: null
+      url: null, 
+      accessToken: null
     };
-    this.code = new URL(window.location.href).searchParams.get('code');
     this.snoowrap = require('snoowrap');
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
@@ -32,7 +32,6 @@ class Controller extends React.Component {
     });
     // window.open(authenticationUrl, '_self');
     window.location = authenticationUrl;
-
   }
 
   handleClick2() {
@@ -49,14 +48,36 @@ class Controller extends React.Component {
       method: "POST"
     };
 
-    fetch(url, params).then(res => {
-      console.log(res)
+    fetch(url, params).then(res => res.json()).then(data => {
+      console.log(data.accessToken);
     });
 
   }
 
-  handleClick3() {
+  componentDidMount() {
+    var authCode = new URL(window.location.href).searchParams.get('code');
+    if (authCode != null) {
+      const data = {
+        code: new URL(window.location.href).searchParams.get('code')
+      }
+      const params = {
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(data),
+        method: "POST"
+      };
+      var url = "http://localhost:8080/auth";
+      fetch(url, params).then(res => res.json()).then(data => {
+        this.setState({
+          accessToken: data.accessToken
+        });
+        console.log(this.state.accessToken);
+      });
+    }
+  }
 
+  handleClick3() {
     var url = "http://localhost:8080/test";
     const data = {
       code: new URL(window.location.href).searchParams.get('code'),

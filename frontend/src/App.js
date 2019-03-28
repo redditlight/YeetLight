@@ -5,6 +5,7 @@ import Yeelight from './yeelight.js';
 import Header from './components/layout/Header';
 import SideMenu from './components/SideMenu';
 
+//DEPRECATED
 
 class App extends Component {
 
@@ -55,9 +56,9 @@ class App extends Component {
       method: "POST"
     };
 
-    fetch(url, params).then(res => {
-      console.log(res)
-    });
+    fetch(url, params).then(res => res.json()).then(data => {
+      // console.log(data);
+    })
 
   }
 
