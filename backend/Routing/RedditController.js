@@ -2,12 +2,23 @@ var http = require('http');
 var express = require("express");
 var parser = require("body-parser");
 var cors = require('cors')
-
 var app = express();
-
 app.use(cors());
-
+const request = require('request');
 var snoowrap = require('snoowrap');
+
+function getHelper(req, url) {
+  var options = {
+    method: 'get',
+    url: 'https://oauth.reddit.com/' + url,
+    headers: {
+      'User-Agent': 'YeetLight',
+      Authorization: `bearer ${req.body.accessToken}`
+    }
+  }
+
+  return options
+}
 
 module.exports = {
   auth: function(req, res) {
@@ -29,7 +40,7 @@ module.exports = {
         'content-type': 'application/x-www-form-urlencoded'
       }
     }
-    const request = require('request');
+
     request(options, function (err, resp, body) {
       if (err) {
         console.log('Error :', err)
@@ -43,16 +54,9 @@ module.exports = {
 
   subreddits: function(req, res) { 
     var subreddits = [];
-    var options = {
-      method: 'get',
-      url: 'https://oauth.reddit.com/api/v1/me/karma',
-      headers: {
-        'User-Agent': 'YeetLight',
-        Authorization: `bearer ${req.body.accessToken}`
-      }
-    }
-    const request = require('request');
-    request(options, function (err, resp, body) {
+
+    
+    request(getHelper(req, 'api/v1/me/karma'), function (err, resp, body) {
       if (err) {
         console.log('Error :', err)
         return
@@ -63,10 +67,43 @@ module.exports = {
         
       });
         
-      
       return res.json({ subreddits: subreddits });     
     });          
-  },    
+  },
+  
+  karma: function(req, res) {
+
+    request(getHelper(req, 'api/v1/me/karma'), function (err, resp, body) {
+      if (err) {
+        console.log('Error :', err)
+        return
+      }
+      var data = JSON.parse(body).data;
+
+      if (data != undefined) {
+        if (req.body.subreddit != 'all') {
+          var result = data.filter(x => x.sr === req.body.subreddit);
+          karma = result[0].comment_karma + result[0].link_karma;  
+          return res.json({ comment: result[0].comment_karma, link: result[0].link_karma, total: karma }); 
+
+        } else { //if all is passed then...
+
+          var comment = 0;
+          var link = 0;
+          var total = 0;
+          data.forEach(element => {
+            console.log(comment);
+            
+            comment += element.comment_karma;
+            link += element.link_karma;
+          });
+          total = comment + link;
+
+          return res.json({ comment: comment, link: link, total: total});
+        }
+      }  
+    });                  
+  },
   
 
   test: function(req, res) {
