@@ -7,6 +7,11 @@ app.use(cors());
 const request = require('request');
 var snoowrap = require('snoowrap');
 
+/*This helper function provides the options for making get requests through reddit's oauth pathway
+params: 
+req = the request -- Always needs an Access Token
+url = the url of the reddit api Ex: 'api/v1/me' */
+
 function getHelper(req, url) {
   var options = {
     method: 'get',
@@ -21,6 +26,8 @@ function getHelper(req, url) {
 }
 
 module.exports = {
+
+  //This authenticates the user -- must call this or else none of the account bound reddit api calls will work
   auth: function(req, res) {
 
     var data = {
@@ -52,10 +59,10 @@ module.exports = {
   },
 
 
+  /*  RequiredParams: accessToken
+      Returns: An Array of subreddits for the authenticated user */
   subreddits: function(req, res) { 
     var subreddits = [];
-
-    
     request(getHelper(req, 'api/v1/me/karma'), function (err, resp, body) {
       if (err) {
         console.log('Error :', err)
@@ -71,6 +78,9 @@ module.exports = {
     });          
   },
   
+  /*RequiredParams: accessToken, subreddit
+    subreddit may either be 'all' or *subredditName*
+    Returns: Comment Karma, Link Karma, and Total Karma */
   karma: function(req, res) {
 
     request(getHelper(req, 'api/v1/me/karma'), function (err, resp, body) {
@@ -92,8 +102,6 @@ module.exports = {
           var link = 0;
           var total = 0;
           data.forEach(element => {
-            console.log(comment);
-            
             comment += element.comment_karma;
             link += element.link_karma;
           });
@@ -105,7 +113,7 @@ module.exports = {
     });                  
   },
   
-
+  //test auth through authcode - may only be used once
   test: function(req, res) {
     snoowrap.fromAuthCode({
       code: req.body.code,
