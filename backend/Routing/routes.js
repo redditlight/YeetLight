@@ -8,6 +8,8 @@ router.route('/initialize').get(yeelightController.initializeYeelight);
 router.route('/toggle').get(yeelightController.toggleYeelight);
 
 router.route('/auth').post(redditController.auth);
+router.route('/subreddits').post(redditController.subreddits);
+router.route('/karma').post(redditController.karma);
 router.route('/test').post(redditController.test);
 
 module.exports = router;

@@ -6,9 +6,9 @@ class Controller extends React.Component {
     super(props);
     this.state = {
       isToggleOn: true,
-      url: null
+      url: null, 
+      accessToken: null
     };
-    this.code = new URL(window.location.href).searchParams.get('code');
     this.snoowrap = require('snoowrap');
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
@@ -16,6 +16,7 @@ class Controller extends React.Component {
     this.handleClick3 = this.handleClick3.bind(this);
     this.handleClick4 = this.handleClick4.bind(this);
     this.handleClick5 = this.handleClick5.bind(this);
+    this.handleClick6 = this.handleClick6.bind(this);
   }
 
   handleClick() {
@@ -32,14 +33,12 @@ class Controller extends React.Component {
     });
     // window.open(authenticationUrl, '_self');
     window.location = authenticationUrl;
-
   }
 
   handleClick2() {
-    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    var url = "http://localhost:8080/auth";
+    var url = "http://localhost:8080/subreddits";
     const data = {
-      code: new URL(window.location.href).searchParams.get('code')
+      accessToken: this.state.accessToken
     }
     const params = {
       headers: {
@@ -49,18 +48,17 @@ class Controller extends React.Component {
       method: "POST"
     };
 
-    fetch(url, params).then(res => {
-      console.log(res)
+    fetch(url, params).then(res => res.json()).then(data => {
+      console.log(data.subreddits);
     });
 
   }
 
   handleClick3() {
-
-    var url = "http://localhost:8080/test";
+    var url = "http://localhost:8080/karma";
     const data = {
-      code: new URL(window.location.href).searchParams.get('code'),
-      test: "test"
+      accessToken: this.state.accessToken,
+      subreddit: 'all'
     }
 
     const params = {
@@ -72,10 +70,11 @@ class Controller extends React.Component {
       body: JSON.stringify(data),
       method: "POST"
     };
-    fetch(url, params).then(res => {
-      console.log(res)
+    fetch(url, params).then(res => res.json()).then(data => {
+      console.log(data);
     });
   }
+
 
   handleClick4() {
 
@@ -105,14 +104,58 @@ class Controller extends React.Component {
 
   }
 
+  handleClick6() {
+    var url = "http://localhost:8080/test";
+    const data = {
+      code: new URL(window.location.href).searchParams.get('code'),
+      test: "test"
+    }
+
+    const params = {
+      method: "POST",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+      method: "POST"
+    };
+    fetch(url, params).then(res => {
+      console.log(res)
+    });
+  }
+
+  componentDidMount() {
+    var authCode = new URL(window.location.href).searchParams.get('code');
+    if (authCode != null) {
+      const data = {
+        code: new URL(window.location.href).searchParams.get('code')
+      }
+      const params = {
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(data),
+        method: "POST"
+      };
+      var url = "http://localhost:8080/auth";
+      fetch(url, params).then(res => res.json()).then(data => {
+        this.setState({
+          accessToken: data.accessToken
+        });
+      });
+    }
+  }
+
   render(){
     return(
       <div>
         <button onClick={this.handleClick}> Reddit Sign In</button>
-        <button onClick={this.handleClick2}> Authentication/deprecated</button>
+        <button onClick={this.handleClick2}> Get Subreddit List</button>
         <button onClick={this.handleClick3}> Get karma</button>
         <button onClick={this.handleClick4}> Connect to Light</button>
         <button onClick={this.handleClick5}> Toggle Light</button>
+        <button onClick={this.handleClick6}> Test </button>
       </div>
     );
   }
