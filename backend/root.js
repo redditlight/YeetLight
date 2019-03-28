@@ -74,6 +74,14 @@ app.post("/test", function (req, res) {
   return res;
 });
 
+app.post("/yeelight/initialize", function (req, res) {
+  initialize();
+});
+
+app.post("/yeelight/toggle", function (req, res) {
+  myDevice.toggleLight();
+});
+
 app.listen(8080);
 
 
@@ -92,7 +100,7 @@ function initialize() {
     myDevice.port = rinfo.port;
     myDevice.location = response.Location;
 
-    // myDevice.turnLight("on");
+    // myDevice.turnLight("off");
   })
 
   s.on('error', function (err) {

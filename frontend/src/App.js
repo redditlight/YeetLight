@@ -20,36 +20,11 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleClick2 = this.handleClick2.bind(this);
     this.handleClick3 = this.handleClick3.bind(this);
+    this.handleClick4 = this.handleClick4.bind(this);
+    this.handleClick5 = this.handleClick5.bind(this);
   }
 
   handleClick() {
-    // this.setState(prevState => ({
-    //   isToggleOn: !prevState.isToggleOn
-    // }));
-
-    // // const YeelightSearch = require('yeelight-wifi');
-    // //
-    // // const yeelightSearch = new YeelightSearch();
-    // // yeelightSearch.on('found', (lightBulb) => {
-    // //   lightBulb.toggle()
-    // //     .then(() => {
-    // //       console.log('toggled');
-    // //     })
-    // //     .catch((err) => {
-    // //       console.log(`received some error: ${err}`);
-    // //     });
-    // // });
-
-    // // const dgram = require('dgram');
-    // // dgram.createSocket('udp4');
-
-    // const yeelight = new Yeelight();
-
-    // if(this.state.isToggleOn) {
-    //   yeelight.toggleYeelight(true);
-    // } else {
-    //   yeelight.toggleYeelight(false);
-    // }
     var authenticationUrl = this.snoowrap.getAuthUrl({
       clientId: 'LhIe-MiAlC4e2Q',
       // scope: ['identity', 'read', 'privatemessages', 'history', 'submit'],
@@ -108,6 +83,47 @@ class App extends Component {
     });
   }
 
+  handleClick4() {
+
+    var url = "http://localhost:8080/yeelight/initialize";
+    const data = {
+      code: new URL(window.location.href).searchParams.get('code')
+    }
+    const params = {
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(data),
+      method: "POST"
+    };
+
+    fetch(url, params).then(res => {
+      console.log(res);
+    });
+
+  }
+
+
+  handleClick5() {
+
+    var url = "http://localhost:8080/yeelight/toggle";
+    const data = {
+      code: new URL(window.location.href).searchParams.get('code')
+    }
+    const params = {
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(data),
+      method: "POST"
+    };
+
+    fetch(url, params).then(res => {
+      console.log(res);
+    });
+
+  }
+
   render() {
 
     console.log(this.props.code);
@@ -135,6 +151,8 @@ class App extends Component {
         <button onClick={this.handleClick}> Reddit Sign In</button>
         <button onClick={this.handleClick2}> Authentication/deprecated</button>
         <button onClick={this.handleClick3}> Get karma</button>
+        <button onClick={this.handleClick4}> Connect to Light</button>
+        <button onClick={this.handleClick5}> Toggle Light</button>
       </div>
     );
   }
