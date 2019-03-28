@@ -74,12 +74,14 @@ app.post("/test", function (req, res) {
   return res;
 });
 
-app.post("/yeelight/initialize", function (req, res) {
+app.get("/yeelight/initialize", function (req, res) {
   initialize();
+  res.status(200).send({ message: 'ok' });
 });
 
-app.post("/yeelight/toggle", function (req, res) {
+app.get("/yeelight/toggle", function (req, res) {
   myDevice.toggleLight();
+  res.status(200).send({ message: 'ok' });
 });
 
 app.listen(8080);

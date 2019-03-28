@@ -80,15 +80,9 @@ class Controller extends React.Component {
   handleClick4() {
 
     var url = "http://localhost:8080/yeelight/initialize";
-    const data = {
-      code: new URL(window.location.href).searchParams.get('code')
-    }
+
     const params = {
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(data),
-      method: "POST"
+      method: "GET"
     };
 
     fetch(url, params).then(res => {
@@ -100,15 +94,9 @@ class Controller extends React.Component {
   handleClick5() {
 
     var url = "http://localhost:8080/yeelight/toggle";
-    const data = {
-      code: new URL(window.location.href).searchParams.get('code')
-    }
+
     const params = {
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(data),
-      method: "POST"
+      method: "GET"
     };
 
     fetch(url, params).then(res => {
