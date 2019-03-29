@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import YeeLight from './index';
 
-export class Controller extends React.Component {
+class RedditController extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      isToggleOn: true,
-      url: null, 
+      url: null,
       accessToken: null
     };
     this.snoowrap = require('snoowrap');
     // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
-    this.handleClick2 = this.handleClick2.bind(this);
-    this.handleClick3 = this.handleClick3.bind(this);
-    this.handleClick4 = this.handleClick4.bind(this);
-    this.handleClick5 = this.handleClick5.bind(this);
-    this.handleClick6 = this.handleClick6.bind(this);
+    this.authenticateToReddit = this.authenticateToReddit.bind(this);
+    this.subreddits = this.subreddits.bind(this);
+    this.karma = this.karma.bind(this);
+    this.test = this.test.bind(this);
   }
 
-  handleClick() {
+  authenticateToReddit() {
     var authenticationUrl = this.snoowrap.getAuthUrl({
       clientId: 'LhIe-MiAlC4e2Q',
       // scope: ['identity', 'read', 'privatemessages', 'history', 'submit'],
@@ -36,7 +32,7 @@ export class Controller extends React.Component {
     window.location = authenticationUrl;
   }
 
-  handleClick2() {
+  subreddits() {
     var url = "http://localhost:8080/subreddits";
     const data = {
       accessToken: this.state.accessToken
@@ -55,7 +51,7 @@ export class Controller extends React.Component {
 
   }
 
-  handleClick3() {
+  karma() {
     var url = "http://localhost:8080/karma";
     const data = {
       accessToken: this.state.accessToken,
@@ -76,36 +72,7 @@ export class Controller extends React.Component {
     });
   }
 
-
-  handleClick4() {
-
-    var url = "http://localhost:8080/yeelight/initialize";
-
-    const params = {
-      method: "GET"
-    };
-
-    fetch(url, params).then(res => {
-      console.log(res);
-    });
-
-  }
-
-  handleClick5() {
-
-    var url = "http://localhost:8080/yeelight/toggle";
-
-    const params = {
-      method: "GET"
-    };
-
-    fetch(url, params).then(res => {
-      console.log(res);
-    });
-
-  }
-
-  handleClick6() {
+  test() {
     var url = "http://localhost:8080/test";
     const data = {
       code: new URL(window.location.href).searchParams.get('code'),
@@ -144,22 +111,21 @@ export class Controller extends React.Component {
         this.setState({
           accessToken: data.accessToken
         });
+        console.log('setState');
       });
     }
   }
 
   render(){
     return(
-      <YeeLight handleClick4={this.handleClick4} />
-        // {/*<button onClick={this.handleClick}> Reddit Sign In</button>*/}
-        // {/*<button onClick={this.handleClick2}> Get Subreddit List</button>*/}
-        // {/*<button onClick={this.handleClick3}> Get karma</button>*/}
-        // {/*<button onClick={this.handleClick4}> Connect to Light</button>*/}
-        // {/*<button onClick={this.handleClick5}> Toggle Light</button>*/}
-        // {/*<button onClick={this.handleClick6}> Test </button>*/}
-      // </YeeLight>
+      <div>
+        <button onClick={this.authenticateToReddit}> Reddit Sign In</button>
+        <button onClick={this.subreddits}> Get Subreddit List</button>
+        <button onClick={this.karma}> Get karma</button>
+        <button onClick={this.test}> Test </button>
+      </div>
     );
   }
 }
 
-export default Controller;
+export default RedditController;

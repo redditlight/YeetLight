@@ -3,7 +3,8 @@ import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import App from './App';
-import Controller from './Controller';
+import LightController from './LightController';
+import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
 import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, List, Image, Divider } from 'semantic-ui-react';
 
@@ -166,7 +167,7 @@ export default class YeeLight extends React.Component{
 
   constructor(props){
     super(props);
-    this.myController = new Controller(props);
+    this.lightController = new LightController(props);
   }
 
   render(){
@@ -175,12 +176,9 @@ export default class YeeLight extends React.Component{
           <TopMenu/>
           <CardExampleContentBlock/>
           <FooterMenu/>
-          <button onClick={this.myController.handleClick}> Reddit Sign In</button>
-          <button onClick={this.myController.handleClick2}> Get Subreddit List</button>
-          <button onClick={this.myController.handleClick3}> Get karma</button>
-          <button onClick={this.myController.handleClick4}> Connect to Light</button>
-          <button onClick={this.myController.handleClick5}> Toggle Light</button>
-          <button onClick={this.myController.handleClick6}> Test </button>
+          <RedditController/>
+          <button onClick={this.lightController.connectLight}> Connect to Light</button>
+          <button onClick={this.lightController.toggleLight}> Toggle Light</button>
         </div>
     );
   }
