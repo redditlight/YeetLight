@@ -129,7 +129,7 @@ class RedditController extends React.Component {
       <div>
       {/* <button onClick={this.authenticateToReddit}> Reddit Sign In</button> */}
         <button onClick={this.subreddits}> Get Subreddit List</button>
-        <button onClick={this.karma}> Brightness Based off Karma</button>
+        {/* <button onClick={this.karma}> Brightness Based off Karma</button> */}
         <button onClick={this.test}> Test </button>
       </div>
     );

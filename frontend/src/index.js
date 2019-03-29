@@ -42,13 +42,11 @@ class TopMenu extends React.Component{
 }
 
 class MiddleData extends React.Component{
-
   constructor(props){
     super(props);
     this.lightController = new LightController(props);
     this.RedditController = new RedditController(props);
   }
-
   render(){
     return(
   <div id = "fullwidthbackground">
@@ -74,6 +72,22 @@ class MiddleData extends React.Component{
         Step Two
         </div>
               </div>
+              <div class = "ui segment">
+              <div class = "ui button" data-position = "right center" data-tooltip = "Turn Light On/Off" onClick = {this.lightController.toggleLight}>
+        Toggle YeeLight
+        </div>
+              </div>
+              <div class = "ui segment">
+              <div class = "ui button" data-position = "right center" data-tooltip = "Brightness Based off Karma" onClick={this.RedditController.karma}>
+              Adjust Brightness
+              </div>
+              </div>  
+      
+              <div class = "ui segment">
+              <div class = "ui button" data-position = "right center" data-tooltip = "Brightness Reset" onClick = {this.lightController.changeBrightness(100)}>
+              Reset YeeLight
+              </div>
+              </div>
               </div>
             </Feed.Summary>
           </Feed.Content>
@@ -82,39 +96,6 @@ class MiddleData extends React.Component{
         <Feed.Event>
           <Feed.Content>
             <Feed.Summary>
-            <div class="ui two column centered grid">
-    <div class="column" style = {itemStyle5}>Uses</div>
-    <div class="four column centered row">
-    <div class="column">1</div>
-    <div class="column">2</div>
-    <div class="column">3</div>
-    <div class="column">4</div>
-  </div>
-</div>
-
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
-
-        <Feed.Event>
-          <Feed.Label> <i class = "blind icon"></i>
-          </Feed.Label>
-          <Feed.Content>
-            <Feed.Summary>
-            <Button animated = 'vertical'>
-      <Button.Content visible>On</Button.Content>
-      <Button.Content hidden>
-        <Icon name='lightbulb' />
-      </Button.Content>
-    </Button>
-    <Button animated='vertical'>
-      <Button.Content hidden>
-      <Icon name='moon' />
-      </Button.Content>
-      <Button.Content visible>
-        Off
-      </Button.Content>
-    </Button>
             </Feed.Summary>
           </Feed.Content>
         </Feed.Event>
@@ -180,7 +161,6 @@ export default class YeeLight extends React.Component{
           <FooterMenu/>
           <RedditController/>
           <button onClick={this.lightController.toggleLight}> Toggle Light</button>
-          <button onClick={() => this.lightController.changeBrightness(this.value)}> Reset Bulb Brightness</button>
         </div>
     );
   }
