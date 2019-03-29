@@ -4,7 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import App from './App.js';
 import Controller from './Controller';
-import RController from './RController'
+import RedditController from './RedditController'
 import * as serviceWorker from './serviceWorker';
 import { Container, Feed, Card , Menu, Button, Icon, Grid, List, Divider } from 'semantic-ui-react';
 
@@ -49,17 +49,17 @@ class TopMenu extends React.Component{
 }
 
 class SubRedditSelection extends React.Component {
+
   render() {
     return (
       <div class = "ui centered">
         <select className="ui search dropdown">
           <i className="dropdown icon"></i>
           <option type="hidden" value="">Please choose a SubReddit  </option>
-
         </select>
       </div>
     )
-  }
+}
 }
 class FooterMenu extends React.Component {
   render(){
