@@ -21,6 +21,12 @@ code {
   padding: 0;
 }
 
+#fullwidthbackground {
+  background: no-repeat center center fixed;
+  background-size: cover;
+  height: 500px;
+}
+
 
 .b-background {
   background-color: #388BBB;
