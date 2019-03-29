@@ -2,13 +2,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
-import App from './App';
+import App from './App.js';
 import Controller from './Controller';
 import * as serviceWorker from './serviceWorker';
 import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, List, Image, Divider } from 'semantic-ui-react';
 
-var itemStyle3 = { fontFamily: 'monospace', fontSize: '30px', color: 'black'};
-var itemStyle4 = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
+var itemStyle3 = { fontFamily: 'didot', fontSize: '30px', color: 'black', textAlign: 'center'};
+var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
 
 
 class TopMenu extends React.Component{
@@ -26,22 +26,20 @@ class TopMenu extends React.Component{
     return (
         <Container fluid>
         <Menu borderless>
-          <Menu.Item style = {itemStyle}>YeeLight</Menu.Item>
+          <Menu.Item style = {itemStyle}>
+          YeeLight
+          </Menu.Item>
           <Menu.Item
               style = {itemStyle2}
               position = 'right'
-              name='aboutUs'
-              active={activeItem === 'aboutUs'}
-              onClick={this.handleItemClick}
+              name='Reddit Login'
+              active={activeItem === 'Reddit Login'}
+              onClick={Controller.handleClick}
           />
           <Menu.Item style = {itemStyle2}
               name='brightness'
               active={activeItem === 'brightness'}
-              onClick={this.handleItemClick} />
-          <Menu.Item style = {itemStyle2}
-              name='activity'
-              active={activeItem === 'activity'}
-              onClick={this.handleItemClick}
+              onClick={this.handleItemClick} 
           />
         </Menu>
       </Container>
@@ -58,7 +56,7 @@ class FooterMenu extends React.Component {
       <Container fluid className='b-background'>
       <Grid columns='equal' colorblocktop>
         <Grid.Column style = {itemStyle4}>
-          YeeLight
+          Made using Semantic UI
         </Grid.Column>
 
         <Grid.Column>
@@ -114,38 +112,17 @@ const CardExampleContentBlock = () => (
         </Feed.Event>
 
         <Feed.Event>
-          <Feed.Content>
-            <Feed.Summary>
-            <div class = "ui basic center aligned segment">
-              Reddit Login:
-              </div>
-              <Form class = "ui form">
-              <div class = "field">
-              <label>Username</label>
-              <input name = "empty" type = "text"></input>
-              </div>
-              <div class="field">
-               <label>Password</label>
-               <input type="text" name="Password" ></input>
-               </div>
-              </Form>
-              
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
-
-        <Feed.Event>
           <Feed.Label> <i class = "blind icon"></i>
           </Feed.Label>
           <Feed.Content>
             <Feed.Summary>
-            <Button animated = 'vertical'>
-      <Button.Content visible>On</Button.Content>
+            <Button center animated = 'vertical'>
+            <Button.Content visible>On</Button.Content>
       <Button.Content hidden>
         <Icon name='lightbulb' />
       </Button.Content>
     </Button>
-    <Button animated='vertical'>
+    <Button center animated='vertical'>
       <Button.Content hidden>
       <Icon name='moon' />
       </Button.Content>
@@ -170,7 +147,6 @@ class YeeLight extends React.Component{
           <TopMenu/>
           <CardExampleContentBlock/>
           <FooterMenu/>
-          <Controller/>
         </div>
     );
   }
