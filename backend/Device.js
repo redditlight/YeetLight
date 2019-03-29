@@ -25,6 +25,13 @@ class Device {
     tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
   }
 
+  changeBrightness(value){
+    const call = JSON.stringify({"id":this.id,"method":"set_bright","params":[value, "smooth", 500]});
+    const tcpS = new net.Socket();
+    const urlData = url.parse(this.location);
+    tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
+  }
+
   printInformation(){
     console.log('Printing Device data');
     console.log(' Id: ' + this.id);

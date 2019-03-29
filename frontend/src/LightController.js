@@ -38,6 +38,24 @@ class LightController extends React.Component {
 
   }
 
+  changeBrightness(value){
+    var url = "http://localhost:8080/yeelight/brightness"
+    const data = {
+      value: value,
+    }
+    const params = {
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(data),
+      method: "POST"
+    };
+
+    fetch(url, params).then(res => {
+      console.log(res);
+    });
+  }
+
   render(){
     return(
       <div></div>

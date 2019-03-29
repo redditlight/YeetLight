@@ -168,6 +168,9 @@ export default class YeeLight extends React.Component{
   constructor(props){
     super(props);
     this.lightController = new LightController(props);
+
+    // Change this later based on user input
+    this.value = 100;
   }
 
   render(){
@@ -179,6 +182,7 @@ export default class YeeLight extends React.Component{
           <RedditController/>
           <button onClick={this.lightController.connectLight}> Connect to Light</button>
           <button onClick={this.lightController.toggleLight}> Toggle Light</button>
+          <button onClick={() => this.lightController.changeBrightness(this.value)}> Reset Bulb Brightness</button>
         </div>
     );
   }

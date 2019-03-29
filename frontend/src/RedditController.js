@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LightController from './LightController';
 
 class RedditController extends React.Component {
 
@@ -9,6 +10,9 @@ class RedditController extends React.Component {
       accessToken: null
     };
     this.snoowrap = require('snoowrap');
+
+    this.lightController = new LightController(props);
+
     // This binding is necessary to make `this` work in the callback
     this.authenticateToReddit = this.authenticateToReddit.bind(this);
     this.subreddits = this.subreddits.bind(this);
@@ -69,6 +73,7 @@ class RedditController extends React.Component {
     };
     fetch(url, params).then(res => res.json()).then(data => {
       console.log(data);
+      this.lightController.changeBrightness(data.total + 50);
     });
   }
 
@@ -121,7 +126,7 @@ class RedditController extends React.Component {
       <div>
         <button onClick={this.authenticateToReddit}> Reddit Sign In</button>
         <button onClick={this.subreddits}> Get Subreddit List</button>
-        <button onClick={this.karma}> Get karma</button>
+        <button onClick={this.karma}> Brightness Based off Karma</button>
         <button onClick={this.test}> Test </button>
       </div>
     );

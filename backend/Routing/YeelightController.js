@@ -19,6 +19,11 @@ module.exports = {
   toggleYeelight: function(req, res) {
     myDevice.toggleLight();
     res.status(200).send({ message: 'ok' });
+  },
+  changeBrightness: function(req, res) {
+    // console.log(req.body.value);
+    myDevice.changeBrightness(req.body.value);
+    res.status(200).send({ message: 'ok' });
   }
 }
 
