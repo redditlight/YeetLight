@@ -2,11 +2,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
-import App from './App';
 import LightController from './LightController';
 import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
-import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, List, Image, Divider } from 'semantic-ui-react';
+import { Container, Feed, Card , Menu, Button, Icon, Grid, List, Divider } from 'semantic-ui-react';
 
 var itemStyle3 = { fontFamily: 'Times', fontSize: '30px', color: 'black', textAlign: 'center'};
 var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
@@ -78,8 +77,13 @@ class MiddleData extends React.Component{
         </div>
               </div>
               <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Brightness Based off Karma" onClick={this.RedditController.karma}>
-              Adjust Brightness
+              <div class = "ui right pointing dropdown link item" onClick={this.RedditController.subreddits}>
+              Get Active Subreddits
+              <i class = "dropdown icon"></i>
+              {/* <div>
+                <select>
+                </select>
+              </div>  */}
               </div>
               </div>  
       
@@ -160,7 +164,6 @@ export default class YeeLight extends React.Component{
           <MiddleData/>
           <FooterMenu/>
           <RedditController/>
-          <button onClick={this.lightController.toggleLight}> Toggle Light</button>
         </div>
     );
   }
