@@ -5,16 +5,15 @@ import React from 'react';
 import App from './App.js';
 import Controller from './Controller';
 import * as serviceWorker from './serviceWorker';
-import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, List, Image, Divider } from 'semantic-ui-react';
+import { Container, Feed, Card , Menu, Button, Icon, Grid, List, Divider } from 'semantic-ui-react';
 
 var itemStyle3 = { fontFamily: 'didot', fontSize: '30px', color: 'black', textAlign: 'center'};
 var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
 
 
 class TopMenu extends React.Component{
-
+  
   state = {};
-
   handleItemClick = (e, {name}) => this.setState({activeItem: name});
 
   render() {
