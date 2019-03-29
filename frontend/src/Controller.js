@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import YeeLight from './index';
 
-class Controller extends React.Component {
+export class Controller extends React.Component {
 
   constructor(props) {
     super(props);
@@ -149,14 +150,14 @@ class Controller extends React.Component {
 
   render(){
     return(
-      <div>
-        <button onClick={this.handleClick}> Reddit Sign In</button>
-        <button onClick={this.handleClick2}> Get Subreddit List</button>
-        <button onClick={this.handleClick3}> Get karma</button>
-        <button onClick={this.handleClick4}> Connect to Light</button>
-        <button onClick={this.handleClick5}> Toggle Light</button>
-        <button onClick={this.handleClick6}> Test </button>
-      </div>
+      <YeeLight handleClick4={this.handleClick4} />
+        // {/*<button onClick={this.handleClick}> Reddit Sign In</button>*/}
+        // {/*<button onClick={this.handleClick2}> Get Subreddit List</button>*/}
+        // {/*<button onClick={this.handleClick3}> Get karma</button>*/}
+        // {/*<button onClick={this.handleClick4}> Connect to Light</button>*/}
+        // {/*<button onClick={this.handleClick5}> Toggle Light</button>*/}
+        // {/*<button onClick={this.handleClick6}> Test </button>*/}
+      // </YeeLight>
     );
   }
 }

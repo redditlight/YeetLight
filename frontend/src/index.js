@@ -162,7 +162,12 @@ const CardExampleContentBlock = () => (
   )
 
 
-class YeeLight extends React.Component{
+export default class YeeLight extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.myController = new Controller(props);
+  }
 
   render(){
     return(
@@ -170,7 +175,12 @@ class YeeLight extends React.Component{
           <TopMenu/>
           <CardExampleContentBlock/>
           <FooterMenu/>
-          <Controller/>
+          <button onClick={this.myController.handleClick}> Reddit Sign In</button>
+          <button onClick={this.myController.handleClick2}> Get Subreddit List</button>
+          <button onClick={this.myController.handleClick3}> Get karma</button>
+          <button onClick={this.myController.handleClick4}> Connect to Light</button>
+          <button onClick={this.myController.handleClick5}> Toggle Light</button>
+          <button onClick={this.myController.handleClick6}> Test </button>
         </div>
     );
   }
