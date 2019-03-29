@@ -51,6 +51,7 @@ class MiddleData extends React.Component{
 
   render(){
     return(
+  <div id = "fullwidthbackground">
   <div class = "ui centered card">
     <Card.Content>
       <Card.Header style = {itemStyle3}> 
@@ -120,6 +121,7 @@ class MiddleData extends React.Component{
       </Feed>
     </Card.Content>
     </div>
+    </div>
   )
     }
   }
@@ -159,19 +161,6 @@ class FooterMenu extends React.Component {
   }
 }
 
-class FullWidthImage extends React.Component{
-  render(){
-    return(
-      <div id = "fullwidthbackground">
-      <Grid>
-        <Grid.Row>
-          <Image fluid src = {'https://images.unsplash.com/photo-1529528744093-6f8abeee511d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'}/>
-        </Grid.Row>
-      </Grid>
-      </div>
-    )
-  }
-}
 
 export default class YeeLight extends React.Component{
 
@@ -187,7 +176,6 @@ export default class YeeLight extends React.Component{
     return(
         <div>
           <TopMenu/>
-          <FullWidthImage/>
           <MiddleData/>
           <FooterMenu/>
           <RedditController/>
