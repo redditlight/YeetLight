@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import App from './App.js';
 import Controller from './Controller';
+import RController from './RController'
 import * as serviceWorker from './serviceWorker';
 import { Container, Feed, Card , Menu, Button, Icon, Grid, List, Divider } from 'semantic-ui-react';
 
@@ -12,7 +13,7 @@ var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
 
 
 class TopMenu extends React.Component{
-  
+
   state = {};
   handleItemClick = (e, {name}) => this.setState({activeItem: name});
 
@@ -20,7 +21,7 @@ class TopMenu extends React.Component{
 
     const itemStyle = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
     const itemStyle2 = { fontFamily: 'Times', fontSize: '15px', color: 'white'};
-    
+
     const { activeItem } = this.state;
     return (
         <Container fluid>
@@ -38,7 +39,7 @@ class TopMenu extends React.Component{
           <Menu.Item style = {itemStyle2}
               name='brightness'
               active={activeItem === 'brightness'}
-              onClick={this.handleItemClick} 
+              onClick={this.handleItemClick}
           />
         </Menu>
       </Container>
@@ -47,8 +48,19 @@ class TopMenu extends React.Component{
 
 }
 
+class SubRedditSelection extends React.Component {
+  render() {
+    return (
+      <div class = "ui centered">
+        <select className="ui search dropdown">
+          <i className="dropdown icon"></i>
+          <option type="hidden" value="">Please choose a SubReddit  </option>
 
-
+        </select>
+      </div>
+    )
+  }
+}
 class FooterMenu extends React.Component {
   render(){
     return(
@@ -83,13 +95,10 @@ class FooterMenu extends React.Component {
 }
 
 
-
-
-
 const CardExampleContentBlock = () => (
   <div class = "ui centered card">
     <Card.Content>
-      <Card.Header style = {itemStyle3}> 
+      <Card.Header style = {itemStyle3}>
       Activity
       </Card.Header>
     </Card.Content>
@@ -137,6 +146,7 @@ const CardExampleContentBlock = () => (
     </div>
   )
 
+
 class YeeLight extends React.Component{
 
   render(){
@@ -144,6 +154,7 @@ class YeeLight extends React.Component{
         <div>
           <TopMenu/>
           <CardExampleContentBlock/>
+          <SubRedditSelection/>
           <FooterMenu/>
         </div>
     );
