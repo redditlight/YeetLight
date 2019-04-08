@@ -24,6 +24,14 @@ module.exports = {
     // console.log(req.body.value);
     myDevice.changeBrightness(req.body.value);
     res.status(200).send({ message: 'ok' });
+  },
+  turnOn: function(req, res) {
+    myDevice.turnLight("on");
+    res.status(200).send({ message: 'ok' });
+  },
+  turnOff: function(req, res) {
+    myDevice.turnLight("off");
+    res.status(200).send({ message: 'ok' });
   }
 }
 
