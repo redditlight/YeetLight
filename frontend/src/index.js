@@ -168,6 +168,9 @@ export default class YeeLight extends React.Component{
   constructor(props){
     super(props);
     this.lightController = new LightController(props);
+    this.state = {
+      accessToken: null
+    };
 
     // Change this later based on user input
     this.value = 100;
