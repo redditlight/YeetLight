@@ -15,7 +15,7 @@ class TopMenu extends React.Component{
   render() {
     const itemStyle = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
     const itemStyle2 = { fontFamily: 'Times', fontSize: '15px', color: 'white'};
-    
+
     return (
         <Container fluid>
         <Menu borderless>
@@ -40,6 +40,58 @@ class TopMenu extends React.Component{
 
 }
 
+class SideMenu extends React.Component{
+  constructor(props){
+    super(props);
+    this.lightController = new LightController(props);
+    this.RedditController = new RedditController(props);
+  }
+  render(){
+    return(
+        <div className="ui inverted vertical menu">
+          <a className="active item">
+            Settings
+          </a>
+          <a className=" item">
+            <div className="centered ui button" data-position="right center" data-tooltip="Connect to Yeelight"
+                 onClick={this.lightController.connectLight}>
+              Connect to YeeLight
+            </div>
+          </a>
+          <a className="item">
+            <div className="centered ui button" data-position="right center" data-tooltip="Reddit Signin"
+                 onClick={this.RedditController.authenticateToReddit}>
+              Reddit Sign In
+            </div>
+          </a>
+          <a className="item">
+            <div className="centered ui button" data-position="right center" data-tooltip="Turn Light On/Off"
+                 onClick={this.lightController.toggleLight}>
+              Toggle YeeLight
+            </div>
+          </a>
+        <a className="item">
+          <div className="ui button" data-position="right center" data-tooltip="Brightness Reset"
+               onClick={this.lightController.changeBrightness(100)}>
+            Reset YeeLight
+          </div>
+        </a>
+          <a className="item">
+            <div className="ui button" data-position="right center" onClick={this.RedditController.subreddits}>
+              Active Subreddits
+            </div>
+          </a>
+          <a>
+            <select className="ui centered dropdown">
+              <option value="">SubReddit</option>
+              <option value="1">Sample</option>
+              <option value="0">Sample</option>
+            </select>
+          </a>
+        </div>
+    )
+  }
+}
 class MiddleData extends React.Component{
   constructor(props){
     super(props);
@@ -51,7 +103,7 @@ class MiddleData extends React.Component{
   <div id = "fullwidthbackground">
   <div class = "ui centered card">
     <Card.Content>
-      <Card.Header style = {itemStyle3}> 
+      <Card.Header style = {itemStyle3}>
       Functionality
       </Card.Header>
     </Card.Content>
@@ -80,13 +132,13 @@ class MiddleData extends React.Component{
               <div class = "ui right pointing dropdown link item" onClick={this.RedditController.subreddits}>
               Get Active Subreddits
               <i class = "dropdown icon"></i>
-              {/* <div>
+              { <div>
                 <select>
                 </select>
-              </div>  */}
+              </div>  }
               </div>
-              </div>  
-      
+              </div>
+
               <div class = "ui segment">
               <div class = "ui button" data-position = "right center" data-tooltip = "Brightness Reset" onClick = {this.lightController.changeBrightness(100)}>
               Reset YeeLight
@@ -96,7 +148,7 @@ class MiddleData extends React.Component{
             </Feed.Summary>
           </Feed.Content>
         </Feed.Event>
-        
+
         <Feed.Event>
           <Feed.Content>
             <Feed.Summary>
@@ -161,7 +213,7 @@ export default class YeeLight extends React.Component{
     return(
         <div>
           <TopMenu/>
-          <MiddleData/>
+          <SideMenu/>
           <FooterMenu/>
           <RedditController/>
         </div>
