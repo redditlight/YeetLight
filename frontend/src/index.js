@@ -37,10 +37,9 @@ class TopMenu extends React.Component{
       </Container>
     )
   }
-
 }
 
-class MiddleData extends React.Component{
+class MiddleForm extends React.Component{
   constructor(props){
     super(props);
     this.lightController = new LightController(props);
@@ -48,68 +47,96 @@ class MiddleData extends React.Component{
   }
   render(){
     return(
-  <div id = "fullwidthbackground">
-  <div class = "ui centered card">
-    <Card.Content>
-      <Card.Header style = {itemStyle3}> 
-      Functionality
-      </Card.Header>
-    </Card.Content>
-    <Card.Content>
-      <Feed>
-        <Feed.Event>
-          <Feed.Content>
-            <Feed.Summary>
-              <div class = "ui basic center aligned segments">
-              <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Connect to Yeelight" onClick={this.lightController.connectLight}>
-              Step One
-              </div>
-              </div>
-              <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Reddit Signin" onClick = {this.RedditController.authenticateToReddit}>
-        Step Two
+      <form class = "ui form">
+        <h4 class = "ui dividing header">Settings</h4>
+        <div class = "field">
+        <label>Brightness</label>
+        <input type = "text" name = "brightness-value" placeholder = "1-500"></input>
+                <button class = "ui button" onClick = {this.RedditController.authenticateToReddit} type = "submit">Connect to Yeelight</button>
+
         </div>
-              </div>
-              <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Turn Light On/Off" onClick = {this.lightController.toggleLight}>
-        Toggle YeeLight
-        </div>
-              </div>
-              <div class = "ui segment">
-              <div class = "ui right pointing dropdown link item" onClick={this.RedditController.subreddits}>
-              Get Active Subreddits
-              <i class = "dropdown icon"></i>
-              {/* <div>
-                <select>
-                </select>
-              </div>  */}
-              </div>
-              </div>  
-      
-              <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Brightness Reset" onClick = {this.lightController.changeBrightness(100)}>
-              Reset YeeLight
-              </div>
-              </div>
-              </div>
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
-        
-        <Feed.Event>
-          <Feed.Content>
-            <Feed.Summary>
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
-      </Feed>
-    </Card.Content>
-    </div>
-    </div>
-  )
-    }
+      </form>
+      // <form class = "ui form">
+      //   <div class = "field">
+      //   <label> Brightness </label>
+      //   <input type = "text" name = "brightness-value" placeholder = "1-500"></input>
+      //   </div>
+      //   <button class = "ui button" onClick = {this.RedditController.authenticateToReddit} type = "submit">Connect to Yeelight</button>
+      // </form>
+    )
   }
+}
+
+// class MiddleData extends React.Component{
+//   constructor(props){
+//     super(props);
+//     this.lightController = new LightController(props);
+//     this.RedditController = new RedditController(props);
+//   }
+//   render(){
+//     return(
+//   <div id = "fullwidthbackground">
+//   <div class = "ui centered card">
+//     <Card.Content>
+//       <Card.Header style = {itemStyle3}> 
+//       Functionality
+//       </Card.Header>
+//     </Card.Content>
+//     <Card.Content>
+//       <Feed>
+//         <Feed.Event>
+//           <Feed.Content>
+//             <Feed.Summary>
+//               <div class = "ui basic center aligned segments">
+//               <div class = "ui segment">
+//               <div class = "ui button" data-position = "right center" data-tooltip = "Connect to Yeelight" onClick={this.lightController.connectLight}>
+//               Step One
+//               </div>
+//               </div>
+//               <div class = "ui segment">
+//               <div class = "ui button" data-position = "right center" data-tooltip = "Reddit Signin" onClick = {this.RedditController.authenticateToReddit}>
+//         Step Two
+//         </div>
+//               </div>
+//               <div class = "ui segment">
+//               <div class = "ui button" data-position = "right center" data-tooltip = "Turn Light On/Off" onClick = {this.lightController.toggleLight}>
+//         Toggle YeeLight
+//         </div>
+//               </div>
+//               <div class = "ui segment">
+//               <div class = "ui right pointing dropdown link item" onClick={this.RedditController.subreddits}>
+//               Get Active Subreddits
+//               <i class = "dropdown icon"></i>
+//               {/* <div>
+//                 <select>
+//                 </select>
+//               </div>  */}
+//               </div>
+//               </div>  
+      
+//               <div class = "ui segment">
+//               <div class = "ui button" data-position = "right center" data-tooltip = "Brightness Reset" onClick = {this.lightController.changeBrightness(100)}>
+//               Reset YeeLight
+//               </div>
+//               </div>
+//               </div>
+//             </Feed.Summary>
+//           </Feed.Content>
+//         </Feed.Event>
+        
+//         <Feed.Event>
+//           <Feed.Content>
+//             <Feed.Summary>
+//             </Feed.Summary>
+//           </Feed.Content>
+//         </Feed.Event>
+//       </Feed>
+//     </Card.Content>
+//     </div>
+//     </div>
+//   )
+//     }
+//   }
 
 
 
@@ -161,7 +188,8 @@ export default class YeeLight extends React.Component{
     return(
         <div>
           <TopMenu/>
-          <MiddleData/>
+          {/* <MiddleData/> */}
+          <MiddleForm/>
           <FooterMenu/>
           <RedditController/>
         </div>
