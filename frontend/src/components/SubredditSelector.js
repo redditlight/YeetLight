@@ -43,11 +43,11 @@ class SubredditSelector extends React.Component {
 
   }
 
-  karma() {
+  karma(subreddit) {
     var url = "http://localhost:8080/karma";
     const data = {
       accessToken: this.props.accessToken,
-      subreddit: 'all'
+      subreddit: subreddit != null? subreddit : 'all'
     }
 
     const params = {
@@ -73,9 +73,14 @@ class SubredditSelector extends React.Component {
     if (this.props.accessToken != null) {
       let subs = await this.subreddits();
       let all = {
-        value: "All",
-        text: "All"
+        value: "all",
+        text: "all"
       }
+      let stop = {
+        value: "stopTracking",
+        text: "Stop Tracking Karma"
+      }
+      options.push(stop);
       options.push(all);
       subs.forEach(sub => {
         var option = {
@@ -94,11 +99,14 @@ class SubredditSelector extends React.Component {
 }
 
 setSelected (subreddit) {
+  if (subreddit != "stopTracking") {
+    setInterval(this.karma(subreddit), 5000);
+  }
 
 }
 
-componentDidUpdate () {
-  if(this.props.accessToken != null) {
+componentDidUpdate (prevProps, prevState) {
+  if(this.props.accessToken != null && prevProps != this.props) {
     this.setOptions();
   }
   
