@@ -7,6 +7,7 @@ import LightController from './LightController';
 import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
 import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, List, Image, Divider } from 'semantic-ui-react';
+import SubredditSelector from './components/SubredditSelector';
 
 var itemStyle3 = { fontFamily: 'monospace', fontSize: '30px', color: 'black'};
 var itemStyle4 = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
@@ -168,18 +169,32 @@ export default class YeeLight extends React.Component{
   constructor(props){
     super(props);
     this.lightController = new LightController(props);
+    this.state = {
+      accessToken: null
+    };
 
     // Change this later based on user input
+    this.getAccessToken = this.getAccessToken.bind(this);
     this.value = 100;
+  }
+
+  getAccessToken = (accessToken) => {
+    if (accessToken != null) {
+      this.setState({
+        accessToken: accessToken
+      });
+    }
+
   }
 
   render(){
     return(
         <div>
+          <SubredditSelector accessToken={this.state.accessToken}/>
           <TopMenu/>
           <CardExampleContentBlock/>
           <FooterMenu/>
-          <RedditController/>
+          <RedditController getAccessToken={this.getAccessToken}/>
           <button onClick={this.lightController.connectLight}> Connect to Light</button>
           <button onClick={this.lightController.toggleLight}> Toggle Light</button>
           <button onClick={() => this.lightController.changeBrightness(this.value)}> Reset Bulb Brightness</button>

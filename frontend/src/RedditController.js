@@ -161,7 +161,7 @@ class RedditController extends React.Component {
         this.setState({
           accessToken: data.accessToken
         });
-        console.log('setState');
+        this.props.getAccessToken(data.accessToken);
       });
     }
   }
@@ -170,8 +170,8 @@ class RedditController extends React.Component {
     return(
       <div>
         <button onClick={this.authenticateToReddit}> Reddit Sign In</button>
-        <button onClick={this.subreddits}> Get Subreddit List</button>
-        <button onClick={this.karma}> Brightness Based off Karma</button>
+        {/* <button onClick={this.subreddits}> Get Subreddit List</button>
+        <button onClick={this.karma}> Brightness Based off Karma</button> */}
         <button onClick={this.test}> Test </button>
         <button onClick={this.checkInbox}> Turn on inbox checking </button>
       </div>
