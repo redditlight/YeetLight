@@ -5,7 +5,7 @@ import React from 'react';
 import LightController from './LightController';
 import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
-import { Container, Feed, Card , Menu, Button, Icon, Grid, List, Divider } from 'semantic-ui-react';
+import { Container, Feed, Card , Menu, Button, Image, Grid, List, Divider } from 'semantic-ui-react';
 
 var itemStyle3 = { fontFamily: 'Times', fontSize: '30px', color: 'black', textAlign: 'center'};
 var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
@@ -40,6 +40,7 @@ class TopMenu extends React.Component{
 
 }
 
+
 class SideMenu extends React.Component{
   constructor(props){
     super(props);
@@ -47,10 +48,14 @@ class SideMenu extends React.Component{
     this.RedditController = new RedditController(props);
   }
   render(){
+    const mailPosition = {paddingLeft: '30%'}
     return(
+        <div className="center aligned  column">
         <div className="ui blue vertical menu">
-          <a className="active item">
+          <a className="item">
+          <div className="centered ui">
             Settings
+          </div>
           </a>
           <a className=" item">
             <div className="centered ui button" data-position="right center" data-tooltip="Connect to Yeelight"
@@ -81,17 +86,14 @@ class SideMenu extends React.Component{
               Active Subreddits
             </div>
           </a>
-          <a class = 'top aligned'>
-            <select className="ui dropdown">
-              <option value="">SubReddit</option>
-              <option value="1">Sample</option>
-              <option value="0">Sample</option>
-            </select>
-          </a>
+
+        </div>
         </div>
     )
   }
 }
+
+
 class MiddleData extends React.Component{
   constructor(props){
     super(props);
