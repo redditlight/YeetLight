@@ -1,14 +1,13 @@
 import React from 'react';
 import LightController from '../LightController';
+import { NONAME } from 'dns';
 
 class SubredditSelector extends React.Component {
 
   constructor(props) {
     super(props);
-    
-    
     this.state = {
-
+        subreddits: null
     };
     this.lightController = new LightController(props);
     // This binding is necessary to make `this` work in the callback
@@ -30,10 +29,12 @@ class SubredditSelector extends React.Component {
       method: "POST"
     };
 
+    
     fetch(url, params).then(res => res.json()).then(data => {
-      console.log(data.subreddits);
+      this.setState({
+          subreddits: data.subreddits
+      });
     });
-
   }
 
   karma() {
@@ -61,20 +62,39 @@ class SubredditSelector extends React.Component {
     });
   }
 
+
+
   componentDidMount() {
-      if (this.accessToken != null) {
-          console.log("Test access-token" + this.accessToken);
-          
-      }
-    
+      
   } 
 
 
 
   render(){
-    return(
+    var options = [];
+    if (this.props.accessToken != null) {
+        this.subreddits();
+        console.log(this.state.subreddits);
+        
+        // this.state.subreddits.forEach(sub => {
+        //     options.push({value: sub, text: sub});
+        // });
+    }
+    
+    
+    const Selector = () => (
         <div>
-            <p>test</p>
+            <button>yeet</button>
+        </div>
+    );
+
+
+    return(
+
+        <div>
+            <Selector />
+            <button onClick={this.subreddits}> Get Subreddit List</button>
+            <button onClick={this.karma}> Brightness Based off Karma</button>
         </div>
     );
   }
