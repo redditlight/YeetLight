@@ -48,7 +48,7 @@ class SideMenu extends React.Component{
   }
   render(){
     return(
-        <div className="ui inverted vertical menu">
+        <div className="ui blue vertical menu">
           <a className="active item">
             Settings
           </a>
@@ -81,8 +81,8 @@ class SideMenu extends React.Component{
               Active Subreddits
             </div>
           </a>
-          <a>
-            <select className="ui centered dropdown">
+          <a class = 'top aligned'>
+            <select className="ui dropdown">
               <option value="">SubReddit</option>
               <option value="1">Sample</option>
               <option value="0">Sample</option>
