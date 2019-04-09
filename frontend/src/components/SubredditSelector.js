@@ -1,18 +1,20 @@
 import React from 'react';
 import LightController from '../LightController';
-import { NONAME } from 'dns';
+import { Dropdown } from 'semantic-ui-react'
 
 class SubredditSelector extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-        subreddits: null
+        options: null
     };
     this.lightController = new LightController(props);
     // This binding is necessary to make `this` work in the callback
     this.subreddits = this.subreddits.bind(this);
     this.karma = this.karma.bind(this);
+    this.setOptions = this.setOptions.bind(this);
+    this.setSelected = this.setSelected.bind(this);
   }
 
 
@@ -29,12 +31,16 @@ class SubredditSelector extends React.Component {
       method: "POST"
     };
 
-    
-    fetch(url, params).then(res => res.json()).then(data => {
-      this.setState({
-          subreddits: data.subreddits
+    let result = [];
+    return fetch(url, params).then(res => res.json()).then(data => {
+      let array = data.subreddits;
+      // console.log(array);
+      array.forEach(element => {
+        result.push(element);
       });
+      return result;
     });
+
   }
 
   karma() {
@@ -62,40 +68,54 @@ class SubredditSelector extends React.Component {
     });
   }
 
-
-
-  componentDidMount() {
-      
-  } 
-
-
-
-  render(){
-    var options = [];
+  async setOptions () {
+    let options = [];
     if (this.props.accessToken != null) {
-        this.subreddits();
-        console.log(this.state.subreddits);
-        
-        // this.state.subreddits.forEach(sub => {
-        //     options.push({value: sub, text: sub});
-        // });
-    }
-    
-    
-    const Selector = () => (
-        <div>
-            <button>yeet</button>
-        </div>
-    );
+      let subs = await this.subreddits();
+      let all = {
+        value: "All",
+        text: "All"
+      }
+      options.push(all);
+      subs.forEach(sub => {
+        var option = {
+          value: sub,
+          text: sub
+        }        
+        options.push(option);
+      });
 
+    }
+    this.setState({
+      options: options
+    });
+    
+    return await options;   
+}
+
+setSelected (subreddit) {
+
+}
+
+componentDidUpdate () {
+  if(this.props.accessToken != null) {
+    this.setOptions();
+  }
+  
+}
+
+
+  render(){  
 
     return(
-
-        <div>
-            <Selector />
-            <button onClick={this.subreddits}> Get Subreddit List</button>
-            <button onClick={this.karma}> Brightness Based off Karma</button>
-        </div>
+        <Dropdown 
+        placeholder='Select a Subreddit'
+        fluid
+        search
+        selection
+        options={this.state.options}
+        onChange={(event, data) => this.setSelected(data.value)}
+        />
     );
   }
 }
