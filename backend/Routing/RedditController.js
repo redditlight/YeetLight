@@ -129,5 +129,18 @@ module.exports = {
       res = r.getKarma();
     });
     return res;
-  }
+  },
+
+  inbox: function(req, res) {
+    var unread = [];
+    request(getHelper(req, '/message/unread'), function (err, resp, body) {
+      if (err) {
+        console.log('Error :', err)
+        return
+      }
+
+      var unreadMessages = JSON.parse(body).data.children;
+      return res.json({ unread: unreadMessages });
+    });
+  },
 }

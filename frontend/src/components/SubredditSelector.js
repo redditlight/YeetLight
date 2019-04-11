@@ -61,7 +61,7 @@ class SubredditSelector extends React.Component {
     };
     fetch(url, params).then(res => res.json()).then(data => {
       console.log(data);
-      const value = data.total + 50;
+      let value = data.total + 50;
       if(value > 100) value = 100;
       if(value < 1) value = 1;
       this.lightController.changeBrightness(value);
