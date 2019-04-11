@@ -18,7 +18,7 @@ class SubredditSelector extends React.Component {
   }
 
 
-  subreddits() {
+  async subreddits() {
     var url = "http://localhost:8080/subreddits";
     const data = {
       accessToken: this.props.accessToken
@@ -32,14 +32,14 @@ class SubredditSelector extends React.Component {
     };
 
     let result = [];
-    return fetch(url, params).then(res => res.json()).then(data => {
-      let array = data.subreddits;
-      // console.log(array);
-      array.forEach(element => {
-        result.push(element);
-      });
-      return result;
+    const res = await fetch(url, params);
+    const data_1 = await res.json();
+    let array = data_1.subreddits;
+    // console.log(array);
+    array.forEach(element => {
+      result.push(element);
     });
+    return result;
 
   }
 
@@ -64,7 +64,7 @@ class SubredditSelector extends React.Component {
       let value = data.total + 50;
       if(value > 100) value = 100;
       if(value < 1) value = 1;
-      this.lightController.changeBrightness(value);
+      // this.lightController.changeBrightness(value);
     });
   }
 
@@ -100,7 +100,8 @@ class SubredditSelector extends React.Component {
 
 setSelected (subreddit) {
   if (subreddit != "stopTracking") {
-    setInterval(this.karma(subreddit), 5000);
+    this.karma(subreddit);
+    setInterval( () => this.karma(subreddit), 5000);
   }
 
 }
