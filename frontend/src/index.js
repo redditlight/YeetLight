@@ -7,7 +7,7 @@ import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
 import SubredditSelector from './components/SubredditSelector';
 
-import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, Input, Image, Divider, Modal } from 'semantic-ui-react';
+import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
 var itemStyle3 = { fontFamily: 'monospace', fontSize: '30px', color: 'black'};
 var itemStyle4 = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
 
@@ -120,10 +120,10 @@ class MiddleData extends React.Component{
   render(){
     return(
   <div id = "fullwidthbackground">
-  <div class = "ui centered card">
+  <div class = "ui left aligned card">
     <Card.Content>
       <Card.Header style = {itemStyle3}> 
-      Functionality
+        How to use
       </Card.Header>
     </Card.Content>
     <Card.Content>
