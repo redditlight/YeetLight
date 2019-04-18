@@ -5,7 +5,11 @@ import React from 'react';
 import LightController from './LightController';
 import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
-import { Container, Modal, Input , Menu, Button, Grid, List, Divider, Card, Feed} from 'semantic-ui-react';
+import SubredditSelector from './components/SubredditSelector';
+
+import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, Input, Image, Divider, Modal } from 'semantic-ui-react';
+var itemStyle3 = { fontFamily: 'monospace', fontSize: '30px', color: 'black'};
+var itemStyle4 = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
 
 var itemStyle3 = { fontFamily: 'Times', fontSize: '30px', color: 'black', textAlign: 'center'};
 var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
@@ -219,20 +223,36 @@ export default class YeeLight extends React.Component{
   constructor(props){
     super(props);
     this.lightController = new LightController(props);
+    this.state = {
+      accessToken: null
+    };
 
     // Change this later based on user input
+    this.getAccessToken = this.getAccessToken.bind(this);
     this.value = 100;
+  }
+
+  getAccessToken = (accessToken) => {
+    if (accessToken != null) {
+      this.setState({
+        accessToken: accessToken
+      });
+    }
+
   }
 
   render(){
     return(
         <div>
+          <SubredditSelector accessToken={this.state.accessToken}/>
           <TopMenu/>
           <MiddleData/>
           <Popup/>
           {/* <MiddleForm/> */}
           <FooterMenu/>
           <RedditController/>
+          <RedditController getAccessToken={this.getAccessToken}/>
+          <button onClick={() => this.lightController.changeBrightness(this.value)}> Reset Bulb Brightness</button>
         </div>
     );
   }

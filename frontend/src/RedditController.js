@@ -7,7 +7,8 @@ class RedditController extends React.Component {
     super(props);
     this.state = {
       url: null,
-      accessToken: null
+      accessToken: null,
+      unread: null
     };
     this.snoowrap = require('snoowrap');
 
@@ -18,6 +19,8 @@ class RedditController extends React.Component {
     this.subreddits = this.subreddits.bind(this);
     this.karma = this.karma.bind(this);
     this.test = this.test.bind(this);
+    this.checkInbox = this.checkInbox.bind(this);
+    this.checkInboxHelper = this.checkInboxHelper.bind(this);
   }
 
   authenticateToReddit() {
@@ -101,6 +104,45 @@ class RedditController extends React.Component {
     });
   }
 
+
+  checkInbox() {
+    console.log("Inbox checking ON");
+    setInterval(this.checkInboxHelper, 15000);
+  }
+
+  checkInboxHelper() {
+    var url = "http://localhost:8080/inbox";
+    const data = {
+      accessToken: this.state.accessToken
+    }
+    const params = {
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(data),
+      method: "POST"
+    };
+
+    fetch(url, params).then(res => res.json()).then(data => {
+      console.log(data.unread);
+
+      if(data.unread.length != this.state.unread) {
+        
+        this.setState({
+          unread: data.unread.length
+        });
+
+        if(this.state.unread != 0) {
+          this.lightController.turnLight("on");
+        } else {
+          this.lightController.turnLight("off");
+        }
+      } else {
+        console.log("No Change.");
+      }
+    });
+  }
+
   componentDidMount() {
     var authCode = new URL(window.location.href).searchParams.get('code');
     if (authCode != null) {
@@ -119,7 +161,7 @@ class RedditController extends React.Component {
         this.setState({
           accessToken: data.accessToken
         });
-        console.log('setState');
+        this.props.getAccessToken(data.accessToken);
       });
     }
   }
@@ -127,10 +169,12 @@ class RedditController extends React.Component {
   render(){
     return(
       <div>
-      {/* <button onClick={this.authenticateToReddit}> Reddit Sign In</button> */}
-        <button onClick={this.subreddits}> Get Subreddit List</button>
-        {/* <button onClick={this.karma}> Brightness Based off Karma</button> */}
+
+        <button onClick={this.authenticateToReddit}> Reddit Sign In</button>
+        {/* <button onClick={this.subreddits}> Get Subreddit List</button>
+        <button onClick={this.karma}> Brightness Based off Karma</button> */}
         <button onClick={this.test}> Test </button>
+        <button onClick={this.checkInbox}> Turn on inbox checking </button>
       </div>
     );
   }
