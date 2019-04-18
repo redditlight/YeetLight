@@ -9,15 +9,15 @@ import SubredditSelector from './components/SubredditSelector';
 
 import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
 
-var itemStyle3 = { fontFamily: 'Times', fontSize: '30px', color: 'black', textAlign: 'center'};
-var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
-var itemStyle5 = { textAlign: 'center'};
-var itemStyle6 = { fontSize: '15px'}
+var itemStyle3 = { fontFamily: 'Helvetica', fontSize: '30px', color: 'black', textAlign: 'center'};
+var itemStyle4 = { fontFamily: 'Helvetica', fontSize: '15px', color: 'white'};
+var itemStyle5 = { fontFamily: 'Helvetica', textAlign: 'center'};
+var itemStyle6 = { fontFamily: 'Helvetica', fontSize: '15px'}
 
 class TopMenu extends React.Component{
   render() {
-    const itemStyle = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
-    const itemStyle2 = { fontFamily: 'Times', fontSize: '15px', color: 'white'};
+    const itemStyle = { fontFamily: 'Helvetica', fontSize: '30px', color: 'white'};
+    const itemStyle2 = { fontFamily: 'Helvetica', fontSize: '15px', color: 'white'};
     
     return (
         <Container fluid>
