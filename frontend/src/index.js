@@ -65,9 +65,9 @@ class Popup extends React.Component {
           <Modal.Header style = {itemStyle5}>Connect to Yeelight and link Reddit account</Modal.Header>
           <Container style = {itemStyle5}>
           <div class = "ui buttons">
-          <button class = "ui left attached blue inverted button"  onClick={this.lightController.connectLight} type = "submit">Light Connection</button>
-          <button class = "ui right attached blue inverted button" onClick = {this.RedditController.authenticateToReddit} type = "submit">Reddit Authentication</button>
-          <button class = "ui right floated red inverted button" onClick = {this.handleClose}>Close</button>
+          <button class = "ui left attached green inverted button"  onClick={this.lightController.connectLight} type = "submit">Light Connection</button>
+          <button class = "ui right attached green inverted button" onClick = {this.RedditController.authenticateToReddit} type = "submit">Reddit Authentication</button>
+          <button class = "ui right red inverted button" onClick = {this.handleClose}>Close</button>
 ]          </div>
           </Container>
       </Modal>
