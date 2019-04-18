@@ -7,13 +7,12 @@ import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
 import SubredditSelector from './components/SubredditSelector';
 
-import { Container, Feed, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
-var itemStyle3 = { fontFamily: 'monospace', fontSize: '30px', color: 'black'};
-var itemStyle4 = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
+import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
 
 var itemStyle3 = { fontFamily: 'Times', fontSize: '30px', color: 'black', textAlign: 'center'};
 var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
-var itemStyle5 = {textAlign: 'center'};
+var itemStyle5 = { textAlign: 'center'};
+var itemStyle6 = { fontSize: '15px'}
 
 class TopMenu extends React.Component{
   render() {
@@ -24,19 +23,11 @@ class TopMenu extends React.Component{
         <Container fluid>
         <Menu borderless>
           <Menu.Item style = {itemStyle}>YeeLight</Menu.Item>
-          <Menu.Item
-              style = {itemStyle2}
+          
+          <Menu.Item style = {itemStyle2}
               position = 'right'
-              name='aboutUs'
-              onClick={this.handleItemClick}
-          />
-          <Menu.Item style = {itemStyle2}
-              name='brightness'
+              icon = 'lightbulb'
               onClick={this.handleItemClick} />
-          <Menu.Item style = {itemStyle2}
-              name='activity'
-              onClick={this.handleItemClick}
-          />
         </Menu>
       </Container>
     )
@@ -120,64 +111,73 @@ class MiddleData extends React.Component{
   render(){
     return(
   <div id = "fullwidthbackground">
-  <div class = "ui left aligned card">
-    <Card.Content>
+   <div class = "ui two cards">
+   <Card>
+           <Card.Content>
       <Card.Header style = {itemStyle3}> 
         How to use
       </Card.Header>
-    </Card.Content>
-    <Card.Content>
-      <Feed>
-        <Feed.Event>
-          <Feed.Content>
-            <Feed.Summary>
-              <div class = "ui basic center aligned segments">
-              <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Connect to Yeelight" onClick={this.lightController.connectLight}>
-              Step One
+      </Card.Content>
+      <Card.Content style = {itemStyle6}>
+      Now that you’ve connected to the light and logged into Reddit, you can access the full functionality of the app.  
+      </Card.Content>
+      </Card>
+
+          <Card>
+            <Card.Content style = {itemStyle6}>
+              <div class = "ui bulleted list">
+                <div class = "item">Once connected, you can link to any of your active subreddits 
+                and the light will respond accordingly</div>
+
+                <div class = "item">The light will turn on whenever one of your comments
+                is liked</div>
+
+                <div class = "item">You can reset the light at any time, as well as toggle on and off</div>
+
+                <div class = "item">Lastly, you can optionally have the light ping whenever a 
+                message is received </div>
               </div>
-              </div>
-              <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Reddit Signin" onClick = {this.RedditController.authenticateToReddit}>
-        Step Two
-        </div>
-              </div>
-              <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Turn Light On/Off" onClick = {this.lightController.toggleLight}>
-        Toggle YeeLight
-        </div>
-              </div>
-              <div class = "ui segment">
-              <div class = "ui right pointing dropdown link item" onClick={this.RedditController.subreddits}>
-              Get Active Subreddits
-              <i class = "dropdown icon"></i>
-              {/* <div>
-                <select>
-                </select>
-              </div>  */}
-              </div>
-              </div>  
-      
-              <div class = "ui segment">
-              <div class = "ui button" data-position = "right center" data-tooltip = "Brightness Reset" onClick = {this.lightController.changeBrightness(100)}>
-              Reset YeeLight
-              </div>
-              </div>
-              </div>
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
-        
-        <Feed.Event>
-          <Feed.Content>
-            <Feed.Summary>
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
-      </Feed>
-    </Card.Content>
-    </div>
-    </div>
+            </Card.Content>
+          </Card>
+
+          <Card>
+          <Card.Content>
+            <div class = "ui list">
+              <div class = "item">
+                <Button color = 'black' animated fluid onClick = {this.lightController.changeBrightness(this.value)} type = "submit">
+                  <Button.Content visible>Reset Light</Button.Content>
+                  <Button.Content hidden>
+                    <i class = "redo icon"></i>
+                  </Button.Content>
+                </Button>
+                </div>        
+
+              <div class = "item">
+                <Item.Content>
+                Subreddit selector goes here
+                </Item.Content>
+                </div>        
+
+              <div class = "item">
+                <Button color = 'black' animated fluid onClick = {this.RedditController.checkInbox} type = "submit">
+                  <Button.Content visible>Enable inbox checking</Button.Content>
+                    <Button.Content hidden>
+                      <i class = "inbox icon"></i>
+                    </Button.Content>
+                </Button>
+                </div>
+            </div>
+            </Card.Content>
+
+          </Card>
+
+          <Card>
+            <Card.Content>
+              graph things here
+            </Card.Content>
+            </Card>
+        </div>    
+      </div>
   )
     }
   }
@@ -252,7 +252,6 @@ export default class YeeLight extends React.Component{
           <FooterMenu/>
           <RedditController/>
           <RedditController getAccessToken={this.getAccessToken}/>
-          <button onClick={() => this.lightController.changeBrightness(this.value)}> Reset Bulb Brightness</button>
         </div>
     );
   }
