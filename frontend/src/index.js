@@ -107,6 +107,7 @@ class MiddleData extends React.Component{
     super(props);
     this.lightController = new LightController(props);
     this.RedditController = new RedditController(props);
+    this.SubredditSelector = new SubredditSelector(props);
   }
   render(){
     return(
@@ -153,10 +154,8 @@ class MiddleData extends React.Component{
                 </div>        
 
               <div class = "item">
-                <Item.Content>
-                Subreddit selector goes here
-                </Item.Content>
-                </div>        
+                subreddit selector
+              </div>        
 
               <div class = "item">
                 <Button color = 'black' animated fluid onClick = {this.RedditController.checkInbox} type = "submit">
@@ -244,15 +243,14 @@ export default class YeeLight extends React.Component{
   render(){
     return(
         <div>
-          <SubredditSelector accessToken={this.state.accessToken}/>
+           {/* <SubredditSelector accessToken={this.state.accessToken}/> */}
           <TopMenu/>
           <MiddleData/>
           <Popup/>
           {/* <MiddleForm/> */}
           <FooterMenu/>
-          <RedditController/>
-          <RedditController getAccessToken={this.getAccessToken}/>
-        </div>
+          {/* <RedditController getAccessToken={this.getAccessToken}/> */}
+          </div>
     );
   }
 }
