@@ -4,7 +4,6 @@ class KarmaChart extends React.Component {
 
     constructor(props) {
       super(props);
-      this.data = this.props.data;
       this.state = {
 
       };

@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import SubredditSelector from './components/SubredditSelector';
 
 import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
+import KarmaChart from './components/KarmaChart';
 
 var itemStyle3 = { fontFamily: 'Times', fontSize: '30px', color: 'black', textAlign: 'center'};
 var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
@@ -39,7 +40,7 @@ class Popup extends React.Component {
     super(props);
     this.lightController = new LightController(props);
     this.RedditController = new RedditController(props);
-    this.handleClose = this.handleClose.bind(this);
+    // this.handleClose = this.handleClose.bind(this);
 
     this.state = {
       show: false,
@@ -47,16 +48,16 @@ class Popup extends React.Component {
     };
   }
 
-  handleClose(){
-    this.setState({show: false});
-  }
+  // handleClose(){
+  //   this.setState({show: false});
+  // }
 
   componentDidMount() {
-    if (this.state.accessToken == null) {
-      this.setState({
-        show: true
-      });
-    }
+    // if (this.state.accessToken == null) {
+    //   this.setState({
+    //     show: true
+    //   });
+    // }
     var authCode = new URL(window.location.href).searchParams.get('code');
     if (authCode != null) {
       const data = {
@@ -74,30 +75,30 @@ class Popup extends React.Component {
         this.setState({
           accessToken: data.accessToken,
         });
-        this.props.getAccessToken(data.accessToken);
+        this.props.getAccessToken(this.state.accessToken);
       });
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.show == true && prevState != this.state) {
-      this.handleClose();
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.show == true && prevState != this.state) {
+  //     this.handleClose();
+  //   }
+  // }
 
 
   render() {
     return(
       <div>
         <Modal
-          open={this.state.show}
+          open={this.props.shown}
           size="large" centered> 
           <Modal.Header style = {itemStyle5}>Connect to Yeelight and link Reddit account</Modal.Header>
           <Container style = {itemStyle5}>
           <div class = "ui buttons">
           <button class = "ui left attached green inverted button"  onClick={this.lightController.connectLight} type = "submit">Light Connection</button>
           <button class = "ui right attached green inverted button" onClick = {this.RedditController.authenticateToReddit} type = "submit">Reddit Authentication</button>
-          <button class = "ui right red inverted button" onClick = {this.handleClose}>Close</button>
+          {/* <button class = "ui right red inverted button" onClick = {this.handleClose}>Close</button> */}
 ]          </div>
           </Container>
       </Modal>
@@ -259,11 +260,13 @@ export default class YeeLight extends React.Component{
     super(props);
     this.lightController = new LightController(props);
     this.state = {
-      accessToken: null
+      accessToken: null,
+      subredditData: null
     };
 
     // Change this later based on user input
     this.getAccessToken = this.getAccessToken.bind(this);
+    this.getSubredditData = this.getSubredditData.bind(this);
     this.value = 100;
   }
 
@@ -273,16 +276,24 @@ export default class YeeLight extends React.Component{
         accessToken: accessToken
       });
     }
+  }
 
+  getSubredditData = (data) => {
+    if (data != null) {
+      this.setState({
+        subredditData: data
+      });
+    }
   }
 
   render(){
     return(
         <div>
-          <SubredditSelector accessToken={this.state.accessToken}/>
+          <SubredditSelector accessToken={this.state.accessToken} subredditData={this.getSubredditData}/>
           <TopMenu/>
           <MiddleData/>
-          <Popup getAccessToken={this.getAccessToken}/>
+          <KarmaChart subredditData={this.state.subredditData} />
+          <Popup getAccessToken={this.getAccessToken} shown={this.state.accessToken != null ? false : true}/>
           {/* <MiddleForm/> */}
           <FooterMenu/>
           <RedditController/>
