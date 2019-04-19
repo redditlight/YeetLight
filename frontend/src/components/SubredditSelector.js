@@ -33,8 +33,8 @@ class SubredditSelector extends React.Component {
 
     let result = [];
     const res = await fetch(url, params);
-    const data_1 = await res.json();
-    let array = data_1.subreddits;
+    const json = await res.json();
+    let array = json.subreddits;
     // console.log(array);
     array.forEach(element => {
       result.push(element);
@@ -43,7 +43,7 @@ class SubredditSelector extends React.Component {
 
   }
 
-  karma(subreddit) {
+  async karma(subreddit) {
     var url = "http://localhost:8080/karma";
     const data = {
       accessToken: this.props.accessToken,
@@ -59,13 +59,17 @@ class SubredditSelector extends React.Component {
       body: JSON.stringify(data),
       method: "POST"
     };
-    fetch(url, params).then(res => res.json()).then(data => {
-      console.log(data);
-      let value = data.total + 50;
+    const res = await fetch(url, params);
+    const json = await res.json();
+      console.log(json[0]);
+      console.log(json);
+      let value = json[0].total + 50;
       if(value > 100) value = 100;
       if(value < 1) value = 1;
       this.lightController.changeBrightness(value);
-    });
+    
+    let subredditData = [subreddit, json[0], json];
+    this.props.getSubredditData(subredditData);
   }
 
   async setOptions () {
@@ -101,7 +105,7 @@ class SubredditSelector extends React.Component {
 setSelected (subreddit) {
   if (subreddit != "stopTracking") {
     this.karma(subreddit);
-    setInterval( () => this.karma(subreddit), 5000);
+    setInterval( () => this.karma(subreddit), 15000);
   }
 
 }
