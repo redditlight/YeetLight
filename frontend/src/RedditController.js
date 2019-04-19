@@ -161,7 +161,7 @@ class RedditController extends React.Component {
         this.setState({
           accessToken: data.accessToken
         });
-        this.props.getAccessToken(data.accessToken);
+        // this.props.getAccessToken(data.accessToken);
       });
     }
   }

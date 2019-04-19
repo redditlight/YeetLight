@@ -36,7 +36,9 @@ var itemStyle7 = { fontFamily: 'Helvetica', color: 'black'}
 // }
 
 class SidebarExampleMultiple extends React.Component {
-  state = { visible: false }
+state = { visible: false }
+import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
+import KarmaChart from './components/KarmaChart';
 
   handleHideClick = () => this.setState({ visible: false })
   handleShowClick = () => this.setState({ visible: true })
@@ -128,28 +130,66 @@ class Popup extends React.Component {
     super(props);
     this.lightController = new LightController(props);
     this.RedditController = new RedditController(props);
-    this.handleClose = this.handleClose.bind(this);
+    // this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: true,
+      show: false,
+      accessToken: null
     };
   }
 
-  handleClose(){
-    this.setState({show: false});
+  // handleClose(){
+  //   this.setState({show: false});
+  // }
+
+  componentDidMount() {
+    // if (this.state.accessToken == null) {
+    //   this.setState({
+    //     show: true
+    //   });
+    // }
+    var authCode = new URL(window.location.href).searchParams.get('code');
+    if (authCode != null) {
+      const data = {
+        code: new URL(window.location.href).searchParams.get('code')
+      }
+      const params = {
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(data),
+        method: "POST"
+      };
+      var url = "http://localhost:8080/auth";
+      fetch(url, params).then(res => res.json()).then(data => {
+        this.setState({
+          accessToken: data.accessToken,
+        });
+        this.props.getAccessToken(data.accessToken); //CALLBACK to index.js
+      });
+    }
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.show == true && prevState != this.state) {
+  //     this.handleClose();
+  //   }
+  // }
+
+
   render() {
     return(
       <div>
         <Modal
-          open={this.state.show}
+          open={this.props.shown}
           size="large" centered> 
           <Modal.Header style = {itemStyle5}>Connect to Yeelight and link Reddit account</Modal.Header>
           <Container style = {itemStyle5}>
           <div class = "ui buttons">
           <button class = "ui left attached white button" style = {itemStyle7} onClick={this.lightController.connectLight} type = "submit">Light Connection</button>
           <button class = "ui right attached white button" style = {itemStyle7} onClick = {this.RedditController.authenticateToReddit} type = "submit">Reddit Authentication</button>
-          <button class = "ui right red inverted button" onClick = {this.handleClose}>Close</button>
+         
+          {/* <button class = "ui right red inverted button" onClick = {this.handleClose}>Close</button> */}
 ]          </div>
           </Container>
       </Modal>
@@ -237,10 +277,10 @@ export default class YeeLight extends React.Component{
     super(props);
     this.lightController = new LightController(props);
     this.state = {
-      accessToken: null, 
-      subredditData: null, 
-      time: null
 
+      accessToken: null,
+      subredditData: null,
+      time: null
     };
 
     // Change this later based on user input
@@ -258,6 +298,7 @@ export default class YeeLight extends React.Component{
     }
   }
 
+
   getSubredditData = (data) => {
     if (data != null) {
       this.setState({
@@ -265,6 +306,7 @@ export default class YeeLight extends React.Component{
       });
     }
   }
+
 
   getTime = (data) => {
     if (data != null) {
@@ -280,7 +322,17 @@ export default class YeeLight extends React.Component{
           {/* <TopMenu/> */}
           <SidebarExampleMultiple/>
           {/* <SideMenu/> */}
-          <Popup/>
+          
+          {/* KARMA CHART - Move this whole block. also make sure the props are being passed correctly */}
+          {/* The props are mainly callbacks, so all you have to do is make sure that the functions they're being linked to go to the right place. */}
+          {this.state.subredditData != null 
+          ? <div className={"graph"}>
+              <KarmaChart subredditData={this.state.subredditData} time={this.state.time}/> 
+            </div>
+           : ''}
+           {/* KARMA CHART  */}
+
+          <Popup getAccessToken={this.getAccessToken} shown={this.state.accessToken != null ? false : true}/>
           {/* <MiddleForm/> */}
           {/* <FooterMenu/> */}
           {/* <RedditController getAccessToken={this.getAccessToken}/> */}
@@ -288,7 +340,6 @@ export default class YeeLight extends React.Component{
     );
   }
 }
-
 
 ReactDOM.render(<YeeLight/>, document.getElementById('root'));
 

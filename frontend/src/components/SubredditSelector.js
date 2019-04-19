@@ -7,7 +7,8 @@ class SubredditSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        options: null
+        options: null,
+        time: 0
     };
     this.lightController = new LightController(props);
     // This binding is necessary to make `this` work in the callback
@@ -17,7 +18,7 @@ class SubredditSelector extends React.Component {
     this.setSelected = this.setSelected.bind(this);
   }
 
-
+  //grabs all the subreddits
   async subreddits() {
     var url = "http://localhost:8080/subreddits";
     const data = {
@@ -33,8 +34,8 @@ class SubredditSelector extends React.Component {
 
     let result = [];
     const res = await fetch(url, params);
-    const data_1 = await res.json();
-    let array = data_1.subreddits;
+    const json = await res.json();
+    let array = json.subreddits;
     // console.log(array);
     array.forEach(element => {
       result.push(element);
@@ -43,7 +44,8 @@ class SubredditSelector extends React.Component {
 
   }
 
-  karma(subreddit) {
+  //Post request to find out the subreddits a user has, controls the light, and contains a callback to pass state to the parent component
+  async karma(subreddit) {
     var url = "http://localhost:8080/karma";
     const data = {
       accessToken: this.props.accessToken,
@@ -59,13 +61,15 @@ class SubredditSelector extends React.Component {
       body: JSON.stringify(data),
       method: "POST"
     };
-    fetch(url, params).then(res => res.json()).then(data => {
-      console.log(data);
-      let value = data.total + 50;
+    const res = await fetch(url, params);
+    const json = await res.json();
+      console.log(json[0]);
+      console.log(json);
+      let value = json[0].total + 50;
       if(value > 100) value = 100;
       if(value < 1) value = 1;
       this.lightController.changeBrightness(value);
-    });
+    this.props.getSubredditData([subreddit, json[0], json]); //CALLBACK to index.js
   }
 
   async setOptions () {
@@ -100,8 +104,14 @@ class SubredditSelector extends React.Component {
 
 setSelected (subreddit) {
   if (subreddit != "stopTracking") {
+    this.setState({time: 0});
     this.karma(subreddit);
-    setInterval( () => this.karma(subreddit), 5000);
+    this.props.getTime(this.state.time); //CALLBACK to index.js
+    setInterval( () => {
+      this.setState({time: this.state.time + 15});
+      this.props.getTime(this.state.time); //CALLBACK to index.js
+    }, 15000)
+    setInterval( () => this.karma(subreddit), 15000);
   }
 
 }
@@ -112,7 +122,6 @@ componentDidUpdate (prevProps, prevState) {
   }
   
 }
-
 
   render(){  
 

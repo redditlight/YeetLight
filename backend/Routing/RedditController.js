@@ -68,7 +68,7 @@ module.exports = {
         console.log('Error :', err)
         return
       }
-      console.log(' Body :', JSON.parse(body).data);
+      // console.log(' Body :', JSON.parse(body).data);
       JSON.parse(body).data.forEach((x) => {
         subreddits.push(x.sr);
         
@@ -89,12 +89,12 @@ module.exports = {
         return
       }
       var data = JSON.parse(body).data;
-
+      console.log(data);
       if (data != undefined) {
         if (req.body.subreddit != 'all') {
           var result = data.filter(x => x.sr === req.body.subreddit);
           karma = result[0].comment_karma + result[0].link_karma;  
-          return res.json({ comment: result[0].comment_karma, link: result[0].link_karma, total: karma }); 
+          return res.json([{ comment: result[0].comment_karma, link: result[0].link_karma, total: karma }, data]); 
 
         } else { //if all is passed then...
 
@@ -107,7 +107,7 @@ module.exports = {
           });
           total = comment + link;
 
-          return res.json({ comment: comment, link: link, total: total});
+          return res.json([{ comment: comment, link: link, total: total}, data]);
         }
       }  
     });                  
