@@ -244,7 +244,7 @@ class MiddleData extends React.Component{
           <Card.Content>
             <div class = "ui list">
               <div class = "item">
-                <Button color = 'black' animated fluid onClick = {this.lightController.changeBrightness(this.value)} type = "submit">
+                <Button color = 'black' animated fluid onClick = {this.lightController.changeBrightness(100)} type = "submit">
                   <Button.Content visible>Reset Light</Button.Content>
                   <Button.Content hidden>
                     <i class = "redo icon"></i>
