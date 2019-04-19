@@ -75,7 +75,7 @@ class Popup extends React.Component {
         this.setState({
           accessToken: data.accessToken,
         });
-        this.props.getAccessToken(this.state.accessToken); //CALLBACK to index.js
+        this.props.getAccessToken(data.accessToken); //CALLBACK to index.js
       });
     }
   }
