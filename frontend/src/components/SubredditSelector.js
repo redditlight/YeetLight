@@ -67,7 +67,6 @@ class SubredditSelector extends React.Component {
       if(value > 100) value = 100;
       if(value < 1) value = 1;
       this.lightController.changeBrightness(value);
-    });
   }
 
   async setOptions () {
