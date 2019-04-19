@@ -6,6 +6,7 @@ import LightController from './LightController';
 import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
 import SubredditSelector from './components/SubredditSelector';
+import KarmaChart from './components/KarmaChart';
 
 import { Container, Card , Menu, Button, Icon, Sidebar, Segment, Header, Image, Modal } from 'semantic-ui-react';
 
@@ -37,8 +38,6 @@ var itemStyle7 = { fontFamily: 'Helvetica', color: 'black'}
 
 class SidebarExampleMultiple extends React.Component {
 state = { visible: false }
-import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
-import KarmaChart from './components/KarmaChart';
 
   handleHideClick = () => this.setState({ visible: false })
   handleShowClick = () => this.setState({ visible: true })
