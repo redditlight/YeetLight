@@ -42,9 +42,13 @@ class SidebarExampleMultiple extends React.Component {
   handleShowClick = () => this.setState({ visible: true })
   handleSidebarHide = () => this.setState({ visible: false })
 
+  constructor(props){
+    super(props);
+    this.SubredditSelector = new SubredditSelector(props);
+  }
+
   render() {
     const { visible } = this.state
-
     return (
       <div id = "sidebarmenu">
         <Button.Group>
@@ -78,6 +82,9 @@ class SidebarExampleMultiple extends React.Component {
             <Menu.Item as='a' href = "https://github.com/redditlight" >
             <i class="user icon" ></i>
               Visit our Github
+            </Menu.Item>
+            <Menu.Item>
+            <SubredditSelector accessToken={this.SubredditSelector.getAccessToken} getSubredditData={this.SubredditSelector.getSubredditData} getTime={this.SubredditSelector.getTime} />  
             </Menu.Item>
           </Sidebar>
 
@@ -203,12 +210,7 @@ class MiddleData extends React.Component{
                     <i class = "redo icon"></i>
                   </Button.Content>
                 </Button>
-                </div>        
-
-              <div class = "item">
-                subreddit selector
-              </div>        
-
+                </div>       
               <div class = "item">
                 <Button color = 'black' animated fluid onClick = {this.RedditController.checkInbox} type = "submit">
                   <Button.Content visible>Enable inbox checking</Button.Content>
@@ -226,38 +228,7 @@ class MiddleData extends React.Component{
     }
   }
 
-// class FooterMenu extends React.Component {
-//   render(){
-//     return(
-//       <Container fluid className='b-background'>
-//       <Grid columns='equal' colorblocktop>
-//         <Grid.Column style = {itemStyle4}>
-//           Created using semantic ui
-//         </Grid.Column>
 
-//         <Grid.Column style = {itemStyle4}>
-//           Created by <Divider/>
-//           <List>
-//             <List.Item>Blaine</List.Item>
-//             <List.Item>Sam</List.Item>
-//             <List.Item>Sunny</List.Item>
-//             <List.Item>Justin</List.Item>
-//           </List>
-//         </Grid.Column>
-
-//         <Grid.Column style = {itemStyle4}>
-//           Contact <Divider/>
-//           <List>
-//             <List.Item>(707)775-5629</List.Item>
-//             <List.Item>https://github.com/redditlight/YeetLight</List.Item>
-//             <List.Item>2500 Campus Rd, Honolulu, HI 96822</List.Item>
-//           </List>
-//         </Grid.Column>
-//       </Grid>
-//     </Container>
-//     )
-//   }
-// }
 
 
 export default class YeeLight extends React.Component{
@@ -266,11 +237,16 @@ export default class YeeLight extends React.Component{
     super(props);
     this.lightController = new LightController(props);
     this.state = {
-      accessToken: null
+      accessToken: null, 
+      subredditData: null, 
+      time: null
+
     };
 
     // Change this later based on user input
     this.getAccessToken = this.getAccessToken.bind(this);
+    this.getSubredditData = this.getSubredditData.bind(this);
+    this.getTime = this.getTime.bind(this);
     this.value = 100;
   }
 
@@ -280,9 +256,23 @@ export default class YeeLight extends React.Component{
         accessToken: accessToken
       });
     }
-
   }
 
+  getSubredditData = (data) => {
+    if (data != null) {
+      this.setState({
+        subredditData: data
+      });
+    }
+  }
+
+  getTime = (data) => {
+    if (data != null) {
+      this.setState({
+        time: data
+      });
+    }
+  }
   render(){
     return(
         <div>
