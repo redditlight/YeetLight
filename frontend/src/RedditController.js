@@ -7,7 +7,7 @@ class RedditController extends React.Component {
     super(props);
     this.state = {
       url: null,
-      accessToken: null,
+      accessToken: this.props.accessToken,
       unread: null
     };
     this.snoowrap = require('snoowrap');

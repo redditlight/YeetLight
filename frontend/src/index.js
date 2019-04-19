@@ -185,13 +185,17 @@ class MiddleData extends React.Component{
                     <i class = "redo icon"></i>
                   </Button.Content>
                 </Button>
-                </div>        
+              </div>
+
+              {/*<div class = "item">*/}
+                {/*<Item.Content>*/}
+                {/*Subreddit selector goes here*/}
+                {/*</Item.Content>*/}
+                {/*</div>        */}
 
               <div class = "item">
-                <Item.Content>
-                Subreddit selector goes here
-                </Item.Content>
-                </div>        
+               <Icon name='home' size='big'/> <div> {this.RedditController.state.unread} </div>
+              </div>
 
               <div class = "item">
                 <Button color = 'black' animated fluid onClick = {this.RedditController.checkInbox} type = "submit">
@@ -200,7 +204,7 @@ class MiddleData extends React.Component{
                       <i class = "inbox icon"></i>
                     </Button.Content>
                 </Button>
-                </div>
+              </div>
             </div>
             </Card.Content>
 
