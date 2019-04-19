@@ -42,12 +42,47 @@ class Popup extends React.Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: true,
+      show: false,
+      accessToken: null
     };
   }
 
   handleClose(){
     this.setState({show: false});
+  }
+
+  componentDidMount() {
+    if (this.state.accessToken == null) {
+      this.setState({
+        show: true
+      });
+    }
+    var authCode = new URL(window.location.href).searchParams.get('code');
+    if (authCode != null) {
+      const data = {
+        code: new URL(window.location.href).searchParams.get('code')
+      }
+      const params = {
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(data),
+        method: "POST"
+      };
+      var url = "http://localhost:8080/auth";
+      fetch(url, params).then(res => res.json()).then(data => {
+        this.setState({
+          accessToken: data.accessToken,
+        });
+        this.props.getAccessToken(data.accessToken);
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.show == true && prevState != this.state) {
+      this.handleClose();
+    }
   }
 
 
@@ -247,7 +282,7 @@ export default class YeeLight extends React.Component{
           <SubredditSelector accessToken={this.state.accessToken}/>
           <TopMenu/>
           <MiddleData/>
-          <Popup/>
+          <Popup getAccessToken={this.getAccessToken}/>
           {/* <MiddleForm/> */}
           <FooterMenu/>
           <RedditController/>
