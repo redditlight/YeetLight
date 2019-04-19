@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LightController from './LightController';
+import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
 
 class RedditController extends React.Component {
 
@@ -7,7 +8,7 @@ class RedditController extends React.Component {
     super(props);
     this.state = {
       url: null,
-      accessToken: this.props.accessToken,
+      accessToken: null,
       unread: null
     };
     this.snoowrap = require('snoowrap');
@@ -42,7 +43,7 @@ class RedditController extends React.Component {
   subreddits() {
     var url = "http://localhost:8080/subreddits";
     const data = {
-      accessToken: this.state.accessToken
+      accessToken: this.props.accessToken
     }
     const params = {
       headers: {
@@ -61,7 +62,7 @@ class RedditController extends React.Component {
   karma() {
     var url = "http://localhost:8080/karma";
     const data = {
-      accessToken: this.state.accessToken,
+      accessToken: this.props.accessToken,
       subreddit: 'all'
     }
 
@@ -107,13 +108,14 @@ class RedditController extends React.Component {
 
   checkInbox() {
     console.log("Inbox checking ON");
+    this.checkInboxHelper();
     setInterval(this.checkInboxHelper, 15000);
   }
 
   checkInboxHelper() {
     var url = "http://localhost:8080/inbox";
     const data = {
-      accessToken: this.state.accessToken
+      accessToken: this.props.accessToken
     }
     const params = {
       headers: {
@@ -172,9 +174,28 @@ class RedditController extends React.Component {
 
         {/* <button onClick={this.subreddits}> Get Subreddit List</button>
         <button onClick={this.karma}> Brightness Based off Karma</button> */}
-        <button onClick={this.checkInbox}> Turn on inbox checking </button>
+        {/*<button onClick={this.checkInbox}> Turn on inbox checking </button>*/}
+        <div class = "item">
+          <Button color = 'black' animated fluid onClick = {this.checkInbox} type = "submit">
+            <Button.Content visible>Enable inbox checking</Button.Content>
+            <Button.Content hidden><i class = "inbox icon"></i></Button.Content>
+          </Button>
+        </div>
       </div>
     );
   }
 }
 export default RedditController;
+
+{/*<div class = "item">*/}
+  {/*<Icon name='home' size='big'/> <div> {this.RedditController.state.unread} </div>*/}
+{/*</div>*/}
+
+{/*<div class = "item">*/}
+  {/*<Button color = 'black' animated fluid onClick = {this.RedditController.checkInbox} type = "submit">*/}
+  {/*<Button.Content visible>Enable inbox checking</Button.Content>*/}
+{/*<Button.Content hidden>*/}
+  {/*<i class = "inbox icon"></i>*/}
+{/*</Button.Content>*/}
+{/*</Button>*/}
+{/*</div>*/}

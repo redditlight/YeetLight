@@ -146,6 +146,7 @@ class MiddleData extends React.Component{
   }
   render(){
     return(
+
   <div id = "fullwidthbackground">
    <div class = "ui two cards">
    <Card>
@@ -195,17 +196,9 @@ class MiddleData extends React.Component{
                 {/*</div>        */}
 
               <div class = "item">
-               <Icon name='home' size='big'/> <div> {this.RedditController.state.unread} </div>
+                <RedditController accessToken={this.props.accessToken}/>
               </div>
 
-              <div class = "item">
-                <Button color = 'black' animated fluid onClick = {this.RedditController.checkInbox} type = "submit">
-                  <Button.Content visible>Enable inbox checking</Button.Content>
-                    <Button.Content hidden>
-                      <i class = "inbox icon"></i>
-                    </Button.Content>
-                </Button>
-              </div>
             </div>
             </Card.Content>
 
@@ -306,7 +299,7 @@ export default class YeeLight extends React.Component{
           {/* WHEN moving this make sure the props are being passed correctly.*/}
           <SubredditSelector accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} />
           <TopMenu/>
-          <MiddleData/>
+          <MiddleData accessToken={this.state.accessToken}/>
           
           {/* KARMA CHART - Move this whole block. also make sure the props are being passed correctly */}
           {/* The props are mainly callbacks, so all you have to do is make sure that the functions they're being linked to go to the right place. */}
@@ -322,6 +315,7 @@ export default class YeeLight extends React.Component{
           <FooterMenu/>
           <RedditController/>
           <RedditController getAccessToken={this.getAccessToken}/>
+          <RedditController accessToken={this.state.accessToken}/>
         </div>
     );
   }
