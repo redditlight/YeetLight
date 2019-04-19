@@ -6,11 +6,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #746fa0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+    monospace, Helvetica;
 }
 
 .ui.borderless.menu {
@@ -22,25 +23,15 @@ code {
 }
 
 #fullwidthbackground {
-  background: url('https://images.unsplash.com/photo-1529528744093-6f8abeee511d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80') no-repeat center center fixed;
+  background: url('https://davidbalyeat.com/wp-content/uploads/mount-sneffels-snow-colorado-mountains-black-and-white-high-definition-hd-professional-landscape-photography.jpg') no-repeat center center fixed;
   background-size: cover;
   margin: 0px;
-  padding: 125px;
-  height: 600px;
+  padding: 100px;
+  height: 650px;
 }
 
-
-.b-background {
-  background-color: black;
-  font-family: monospace;
-  color: WHITE;
-  height: 200px;
-  line-height: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 30px;
-}
-
-.b-background .item {
-  color: white;
+.sidebarmenu{
+  background-color: #746fa0;
+  max-height: 5px;
+  padding: 0px;
 }
