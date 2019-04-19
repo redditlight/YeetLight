@@ -44,3 +44,8 @@ code {
 .b-background .item {
   color: white;
 }
+
+.graph {
+  height: 30vh;
+  width: 60vw;
+}

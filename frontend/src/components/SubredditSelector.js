@@ -7,7 +7,8 @@ class SubredditSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        options: null
+        options: null,
+        time: 0
     };
     this.lightController = new LightController(props);
     // This binding is necessary to make `this` work in the callback
@@ -67,9 +68,7 @@ class SubredditSelector extends React.Component {
       if(value > 100) value = 100;
       if(value < 1) value = 1;
       this.lightController.changeBrightness(value);
-    
-    let subredditData = [subreddit, json[0], json];
-    this.props.getSubredditData(subredditData);
+    this.props.getSubredditData([subreddit, json[0], json]);
   }
 
   async setOptions () {
@@ -104,7 +103,13 @@ class SubredditSelector extends React.Component {
 
 setSelected (subreddit) {
   if (subreddit != "stopTracking") {
+    this.setState({time: 0});
     this.karma(subreddit);
+    this.props.getTime(this.state.time);
+    setInterval( () => {
+      this.setState({time: this.state.time + 15});
+      this.props.getTime(this.state.time);
+    }, 15000)
     setInterval( () => this.karma(subreddit), 15000);
   }
 

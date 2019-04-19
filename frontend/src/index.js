@@ -261,12 +261,14 @@ export default class YeeLight extends React.Component{
     this.lightController = new LightController(props);
     this.state = {
       accessToken: null,
-      subredditData: null
+      subredditData: null,
+      time: null
     };
 
     // Change this later based on user input
     this.getAccessToken = this.getAccessToken.bind(this);
     this.getSubredditData = this.getSubredditData.bind(this);
+    this.getTime = this.getTime.bind(this);
     this.value = 100;
   }
 
@@ -286,13 +288,26 @@ export default class YeeLight extends React.Component{
     }
   }
 
+  getTime = (data) => {
+    if (data != null) {
+      this.setState({
+        time: data
+      });
+    }
+  }
+
   render(){
     return(
         <div>
-          <SubredditSelector accessToken={this.state.accessToken} subredditData={this.getSubredditData}/>
+          <SubredditSelector accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} />
           <TopMenu/>
           <MiddleData/>
-          <KarmaChart subredditData={this.state.subredditData} />
+          
+          {this.state.subredditData != null 
+          ? <div className={"graph"}>
+              <KarmaChart subredditData={this.state.subredditData} time={this.state.time}/> 
+            </div>
+           : ''}
           <Popup getAccessToken={this.getAccessToken} shown={this.state.accessToken != null ? false : true}/>
           {/* <MiddleForm/> */}
           <FooterMenu/>
@@ -302,7 +317,6 @@ export default class YeeLight extends React.Component{
     );
   }
 }
-
 
 ReactDOM.render(<YeeLight/>, document.getElementById('root'));
 
