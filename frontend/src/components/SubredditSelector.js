@@ -18,7 +18,7 @@ class SubredditSelector extends React.Component {
     this.setSelected = this.setSelected.bind(this);
   }
 
-
+  //grabs all the subreddits
   async subreddits() {
     var url = "http://localhost:8080/subreddits";
     const data = {
@@ -44,6 +44,7 @@ class SubredditSelector extends React.Component {
 
   }
 
+  //Post request to find out the subreddits a user has, controls the light, and contains a callback to pass state to the parent component
   async karma(subreddit) {
     var url = "http://localhost:8080/karma";
     const data = {
@@ -68,7 +69,7 @@ class SubredditSelector extends React.Component {
       if(value > 100) value = 100;
       if(value < 1) value = 1;
       this.lightController.changeBrightness(value);
-    this.props.getSubredditData([subreddit, json[0], json]);
+    this.props.getSubredditData([subreddit, json[0], json]); //CALLBACK to index.js
   }
 
   async setOptions () {
@@ -105,10 +106,10 @@ setSelected (subreddit) {
   if (subreddit != "stopTracking") {
     this.setState({time: 0});
     this.karma(subreddit);
-    this.props.getTime(this.state.time);
+    this.props.getTime(this.state.time); //CALLBACK to index.js
     setInterval( () => {
       this.setState({time: this.state.time + 15});
-      this.props.getTime(this.state.time);
+      this.props.getTime(this.state.time); //CALLBACK to index.js
     }, 15000)
     setInterval( () => this.karma(subreddit), 15000);
   }
@@ -121,7 +122,6 @@ componentDidUpdate (prevProps, prevState) {
   }
   
 }
-
 
   render(){  
 

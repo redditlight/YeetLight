@@ -75,7 +75,7 @@ class Popup extends React.Component {
         this.setState({
           accessToken: data.accessToken,
         });
-        this.props.getAccessToken(this.state.accessToken);
+        this.props.getAccessToken(this.state.accessToken); //CALLBACK to index.js
       });
     }
   }
@@ -299,15 +299,20 @@ export default class YeeLight extends React.Component{
   render(){
     return(
         <div>
+          {/* WHEN moving this make sure the props are being passed correctly.*/}
           <SubredditSelector accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} />
           <TopMenu/>
           <MiddleData/>
           
+          {/* KARMA CHART - Move this whole block. also make sure the props are being passed correctly */}
+          {/* The props are mainly callbacks, so all you have to do is make sure that the functions they're being linked to go to the right place. */}
           {this.state.subredditData != null 
           ? <div className={"graph"}>
               <KarmaChart subredditData={this.state.subredditData} time={this.state.time}/> 
             </div>
            : ''}
+           {/* KARMA CHART  */}
+
           <Popup getAccessToken={this.getAccessToken} shown={this.state.accessToken != null ? false : true}/>
           {/* <MiddleForm/> */}
           <FooterMenu/>
