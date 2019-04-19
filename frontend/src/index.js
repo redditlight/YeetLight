@@ -7,33 +7,123 @@ import RedditController from './RedditController';
 import * as serviceWorker from './serviceWorker';
 import SubredditSelector from './components/SubredditSelector';
 
+import { Container, Card , Menu, Button, Icon, Sidebar, Segment, Header, Image, Modal } from 'semantic-ui-react';
+
+var itemStyle3 = { fontFamily: 'Helvetica', fontSize: '30px', color: 'black', textAlign: 'center'};
+var itemStyle4 = { fontFamily: 'Helvetica', fontSize: '15px', color: 'white'};
+var itemStyle5 = { fontFamily: 'Helvetica', textAlign: 'center'};
+var itemStyle6 = { fontFamily: 'Helvetica', fontSize: '15px'}
+var itemStyle7 = { fontFamily: 'Helvetica', color: 'black'}
+
+// class TopMenu extends React.Component{
+//   render() {
+//     const itemStyle = { fontFamily: 'Helvetica', fontSize: '30px', color: 'white'};
+//     const itemStyle2 = { fontFamily: 'Helvetica', fontSize: '15px', color: 'white'};
+    
+//     return (
+//         <Container fluid>
+//         <Menu borderless>
+//           <Menu.Item style = {itemStyle}>YeeLight</Menu.Item>
+          
+//           <Menu.Item style = {itemStyle2}
+//               position = 'right'
+//               icon = 'lightbulb'
+//               onClick={this.handleItemClick} />
+//         </Menu>
+//       </Container>
+//     )
+//   }
+// }
+
+class SidebarExampleMultiple extends React.Component {
+state = { visible: false }
 import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
 import KarmaChart from './components/KarmaChart';
 
-var itemStyle3 = { fontFamily: 'Times', fontSize: '30px', color: 'black', textAlign: 'center'};
-var itemStyle4 = { fontFamily: 'monospace', fontSize: '15px', color: 'white'};
-var itemStyle5 = { textAlign: 'center'};
-var itemStyle6 = { fontSize: '15px'}
+  handleHideClick = () => this.setState({ visible: false })
+  handleShowClick = () => this.setState({ visible: true })
+  handleSidebarHide = () => this.setState({ visible: false })
 
-class TopMenu extends React.Component{
+  constructor(props){
+    super(props);
+    this.SubredditSelector = new SubredditSelector(props);
+  }
+
   render() {
-    const itemStyle = { fontFamily: 'monospace', fontSize: '30px', color: 'white'};
-    const itemStyle2 = { fontFamily: 'Times', fontSize: '15px', color: 'white'};
-    
+    const { visible } = this.state
     return (
-        <Container fluid>
-        <Menu borderless>
-          <Menu.Item style = {itemStyle}>YeeLight</Menu.Item>
-          
-          <Menu.Item style = {itemStyle2}
-              position = 'right'
-              icon = 'lightbulb'
-              onClick={this.handleItemClick} />
-        </Menu>
-      </Container>
+      <div id = "sidebarmenu">
+        <Button.Group>
+          <Button disabled={visible} onClick={this.handleShowClick}>
+            Dashboard
+          </Button>
+          <Button disabled={!visible} onClick={this.handleHideClick}>
+            Hide
+          </Button>
+        </Button.Group>
+
+        <Sidebar.Pushable as={Segment}>
+          <Sidebar
+            as={Menu}
+            animation='overlay'
+            direction='left'
+            icon='labeled'
+            onHide={this.handleSidebarHide}
+            vertical
+            visible={visible}
+            width='thin'
+          >
+            <Menu.Item as='a'>
+              <Icon name='home' />
+              Home
+            </Menu.Item>
+            <Menu.Item as ='a'>
+              <Icon name = 'address card outline'></Icon>
+              About Us
+            </Menu.Item>
+            <Menu.Item as='a' href = "https://github.com/redditlight" >
+            <i class="user icon" ></i>
+              Visit our Github
+            </Menu.Item>
+            <Menu.Item>
+            <SubredditSelector accessToken={this.SubredditSelector.getAccessToken} getSubredditData={this.SubredditSelector.getSubredditData} getTime={this.SubredditSelector.getTime} />  
+            </Menu.Item>
+          </Sidebar>
+
+          <Sidebar.Pusher>
+            <Segment basic>
+              <MiddleData/> 
+            </Segment>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
+      </div>
     )
   }
 }
+
+// class SideMenu extends React.Component {
+  
+//   render(){
+//     const sideBarStyles = {
+//       sidebar: {
+//         backgroundColor: 'black',
+//         height: '100px'
+//       }
+//     }
+//     return(
+//     <Container className = "sidebarmenu" style = {sideBarStyles}>
+//      <div class = "ui small left fixed vertical menu" >
+//           <a class="item" style = {itemStyle5}>Features</a>
+//            <div class = "ui fluid button" data-tooltip = "Created by Justin, Blaine, Sam and Sunny using React with Semantic UI"
+//            data-position = "right center">
+//            About Us
+//            </div>
+//            <a class = "ui fluid button" href = "https://github.com/redditlight" >Visit our github</a>
+//      </div>
+//      </Container>
+//     )
+//   }
+// }
 
 class Popup extends React.Component {
   constructor(props){
@@ -96,8 +186,9 @@ class Popup extends React.Component {
           <Modal.Header style = {itemStyle5}>Connect to Yeelight and link Reddit account</Modal.Header>
           <Container style = {itemStyle5}>
           <div class = "ui buttons">
-          <button class = "ui left attached green inverted button"  onClick={this.lightController.connectLight} type = "submit">Light Connection</button>
-          <button class = "ui right attached green inverted button" onClick = {this.RedditController.authenticateToReddit} type = "submit">Reddit Authentication</button>
+          <button class = "ui left attached white button" style = {itemStyle7} onClick={this.lightController.connectLight} type = "submit">Light Connection</button>
+          <button class = "ui right attached white button" style = {itemStyle7} onClick = {this.RedditController.authenticateToReddit} type = "submit">Reddit Authentication</button>
+         
           {/* <button class = "ui right red inverted button" onClick = {this.handleClose}>Close</button> */}
 ]          </div>
           </Container>
@@ -110,44 +201,17 @@ class Popup extends React.Component {
 }
 }
 
-// class MiddleForm extends React.Component{
-//   constructor(props){
-//     super(props);
-//     this.lightController = new LightController(props);
-//     this.RedditController = new RedditController(props);
-//   }
-//   render(){
-//     return(
-//       <form class = "ui form">
-//         <h4 class = "ui dividing header">Settings</h4>
-//         <div class = "field">
-//         <label>Brightness</label>
-//         <input type = "text" name = "brightness-value" placeholder = "1-500"></input>
-//                 <button class = "ui button" onClick = {this.RedditController.authenticateToReddit} type = "submit">Connect to Yeelight</button>
-
-//         </div>
-//       </form>
-//       // <form class = "ui form">
-//       //   <div class = "field">
-//       //   <label> Brightness </label>
-//       //   <input type = "text" name = "brightness-value" placeholder = "1-500"></input>
-//       //   </div>
-//       //   <button class = "ui button" onClick = {this.RedditController.authenticateToReddit} type = "submit">Connect to Yeelight</button>
-//       // </form>
-//     )
-//   }
-// }
-
 class MiddleData extends React.Component{
   constructor(props){
     super(props);
     this.lightController = new LightController(props);
     this.RedditController = new RedditController(props);
+    this.SubredditSelector = new SubredditSelector(props);
   }
   render(){
     return(
   <div id = "fullwidthbackground">
-   <div class = "ui two cards">
+   <div class = "ui centered cards">
    <Card>
            <Card.Content>
       <Card.Header style = {itemStyle3}> 
@@ -159,7 +223,7 @@ class MiddleData extends React.Component{
       </Card.Content>
       </Card>
 
-          <Card>
+          {/* <Card>
             <Card.Content style = {itemStyle6}>
               <div class = "ui bulleted list">
                 <div class = "item">Once connected, you can link to any of your active subreddits 
@@ -174,7 +238,7 @@ class MiddleData extends React.Component{
                 message is received </div>
               </div>
             </Card.Content>
-          </Card>
+          </Card> */}
 
           <Card>
           <Card.Content>
@@ -186,14 +250,7 @@ class MiddleData extends React.Component{
                     <i class = "redo icon"></i>
                   </Button.Content>
                 </Button>
-                </div>        
-
-              <div class = "item">
-                <Item.Content>
-                Subreddit selector goes here
-                </Item.Content>
-                </div>        
-
+                </div>       
               <div class = "item">
                 <Button color = 'black' animated fluid onClick = {this.RedditController.checkInbox} type = "submit">
                   <Button.Content visible>Enable inbox checking</Button.Content>
@@ -204,14 +261,7 @@ class MiddleData extends React.Component{
                 </div>
             </div>
             </Card.Content>
-
           </Card>
-
-          <Card>
-            <Card.Content>
-              graph things here
-            </Card.Content>
-            </Card>
         </div>    
       </div>
   )
@@ -220,39 +270,6 @@ class MiddleData extends React.Component{
 
 
 
-class FooterMenu extends React.Component {
-  render(){
-    return(
-      <Container fluid className='b-background'>
-      <Grid columns='equal' colorblocktop>
-        <Grid.Column style = {itemStyle4}>
-          Created using semantic ui
-        </Grid.Column>
-
-        <Grid.Column style = {itemStyle4}>
-          Created by <Divider/>
-          <List>
-            <List.Item>Blaine</List.Item>
-            <List.Item>Sam</List.Item>
-            <List.Item>Sunny</List.Item>
-            <List.Item>Justin</List.Item>
-          </List>
-        </Grid.Column>
-
-        <Grid.Column style = {itemStyle4}>
-          Contact <Divider/>
-          <List>
-            <List.Item>(707)775-5629</List.Item>
-            <List.Item>https://github.com/redditlight/YeetLight</List.Item>
-            <List.Item>2500 Campus Rd, Honolulu, HI 96822</List.Item>
-          </List>
-        </Grid.Column>
-      </Grid>
-    </Container>
-    )
-  }
-}
-
 
 export default class YeeLight extends React.Component{
 
@@ -260,6 +277,7 @@ export default class YeeLight extends React.Component{
     super(props);
     this.lightController = new LightController(props);
     this.state = {
+
       accessToken: null,
       subredditData: null,
       time: null
@@ -280,6 +298,7 @@ export default class YeeLight extends React.Component{
     }
   }
 
+
   getSubredditData = (data) => {
     if (data != null) {
       this.setState({
@@ -288,6 +307,7 @@ export default class YeeLight extends React.Component{
     }
   }
 
+
   getTime = (data) => {
     if (data != null) {
       this.setState({
@@ -295,14 +315,13 @@ export default class YeeLight extends React.Component{
       });
     }
   }
-
   render(){
     return(
         <div>
-          {/* WHEN moving this make sure the props are being passed correctly.*/}
-          <SubredditSelector accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} />
-          <TopMenu/>
-          <MiddleData/>
+           {/* <SubredditSelector accessToken={this.state.accessToken}/> */}
+          {/* <TopMenu/> */}
+          <SidebarExampleMultiple/>
+          {/* <SideMenu/> */}
           
           {/* KARMA CHART - Move this whole block. also make sure the props are being passed correctly */}
           {/* The props are mainly callbacks, so all you have to do is make sure that the functions they're being linked to go to the right place. */}
@@ -315,10 +334,9 @@ export default class YeeLight extends React.Component{
 
           <Popup getAccessToken={this.getAccessToken} shown={this.state.accessToken != null ? false : true}/>
           {/* <MiddleForm/> */}
-          <FooterMenu/>
-          <RedditController/>
-          <RedditController getAccessToken={this.getAccessToken}/>
-        </div>
+          {/* <FooterMenu/> */}
+          {/* <RedditController getAccessToken={this.getAccessToken}/> */}
+          </div>
     );
   }
 }
