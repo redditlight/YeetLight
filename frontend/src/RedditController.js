@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LightController from './LightController';
-import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal } from 'semantic-ui-react';
+import { Container, Item, Card , Menu, Button, Icon, Form, Grid, Input, List, Divider, Modal, Header } from 'semantic-ui-react';
 
 class RedditController extends React.Component {
 
@@ -9,7 +9,7 @@ class RedditController extends React.Component {
     this.state = {
       url: null,
       accessToken: null,
-      unread: null
+      unread: 0
     };
     this.snoowrap = require('snoowrap');
 
@@ -175,6 +175,11 @@ class RedditController extends React.Component {
         {/* <button onClick={this.subreddits}> Get Subreddit List</button>
         <button onClick={this.karma}> Brightness Based off Karma</button> */}
         {/*<button onClick={this.checkInbox}> Turn on inbox checking </button>*/}
+        <div class = "ui center aligned container">
+          <Header as='h2'>
+            <i class = "mail outline icon" size="big"></i>{this.state.unread}
+          </Header>
+        </div>
         <div class = "item">
           <Button color = 'black' animated fluid onClick = {this.checkInbox} type = "submit">
             <Button.Content visible>Enable inbox checking</Button.Content>
