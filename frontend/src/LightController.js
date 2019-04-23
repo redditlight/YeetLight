@@ -70,6 +70,24 @@ class LightController extends React.Component {
     });
   }
 
+  setColor(temp){
+    var url = "http://localhost:8080/yeelight/color"
+    const data = {
+      value: temp
+    }
+    const params = {
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(data),
+      method: "POST"
+    };
+
+    fetch(url, params).then(res => {
+      console.log(res);
+    });
+  }
+
   render(){
     return(
       <div></div>

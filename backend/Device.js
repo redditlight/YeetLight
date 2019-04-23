@@ -16,6 +16,8 @@ class Device {
     const tcpS = new net.Socket();
     const urlData = url.parse(this.location);
     tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
+    console.log('Toggle Light');
+    this.printInformation();
   }
 
   turnLight(turnOn){
@@ -23,6 +25,8 @@ class Device {
     const tcpS = new net.Socket();
     const urlData = url.parse(this.location);
     tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
+    console.log('Turn Light ' + turnOn);
+    this.printInformation();
   }
 
   changeBrightness(value){
@@ -30,6 +34,17 @@ class Device {
     const tcpS = new net.Socket();
     const urlData = url.parse(this.location);
     tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
+    console.log('Change Brightness '+ value);
+    this.printInformation();
+  }
+
+  setColor(temp) {
+    const call = JSON.stringify({"id":this.id,"method":"set_ct_abx","params":[temp, "smooth", 500]});
+    const tcpS = new net.Socket();
+    const urlData = url.parse(this.location);
+    tcpS.connect(urlData.port, urlData.hostname, () => tcpS.write(`${call}\r\n`));
+    console.log('Set Color ' + temp);
+    this.printInformation();
   }
 
   printInformation(){

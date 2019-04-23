@@ -32,6 +32,10 @@ module.exports = {
   turnOff: function(req, res) {
     myDevice.turnLight("off");
     res.status(200).send({ message: 'ok' });
+  },
+  setColor: function(req, res) {
+    myDevice.setColor(req.body.value);
+    res.status(200).send({ message: 'ok' });
   }
 }
 
@@ -49,6 +53,7 @@ function initialize() {
     myDevice.port = rinfo.port;
     myDevice.location = response.Location;
 
+    myDevice.printInformation();
     // myDevice.turnLight("off");
   })
 

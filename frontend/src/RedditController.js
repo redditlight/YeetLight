@@ -9,7 +9,7 @@ class RedditController extends React.Component {
     this.state = {
       url: null,
       accessToken: null,
-      unread: 0
+      unread: null
     };
     this.snoowrap = require('snoowrap');
 
@@ -135,9 +135,9 @@ class RedditController extends React.Component {
         });
 
         if(this.state.unread != 0) {
-          this.lightController.turnLight("on");
+          this.lightController.setColor(6000)
         } else {
-          this.lightController.turnLight("off");
+          this.lightController.setColor(2000);
         }
       } else {
         console.log("No Change.");
@@ -186,6 +186,7 @@ class RedditController extends React.Component {
             <Button.Content hidden><i class = "inbox icon"></i></Button.Content>
           </Button>
         </div>
+        <button onClick={this.lightController.toggleLight}>Toggle Light</button>
       </div>
     );
   }

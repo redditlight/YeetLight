@@ -9,6 +9,7 @@ router.route('/toggle').get(yeelightController.toggleYeelight);
 router.route('/brightness').post(yeelightController.changeBrightness);
 router.route('/on').get(yeelightController.turnOn);
 router.route('/off').get(yeelightController.turnOff);
+router.route('/color').post(yeelightController.setColor);
 
 
 router.route('/auth').post(redditController.auth);
