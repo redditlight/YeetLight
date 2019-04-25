@@ -132,7 +132,6 @@ class Popup extends React.Component {
     // this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: false,
       accessToken: null
     };
   }
@@ -180,7 +179,7 @@ class Popup extends React.Component {
     return(
       <div>
         <Modal
-          open={this.props.shown}
+          open={true}
           size="large" centered> 
           <Modal.Header style = {itemStyle5}>Connect to Yeelight and link Reddit account</Modal.Header>
           <Container style = {itemStyle5}>
@@ -330,8 +329,8 @@ export default class YeeLight extends React.Component{
             </div>
            : ''}
            {/* KARMA CHART  */}
+          {this.state.accessToken != null ? '': <Popup getAccessToken={this.getAccessToken} /> }
 
-          <Popup getAccessToken={this.getAccessToken} shown={this.state.accessToken != null ? false : true}/>
           {/* <MiddleForm/> */}
           {/* <FooterMenu/> */}
           {/* <RedditController getAccessToken={this.getAccessToken}/> */}
