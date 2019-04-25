@@ -131,9 +131,9 @@ class Popup extends React.Component {
     this.RedditController = new RedditController(props);
     // this.handleClose = this.handleClose.bind(this);
 
-    this.state = {
-      accessToken: null
-    };
+    // this.state = {
+    //   accessToken: null
+    // };
   }
 
   // handleClose(){
@@ -160,9 +160,9 @@ class Popup extends React.Component {
       };
       var url = "http://localhost:8080/auth";
       fetch(url, params).then(res => res.json()).then(data => {
-        this.setState({
-          accessToken: data.accessToken,
-        });
+        // this.setState({
+        //   accessToken: data.accessToken,
+        // });
         this.props.getAccessToken(data.accessToken); //CALLBACK to index.js
       });
     }
