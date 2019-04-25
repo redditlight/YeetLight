@@ -329,7 +329,7 @@ export default class YeeLight extends React.Component{
             </div>
            : ''}
            {/* KARMA CHART  */}
-          {this.state.accessToken != null ? '': <Popup getAccessToken={this.getAccessToken} /> }
+          {this.state.accessToken != null ? null : <Popup getAccessToken={this.getAccessToken} /> }
 
           {/* <MiddleForm/> */}
           {/* <FooterMenu/> */}
