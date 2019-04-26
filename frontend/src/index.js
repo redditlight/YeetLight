@@ -105,17 +105,6 @@ state = { visible: false }
           </Sidebar.Pusher>
         </Sidebar.Pushable>
 
-        {/*<Modal open={this.state.open} onClose={this.onClose}>*/}
-          {/*<Modal.Header>Select a Photo</Modal.Header>*/}
-          {/*<Modal.Content image>*/}
-            {/*<Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />*/}
-            {/*<Modal.Description>*/}
-              {/*<Header>Default Profile Image</Header>*/}
-              {/*<p>We've found the following gravatar image associated with your e-mail address.</p>*/}
-              {/*<p>Is it okay to use this photo?</p>*/}
-            {/*</Modal.Description>*/}
-          {/*</Modal.Content>*/}
-        {/*</Modal>*/}
       </div>
     )
   }
@@ -260,7 +249,10 @@ class MiddleData extends React.Component{
       </Card.Header>
       </Card.Content>
       <Card.Content style = {itemStyle6}>
-      Now that you’ve connected to the light and logged into Reddit, you can access the full functionality of the app. You can click on the Dashboard to pull up the Subreddit Selector bar, which will allow you to select a subreddit to view its karma. You can also enable inbox checking by clicking the button. The light, when connected, will respond accordingly with input from Reddit.
+      Now that you’ve connected to the light and logged into Reddit, you can access the full functionality 
+      of the app. You can click on the Dashboard to pull up the Subreddit Selector bar, which will allow you
+       to select a subreddit to view its karma. You can also enable inbox checking by clicking the button. The
+        light, when connected, will respond accordingly with input from Reddit.
       </Card.Content>
       </Card>
 
@@ -309,6 +301,7 @@ class MiddleData extends React.Component{
             </div>
             </Card.Content>
           </Card>
+
         </div>    
       </div>
   )
