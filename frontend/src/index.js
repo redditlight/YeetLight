@@ -46,7 +46,12 @@ state = { visible: false }
   constructor(props){
     super(props);
     // this.SubredditSelector = new SubredditSelector(props);
+    // this.onClose = this.onClose.bind(this);
   }
+
+  // onClose() {
+  //   this.setState({open: false});
+  // }
 
   render() {
     const { visible } = this.state
@@ -72,14 +77,18 @@ state = { visible: false }
             visible={visible}
             width='thin'
           >
-            <Menu.Item as='a'>
-              <Icon name='home' />
-              Home
-            </Menu.Item>
+            {/*<Menu.Item as='a'>*/}
+              {/*<Icon name='home' />*/}
+              {/*Home*/}
+            {/*</Menu.Item>*/}
             <Menu.Item as ='a'>
-              <Icon name = 'address card outline'></Icon>
-              About Us
+              <About/>
+              About
             </Menu.Item>
+            {/*<Menu.Item as='a' onClick={this.setState({open: true})}>*/}
+              {/*<Icon name = 'address card outline'></Icon>*/}
+              {/*About Us*/}
+            {/*</Menu.Item>*/}
             <Menu.Item as='a' href = "https://github.com/redditlight" >
             <i class="user icon" ></i>
               Visit our Github
@@ -95,8 +104,41 @@ state = { visible: false }
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
+
+        {/*<Modal open={this.state.open} onClose={this.onClose}>*/}
+          {/*<Modal.Header>Select a Photo</Modal.Header>*/}
+          {/*<Modal.Content image>*/}
+            {/*<Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />*/}
+            {/*<Modal.Description>*/}
+              {/*<Header>Default Profile Image</Header>*/}
+              {/*<p>We've found the following gravatar image associated with your e-mail address.</p>*/}
+              {/*<p>Is it okay to use this photo?</p>*/}
+            {/*</Modal.Description>*/}
+          {/*</Modal.Content>*/}
+        {/*</Modal>*/}
       </div>
     )
+  }
+}
+
+class About extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  render() {
+    return(
+      <Modal trigger={<Icon name = 'address card outline'></Icon>}>
+        <Modal.Header>About</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <p>RedditLight is an ambient app that allows a Reddit and Yeelight smartbulb user to browse Reddit posts, view their karma per subreddit, and be notified of inbox messages together with optional Yeelight changes.</p>
+            <p>Created by <a href="https://github.com/jpham79">Justin Pham</a>, <a href="https://github.com/blaine-wataru">Blaine Wataru</a>, <a href="https://github.com/SamZyskowski">Sam Zyskowski</a> and <a href="https://github.com/sunnysiu97">Sunny Siu.</a></p>
+            <p>This project uses <a href="https://reactjs.org/">React</a>, <a href="https://nodejs.org/en/">Node</a>, <a href="https://react.semantic-ui.com/">Semantic Ui</a>, <a href="https://oauth.net/">OAuth</a>, and the <a href="https://www.reddit.com/dev/api/">Reddit</a> and <a href="https://www.yeelight.com/download/Yeelight_Inter-Operation_Spec.pdf">Yeelight</a> APIs.</p>
+          </Modal.Description>
+        </Modal.Content>
+      </Modal>
+    );
   }
 }
 
@@ -181,11 +223,11 @@ class Popup extends React.Component {
         <Modal
           open={true}
           size="large" centered> 
-          <Modal.Header style = {itemStyle5}>Connect to Yeelight and link Reddit account</Modal.Header>
+          <Modal.Header style = {itemStyle5}>Welcome to RedditLight!</Modal.Header>
           <Container style = {itemStyle5}>
           <div class = "ui buttons">
           {/*<button class = "ui left attached white button" style = {itemStyle7} onClick={this.lightController.connectLight} type = "submit">Light Connection</button>*/}
-          <button class = "ui right attached white button" style = {itemStyle7} onClick = {this.RedditController.authenticateToReddit} type = "submit">Reddit Authentication</button>
+          <button class = "ui right attached white button" style = {itemStyle7} onClick = {this.RedditController.authenticateToReddit} type = "submit">Log in with Reddit</button>
          
           {/* <button class = "ui right red inverted button" onClick = {this.handleClose}>Close</button> */}
 ]          </div>
@@ -218,7 +260,7 @@ class MiddleData extends React.Component{
       </Card.Header>
       </Card.Content>
       <Card.Content style = {itemStyle6}>
-      Now that you’ve connected to the light and logged into Reddit, you can access the full functionality of the app.  
+      Now that you’ve connected to the light and logged into Reddit, you can access the full functionality of the app. You can click on the Dashboard to pull up the Subreddit Selector bar, which will allow you to select a subreddit to view its karma. You can also enable inbox checking by clicking the button. The light, when connected, will respond accordingly with input from Reddit.
       </Card.Content>
       </Card>
 
@@ -247,8 +289,8 @@ class MiddleData extends React.Component{
               </div>
 
               <div class = "item">
-                <Button color = 'black' animated fluid onClick = {this.lightController.resetLight} type = "submit">
-                  <Button.Content visible>Reset Light</Button.Content>
+                <Button color = 'red' animated fluid onClick = {this.lightController.resetLight} type = "submit">
+                  <Button.Content visible>Reset Brightness</Button.Content>
                   <Button.Content hidden>
                     <i class = "redo icon"></i>
                   </Button.Content>
