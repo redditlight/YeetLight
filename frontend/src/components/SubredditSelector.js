@@ -1,6 +1,6 @@
 import React from 'react';
 import LightController from '../LightController';
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Button } from 'semantic-ui-react'
 
 class SubredditSelector extends React.Component {
 
@@ -16,6 +16,7 @@ class SubredditSelector extends React.Component {
     this.karma = this.karma.bind(this);
     this.setOptions = this.setOptions.bind(this);
     this.setSelected = this.setSelected.bind(this);
+    this.getPosts = this.getPosts.bind(this);
   }
 
   //grabs all the subreddits
@@ -106,14 +107,41 @@ setSelected (subreddit) {
   if (subreddit != "stopTracking") {
     this.setState({time: 0});
     this.karma(subreddit);
+    this.getPosts(subreddit);
     this.props.getTime(this.state.time); //CALLBACK to index.js
     setInterval( () => {
       this.setState({time: this.state.time + 15});
       this.props.getTime(this.state.time); //CALLBACK to index.js
     }, 15000)
     setInterval( () => this.karma(subreddit), 15000);
+    setInterval( () => this.getPosts(subreddit), 15000);
   }
 
+}
+
+async getPosts (subreddit) {
+  var url = "http://localhost:8080/posts";
+  const data = {
+    accessToken: this.props.accessToken,
+    subreddit: subreddit != null? subreddit : 'all'
+  }
+
+  const params = {
+    method: "POST",
+    headers: {
+      Accept: 'application/json',
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data),
+    method: "POST"
+  };
+  const res = await fetch(url, params);
+
+  //todo Take the response and pass it back to main component, then use to generate post text
+  // Title is in res.body.body.data.children[X].data.title and test is in ....selftext I think
+  // Use console.log network tab on posts call to check
+
+  console.log(res);
 }
 
 componentDidUpdate (prevProps, prevState) {
@@ -126,16 +154,18 @@ componentDidUpdate (prevProps, prevState) {
   render(){  
 
     return(
-        <Dropdown 
+      <Dropdown
         placeholder='Select a Subreddit'
         fluid
         search
         selection
         options={this.state.options}
         onChange={(event, data) => this.setSelected(data.value)}
-        />
+      />
     );
   }
 }
 
 export default SubredditSelector;
+
+{/*<Button onClick={this.getPosts("anime")}/>*/}
