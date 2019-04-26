@@ -112,7 +112,6 @@ setSelected (subreddit) {
       this.props.getTime(this.state.time); //CALLBACK to index.js
     }, 15000)
     setInterval( () => this.karma(subreddit), 15000);
-    this.setOptions();
   }
 
 }
