@@ -184,7 +184,7 @@ class Popup extends React.Component {
           <Modal.Header style = {itemStyle5}>Connect to Yeelight and link Reddit account</Modal.Header>
           <Container style = {itemStyle5}>
           <div class = "ui buttons">
-          <button class = "ui left attached white button" style = {itemStyle7} onClick={this.lightController.connectLight} type = "submit">Light Connection</button>
+          {/*<button class = "ui left attached white button" style = {itemStyle7} onClick={this.lightController.connectLight} type = "submit">Light Connection</button>*/}
           <button class = "ui right attached white button" style = {itemStyle7} onClick = {this.RedditController.authenticateToReddit} type = "submit">Reddit Authentication</button>
          
           {/* <button class = "ui right red inverted button" onClick = {this.handleClose}>Close</button> */}
@@ -245,14 +245,25 @@ class MiddleData extends React.Component{
               <div class = "item">
                 <RedditController accessToken={this.props.accessToken}/>
               </div>
+
               <div class = "item">
-                <Button color = 'black' animated fluid onClick = {this.lightController.changeBrightness(100)} type = "submit">
+                <Button color = 'black' animated fluid onClick = {this.lightController.resetLight} type = "submit">
                   <Button.Content visible>Reset Light</Button.Content>
                   <Button.Content hidden>
                     <i class = "redo icon"></i>
                   </Button.Content>
                 </Button>
               </div>
+
+              <div class = "item">
+                <Button color = 'green' animated fluid onClick = {this.lightController.connectLight} type = "submit">
+                  <Button.Content visible>Connect to Light</Button.Content>
+                  <Button.Content hidden>
+                    <i class = "lightbulb outline icon"></i>
+                  </Button.Content>
+                </Button>
+              </div>
+
             </div>
             </Card.Content>
           </Card>
