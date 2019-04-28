@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import LightController from './LightController';
 import { Button, Header } from 'semantic-ui-react';
 
@@ -73,11 +73,10 @@ class RedditController extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data),
-      method: "POST"
     };
     fetch(url, params).then(res => res.json()).then(data => {
       console.log(data);
-      const value = data.total + 50;
+      let value = data.total + 50;
       if(value > 100) value = 100;
       if(value < 1) value = 1;
       this.lightController.changeBrightness(value);
@@ -128,13 +127,13 @@ class RedditController extends React.Component {
     fetch(url, params).then(res => res.json()).then(data => {
       console.log(data.unread);
 
-      if(data.unread.length != this.state.unread) {
+      if(data.unread.length !== this.state.unread) {
         
         this.setState({
           unread: data.unread.length
         });
 
-        if(this.state.unread != 0) {
+        if(this.state.unread !== 0) {
           this.lightController.turnLight("on");
         } else {
           this.lightController.turnLight("off");

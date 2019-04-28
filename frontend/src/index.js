@@ -8,7 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import SubredditSelector from './components/SubredditSelector';
 import KarmaChart from './components/KarmaChart';
 
-import { Container, Card, Menu, Button, Icon, Sidebar, Segment, Header, Image, Modal } from 'semantic-ui-react';
+import { Container, Card, Menu, Button, Icon, Sidebar, Segment, Modal } from 'semantic-ui-react';
 
 var itemStyle3 = { fontFamily: 'Helvetica', fontSize: '30px', color: 'black', textAlign: 'center' };
 var itemStyle4 = { fontFamily: 'Helvetica', fontSize: '15px', color: 'white' };

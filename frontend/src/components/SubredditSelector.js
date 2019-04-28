@@ -107,7 +107,7 @@ setSelected (subreddit) {
   if (this.state.interval != null) {
     clearInterval(this.state.interval);
   }
-  if (subreddit != "stopTracking") {
+  if (subreddit !== "stopTracking") {
     if (this.state.interval === null) {
       this.karma(subreddit);
       this.props.getTime(0);
