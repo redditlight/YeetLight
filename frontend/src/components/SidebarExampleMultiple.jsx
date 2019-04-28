@@ -25,14 +25,13 @@ export default class SidebarExampleMultiple extends React.Component {
       const { visible } = this.state
       return (
         <div id="sidebarmenu" className="top">
-          <Button.Group>
-            <Button disabled={visible} onClick={this.handleShowClick}>
-              Dashboard
-            </Button>
+          {/* <Button.Group> */}
+            <i className='big sidebar icon' disabled={visible} onClick={this.handleShowClick} />
+            {/* /* 
             <Button disabled={!visible} onClick={this.handleHideClick}>
               Hide
             </Button>
-          </Button.Group>
+          </Button.Group> */}
   
 
             <Sidebar
@@ -47,7 +46,7 @@ export default class SidebarExampleMultiple extends React.Component {
               width='thin'
             >
 
-              <Menu.Item as='a'>
+              <Menu.Item as='a' color={'violet'}>
                 <About />
                 About
               </Menu.Item>

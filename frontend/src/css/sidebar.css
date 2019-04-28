@@ -1,3 +1,18 @@
 .top {
-    background-color:#1b1c1d;
+    background-color:#24292d;
+    height: 3vh;
+}
+
+.ui.inverted.icon.menu .item {
+    color: #92d8e4;
+}
+
+.ui.inverted.menu {
+    color: #24292d;
+}
+
+i.big.icon, i.huge.icons {
+    color:#92d8e4;
+    margin-left: 1vw;
+    margin-top: .5vh;
 }
