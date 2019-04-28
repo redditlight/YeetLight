@@ -8,7 +8,8 @@ class SubredditSelector extends React.Component {
     super(props);
     this.state = {
         options: null,
-        time: 0
+        time: 0,
+        interval : null
     };
     this.lightController = new LightController(props);
     // This binding is necessary to make `this` work in the callback
@@ -60,7 +61,6 @@ class SubredditSelector extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data),
-      method: "POST"
     };
     const res = await fetch(url, params);
     const json = await res.json();
@@ -71,6 +71,7 @@ class SubredditSelector extends React.Component {
       if(value < 1) value = 1;
       this.lightController.changeBrightness(value);
     this.props.getSubredditData([subreddit, json[0], json]); //CALLBACK to index.js
+    this.props.getTime(this.state.time); //CALLBACK to index.js
   }
 
   async setOptions () {
@@ -104,17 +105,23 @@ class SubredditSelector extends React.Component {
 }
 
 setSelected (subreddit) {
-  if (subreddit != "stopTracking") {
-    this.setState({time: 0});
-    this.karma(subreddit);
-    this.getPosts(subreddit);
-    this.props.getTime(this.state.time); //CALLBACK to index.js
-    setInterval( () => {
-      this.setState({time: this.state.time + 15});
-      this.props.getTime(this.state.time); //CALLBACK to index.js
-    }, 15000)
-    setInterval( () => this.karma(subreddit), 15000);
+
+  if (this.state.interval != null) {
+    clearInterval(this.state.interval);
+  }
+  if (subreddit !== "stopTracking") {
+    if (this.state.interval === null) {
+      this.karma(subreddit);
+      this.props.getTime(0);
+    }
+    this.setState({
+      interval: setInterval( () => {
+                this.setState({time: this.state.time + 5});                 
+                this.karma(subreddit);
+                }, 5000)
+    });
     setInterval( () => this.getPosts(subreddit), 15000);
+    // setInterval( () => this.karma(subreddit), 5000);
   }
 
 }
@@ -136,16 +143,17 @@ async getPosts (subreddit) {
     method: "POST"
   };
   const res = await fetch(url, params);
+  const json = await res.json();
+  console.log(json);
 
   //todo Take the response and pass it back to main component, then use to generate post text
   // Title is in res.body.body.data.children[X].data.title and test is in ....selftext I think
   // Use console.log network tab on posts call to check
-
-  console.log(res);
+  //todo Use res.json.posts to see the posts
 }
 
 componentDidUpdate (prevProps, prevState) {
-  if(this.props.accessToken != null && prevProps != this.props) {
+  if(this.props.accessToken !== null && prevProps !== this.props) {
     this.setOptions();
   }
   

@@ -139,6 +139,7 @@ module.exports = {
         return;
       }
 
+      console.log(JSON.parse(body));
       var unreadMessages = JSON.parse(body).data.children;
       return res.json({ unread: unreadMessages });
     });
@@ -152,7 +153,12 @@ module.exports = {
         return;
       }
 
-      return res.json({body: JSON.parse(body)});
+      // console.log(JSON.parse(body));
+      var postList = JSON.parse(body).data.children;
+      console.log('GETPOSTS: ' + postList);
+      return res.json({ posts: postList});
+      // return res.json({ body: data });
+      // return res.json({body: JSON.parse(body)});
     });
   },
 }

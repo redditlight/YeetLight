@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
-import { LabelGroup } from 'semantic-ui-react';
 class KarmaChart extends React.Component {
 
     constructor(props) {
@@ -20,7 +19,6 @@ class KarmaChart extends React.Component {
     // }
   
     getOptions() {
-      // let title = this.props.subredditData[0];
       let option = {
           title: {
               text: this.props.subredditData[0] + " Karma Tracker",
@@ -70,7 +68,7 @@ class KarmaChart extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (prevProps != this.props && prevProps.time != this.props.time) {
+      if (prevProps !== this.props && prevProps.time !== this.props.time) {
         let karma;
         let time;
         if (this.state.selectedKarma === null && this.state.time === null) {

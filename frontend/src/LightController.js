@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 class LightController extends React.Component {
 
@@ -8,6 +8,9 @@ class LightController extends React.Component {
     // This binding is necessary to make `this` work in the callback
     this.connectLight = this.connectLight.bind(this);
     this.toggleLight = this.toggleLight.bind(this);
+    this.turnLight = this.turnLight.bind(this);
+    this.changeBrightness = this.changeBrightness.bind(this);
+    this.resetLight = this.changeBrightness.bind(this);
   }
 
   connectLight() {
@@ -50,6 +53,10 @@ class LightController extends React.Component {
       console.log(res);
     });
 
+  }
+
+  resetLight() {
+    this.changeBrightness(100);
   }
 
   changeBrightness(value){
