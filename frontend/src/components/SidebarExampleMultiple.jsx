@@ -35,7 +35,7 @@ export default class SidebarExampleMultiple extends React.Component {
             </Button>
           </Button.Group>
   
-          <Sidebar.Pushable as={Segment}>
+
             <Sidebar
               as={Menu}
               animation='overlay'
@@ -46,18 +46,12 @@ export default class SidebarExampleMultiple extends React.Component {
               visible={visible}
               width='thin'
             >
-              {/*<Menu.Item as='a'>*/}
-              {/*<Icon name='home' />*/}
-              {/*Home*/}
-              {/*</Menu.Item>*/}
+
               <Menu.Item as='a'>
                 <About />
                 About
               </Menu.Item>
-              {/*<Menu.Item as='a' onClick={this.setState({open: true})}>*/}
-              {/*<Icon name = 'address card outline'></Icon>*/}
-              {/*About Us*/}
-              {/*</Menu.Item>*/}
+
               <Menu.Item as='a' href="https://github.com/redditlight" >
                 <i className="user icon" ></i>
                 Visit our Github
@@ -67,12 +61,7 @@ export default class SidebarExampleMultiple extends React.Component {
               </Menu.Item>
             </Sidebar>
   
-            <Sidebar.Pusher>
-              <Segment basic>
-                <MiddleData accessToken={this.props.accessToken} />
-              </Segment>
-            </Sidebar.Pusher>
-          </Sidebar.Pushable>
+
   
           {/*<Modal open={this.state.open} onClose={this.onClose}>*/}
           {/*<Modal.Header>Select a Photo</Modal.Header>*/}

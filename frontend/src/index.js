@@ -7,6 +7,9 @@ import * as serviceWorker from './serviceWorker';
 import KarmaChart from './components/KarmaChart.jsx';
 import Popup from './components/Popup.jsx';
 import SidebarExampleMultiple from './components/SidebarExampleMultiple.jsx';
+import MiddleData from './components/MiddleData.jsx';
+
+import { Sidebar, Segment } from 'semantic-ui-react';
 
 export default class YeeLight extends React.Component {
 
@@ -78,8 +81,14 @@ export default class YeeLight extends React.Component {
     }
     return (
       <div>
-
-        <SidebarExampleMultiple accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} />
+          <Sidebar.Pushable as={Segment}>
+          <SidebarExampleMultiple accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} />
+            <Sidebar.Pusher>
+              <Segment basic>
+                <MiddleData accessToken={this.props.accessToken} />
+              </Segment>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
 
         {this.state.subredditData != null 
           ? <div className={"graph"}>
