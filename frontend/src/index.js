@@ -85,16 +85,12 @@ export default class YeeLight extends React.Component {
           <SidebarExampleMultiple accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} />
             <Sidebar.Pusher>
               <Segment basic>
-                <MiddleData accessToken={this.state.accessToken} />
+                <MiddleData accessToken={this.state.accessToken} subredditData={this.state.subredditData} time={this.state.time}/>
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
 
-        {this.state.subredditData != null 
-          ? <div className={"graph"}>
-              <KarmaChart subredditData={this.state.subredditData} time={this.state.time} />
-            </div>
-          : ''}
+
 
         {this.state.accessToken != null ? null : <Popup />}
         
