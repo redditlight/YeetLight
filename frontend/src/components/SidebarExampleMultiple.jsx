@@ -1,0 +1,91 @@
+import React from 'react';
+
+import MiddleData from './MiddleData';
+import About from './About';
+import SubredditSelector from './SubredditSelector';
+import { Menu, Button, Sidebar, Segment } from 'semantic-ui-react';
+
+export default class SidebarExampleMultiple extends React.Component {
+    state = { visible: false }
+  
+    handleHideClick = () => this.setState({ visible: false })
+    handleShowClick = () => this.setState({ visible: true })
+    handleSidebarHide = () => this.setState({ visible: false })
+  
+    constructor(props) {
+      super(props);
+      // this.SubredditSelector = new SubredditSelector(props);
+      // this.onClose = this.onClose.bind(this);
+    }
+  
+    // onClose() {
+    //   this.setState({open: false});
+    // }
+  
+    render() {
+      const { visible } = this.state
+      return (
+        <div id="sidebarmenu">
+          <Button.Group>
+            <Button disabled={visible} onClick={this.handleShowClick}>
+              Dashboard
+            </Button>
+            <Button disabled={!visible} onClick={this.handleHideClick}>
+              Hide
+            </Button>
+          </Button.Group>
+  
+          <Sidebar.Pushable as={Segment}>
+            <Sidebar
+              as={Menu}
+              animation='overlay'
+              direction='left'
+              icon='labeled'
+              onHide={this.handleSidebarHide}
+              vertical
+              visible={visible}
+              width='thin'
+            >
+              {/*<Menu.Item as='a'>*/}
+              {/*<Icon name='home' />*/}
+              {/*Home*/}
+              {/*</Menu.Item>*/}
+              <Menu.Item as='a'>
+                <About />
+                About
+              </Menu.Item>
+              {/*<Menu.Item as='a' onClick={this.setState({open: true})}>*/}
+              {/*<Icon name = 'address card outline'></Icon>*/}
+              {/*About Us*/}
+              {/*</Menu.Item>*/}
+              <Menu.Item as='a' href="https://github.com/redditlight" >
+                <i className="user icon" ></i>
+                Visit our Github
+              </Menu.Item>
+              <Menu.Item>
+                <SubredditSelector accessToken={this.props.accessToken} getSubredditData={this.props.getSubredditData} getTime={this.props.getTime} />
+              </Menu.Item>
+            </Sidebar>
+  
+            <Sidebar.Pusher>
+              <Segment basic>
+                <MiddleData accessToken={this.props.accessToken} />
+              </Segment>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
+  
+          {/*<Modal open={this.state.open} onClose={this.onClose}>*/}
+          {/*<Modal.Header>Select a Photo</Modal.Header>*/}
+          {/*<Modal.Content image>*/}
+          {/*<Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />*/}
+          {/*<Modal.Description>*/}
+          {/*<Header>Default Profile Image</Header>*/}
+          {/*<p>We've found the following gravatar image associated with your e-mail address.</p>*/}
+          {/*<p>Is it okay to use this photo?</p>*/}
+          {/*</Modal.Description>*/}
+          {/*</Modal.Content>*/}
+          {/*</Modal>*/}
+        </div>
+      )
+    }
+  }
