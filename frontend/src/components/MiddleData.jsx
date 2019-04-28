@@ -2,6 +2,7 @@ import React from 'react';
 import LightController from '../LightController';
 import RedditController from '../RedditController';
 import { Card, Button } from 'semantic-ui-react';
+import KarmaChart from './KarmaChart.jsx';
 
 export default class MiddleData extends React.Component {
     constructor(props) {
@@ -54,7 +55,19 @@ export default class MiddleData extends React.Component {
                 </div>
               </Card.Content>
             </Card>
+
+            {this.props.subredditData != null 
+          ? <Card>
+              <Card.Content>
+                <KarmaChart subredditData={this.props.subredditData} time={this.props.time} />
+              </Card.Content>
+            </Card>
+          : ''}
+
           </div>
+        
+
+
         </div>
       )
     }
