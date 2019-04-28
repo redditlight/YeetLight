@@ -27,16 +27,14 @@ class RedditController extends React.Component {
   authenticateToReddit() {
     var authenticationUrl = this.snoowrap.getAuthUrl({
       clientId: 'LhIe-MiAlC4e2Q',
-      // scope: ['identity', 'read', 'privatemessages', 'history', 'submit'],
       scope: ['identity', 'edit', 'flair', 'history', 'mysubreddits', 'privatemessages', 'read', 'report', 'save', 'submit', 'subscribe', 'vote', 'wikiedit', 'wikiread'],
       redirectUri: 'http://localhost:3000',
       permanent: false,
-      // state: 'fe211bebc52eb3da9bef8db6e63104d3' // a random string, this could be validated when the user is redirected back
+
     });
     this.setState({
       url: authenticationUrl
     });
-    // window.open(authenticationUrl, '_self');
     window.location = authenticationUrl;
   }
 
@@ -144,28 +142,6 @@ class RedditController extends React.Component {
     });
   }
 
-  // componentDidMount() {
-  //   var authCode = new URL(window.location.href).searchParams.get('code');
-  //   if (authCode != null) {
-  //     const data = {
-  //       code: new URL(window.location.href).searchParams.get('code')
-  //     }
-  //     const params = {
-  //       headers: {
-  //         "content-type": "application/json"
-  //       },
-  //       body: JSON.stringify(data),
-  //       method: "POST"
-  //     };
-  //     var url = "http://localhost:8080/auth";
-  //     fetch(url, params).then(res => res.json()).then(data => {
-  //       this.setState({
-  //         accessToken: data.accessToken
-  //       });
-  //       // this.props.getAccessToken(data.accessToken);
-  //     });
-  //   }
-  // }
 
   render(){
     return(
