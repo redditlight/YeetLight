@@ -59,7 +59,6 @@ export default class MiddleData extends React.Component {
 
               <Card>
                 <Card.Content>
-
                 </Card.Content>
               </Card>
             {this.props.subredditData != null

@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import LightController from './LightController';
 import * as serviceWorker from './serviceWorker';
+import KarmaChart from './components/KarmaChart.jsx';
 import Popup from './components/Popup.jsx';
 import SidebarExampleMultiple from './components/SidebarExampleMultiple.jsx';
 import MiddleData from './components/MiddleData.jsx';

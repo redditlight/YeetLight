@@ -1,6 +1,6 @@
 import React from 'react';
 import LightController from '../LightController';
-import { Dropdown } from 'semantic-ui-react';
+import {Button } from 'semantic-ui-react'
 
 
 class RedditScroller extends React.Component {
@@ -15,7 +15,6 @@ class RedditScroller extends React.Component {
     this.lightController = new LightController(props);
     // This binding is necessary to make `this` work in the callback
     this.subreddits = this.subreddits.bind(this);
-    this.karma = this.karma.bind(this);
     this.setOptions = this.setOptions.bind(this);
     this.setSelected = this.setSelected.bind(this);
     this.getPosts = this.getPosts.bind(this);
@@ -45,34 +44,6 @@ class RedditScroller extends React.Component {
     });
     return result;
 
-  }
-
-  //Post request to find out the subreddits a user has, controls the light, and contains a callback to pass state to the parent component
-  async karma(subreddit) {
-    var url = "http://localhost:8080/karma";
-    const data = {
-      accessToken: this.props.accessToken,
-      subreddit: subreddit != null ? subreddit : 'all'
-    }
-
-    const params = {
-      method: "POST",
-      headers: {
-        Accept: 'application/json',
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data),
-    };
-    const res = await fetch(url, params);
-    const json = await res.json();
-    console.log(json[0]);
-    console.log(json);
-    let value = json[0].total + 50;
-    if (value > 100) value = 100;
-    if (value < 1) value = 1;
-    this.lightController.changeBrightness(value);
-    this.props.getSubredditData([subreddit, json[0], json]); //CALLBACK to index.js
-    this.props.getTime(this.state.time); //CALLBACK to index.js
   }
 
   async setOptions() {
@@ -122,16 +93,15 @@ class RedditScroller extends React.Component {
         }, 5000)
       });
       setInterval(() => this.getPosts(subreddit), 15000);
-      // setInterval( () => this.karma(subreddit), 5000);
     }
 
   }
 
-  async getPosts(subreddit) {
+  async getPosts (subreddit) {
     var url = "http://localhost:8080/posts";
     const data = {
       accessToken: this.props.accessToken,
-      subreddit: subreddit != null ? subreddit : 'all'
+      subreddit: subreddit != null? subreddit : 'all'
     }
 
     const params = {
@@ -143,39 +113,38 @@ class RedditScroller extends React.Component {
       body: JSON.stringify(data),
       method: "POST"
     };
+    let postResult = [];
     const res = await fetch(url, params);
     const json = await res.json();
-    console.log(json);
-
+    //console.log(json);
+    let postArray = res.json.getPosts;
+    //console.log(postArray);
+    postArray.forEach(element => {
+      postResult.push(element);
+    });
+    return postResult;
+  }
     //todo Take the response and pass it back to main component, then use to generate post text
     // Title is in res.body.body.data.children[X].data.title and test is in ....selftext I think
     // Use console.log network tab on posts call to check
     //todo Use res.json.posts to see the posts
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.accessToken !== null && prevProps !== this.props) {
-      this.setOptions();
+    componentDidUpdate(prevProps, prevState)
+    {
+      if (this.props.accessToken !== null && prevProps !== this.props) {
+        this.setOptions();
+      }
     }
 
-  }
+    render(){
 
-  render() {
-
-    return (
-        <Dropdown
-            placeholder='Select a Subreddit'
-            fluid
-            search
-            selection
-            options={this.state.options}
-            onChange={(event, data) => this.setSelected(data.value)}
-        />
-    );
-  }
-
+      return (
+          <Button onClick={this.getPosts("anime")}/>
+      );
+    }
 }
 
 export default RedditScroller;
+
 
 
