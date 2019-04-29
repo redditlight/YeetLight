@@ -4,7 +4,6 @@ import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import LightController from './LightController';
 import * as serviceWorker from './serviceWorker';
-import KarmaChart from './components/KarmaChart.jsx';
 import Popup from './components/Popup.jsx';
 import SidebarExampleMultiple from './components/SidebarExampleMultiple.jsx';
 import MiddleData from './components/MiddleData.jsx';
@@ -69,10 +68,10 @@ export default class YeeLight extends React.Component {
       };
       var url = "http://localhost:8080/auth";
       fetch(url, params).then(res => res.json()).then(data => {
-        this.setState({accessToken: data.accessToken});       
+        this.setState({accessToken: data.accessToken});
       });
-      
-    } 
+
+    }
   }
 
   render() {
@@ -93,7 +92,7 @@ export default class YeeLight extends React.Component {
 
 
         {this.state.accessToken != null ? null : <Popup />}
-        
+
       </div>
     );
   }
