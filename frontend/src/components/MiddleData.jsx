@@ -60,11 +60,6 @@ export default class MiddleData extends React.Component {
               </Card.Content>
             </Card>
 
-              <Card>
-                <Card.Content>
-                  <RedditScroller posts={this.props.posts}/>
-                </Card.Content>
-              </Card>
             {this.props.subredditData != null
           ? <Card>
               <Card.Content>
@@ -75,7 +70,7 @@ export default class MiddleData extends React.Component {
 
           </div>
 
-
+          <RedditScroller posts={this.props.posts}/>
 
         </div>
       )

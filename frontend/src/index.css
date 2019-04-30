@@ -27,7 +27,7 @@ code {
   background-size: cover;
   margin: 0px;
   padding: 100px;
-  height: 650px;
+  height: 100%;
 }
 
 .sidebarmenu{
@@ -43,4 +43,8 @@ code {
 .graph {
   height: 30vh;
   width: 60vw;
+}
+
+.ui.basic.segment {
+  height: 95vh
 }
