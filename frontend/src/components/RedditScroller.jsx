@@ -18,7 +18,7 @@ class RedditScroller extends React.Component {
     const data = await this.props.posts;
     const posts = data.posts;
     let redditPosts = [];
-    // console.log(data);
+    console.log(data);
     // console.log(data.posts[0].data.title);
     // console.log(posts[0].data.title);
     posts.forEach(post => {
@@ -26,7 +26,7 @@ class RedditScroller extends React.Component {
         title: post.data.title,
         score: post.data.score,
         thumbnail: post.data.thumbnail,
-        link: "reddit.com" + post.data.permalink
+        link: "reddit.com" + post.data.permalink,
       }
       redditPosts.push(segment);
     });
@@ -43,7 +43,7 @@ class RedditScroller extends React.Component {
         const data = await this.props.posts;
         const posts = data.posts;
         let redditPosts = [];
-        // console.log(data);
+        console.log(data);
         // console.log(data.posts[0].data.title);
         // console.log(posts[0].data.title);
         posts.forEach(post => {
@@ -51,7 +51,7 @@ class RedditScroller extends React.Component {
             title: post.data.title,
             score: post.data.score,
             thumbnail: post.data.thumbnail,
-            link: "https://www.reddit.com" + post.data.permalink
+            link: "https://www.reddit.com" + post.data.permalink,
           }
           redditPosts.push(segment);
         });

@@ -16,7 +16,8 @@ export default class Popup extends React.Component {
         <div>
           <Modal
             open={true}
-            size="large" centered>
+            basic
+            size="small" centered>
             <Modal.Header style={itemStyle5}>Welcome to RedditLight!</Modal.Header>
             <Container style={itemStyle5}>
               <div className="ui buttons">
