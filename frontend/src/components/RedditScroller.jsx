@@ -51,7 +51,7 @@ class RedditScroller extends React.Component {
             title: post.data.title,
             score: post.data.score,
             thumbnail: post.data.thumbnail,
-            link: "reddit.com" + post.data.permalink
+            link: "https://www.reddit.com" + post.data.permalink
           }
           redditPosts.push(segment);
         });
@@ -70,7 +70,7 @@ class RedditScroller extends React.Component {
     const posts = this.state.posts;
     const yeet = posts.map(post => {
       return (
-      <a href={post.link}>
+      <a href={post.link} target="_blank">
 
       <Segment>
         <h1>{post.title}</h1>
@@ -85,7 +85,7 @@ class RedditScroller extends React.Component {
 
 
     return (
-      <Segment style={{ overflow: 'auto', maxHeight: 200 }}>
+      <Segment style={{ overflow: 'auto', maxHeight: 400 }}>
         {yeet}
       </Segment>
 
