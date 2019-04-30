@@ -85,7 +85,8 @@ class RedditScroller extends React.Component {
 
 
     return (
-      <Segment style={{ overflow: 'auto', maxHeight: 400 }}>
+
+      <Segment style={{ overflow: 'auto', maxHeight: 300, marginLeft:'8.75%',marginRight:'8.75%' }}>
         {yeet}
       </Segment>
 
