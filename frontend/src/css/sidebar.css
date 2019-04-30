@@ -16,3 +16,7 @@ i.big.icon, i.huge.icons {
     margin-left: 1vw;
     margin-top: .5vh;
 }
+
+.big.sidebar.icon:hover {
+    color:white;
+}
