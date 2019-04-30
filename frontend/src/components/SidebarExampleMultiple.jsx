@@ -1,7 +1,7 @@
 import React from 'react';
 import About from './About';
 import SubredditSelector from './SubredditSelector';
-import { Menu, Button, Sidebar } from 'semantic-ui-react';
+import { Menu, Button, Sidebar, Header } from 'semantic-ui-react';
 import '../css/sidebar.css';
 
 export default class SidebarExampleMultiple extends React.Component {
@@ -26,8 +26,12 @@ export default class SidebarExampleMultiple extends React.Component {
       return (
         <div id="sidebarmenu" className="top">
           {/* <Button.Group> */}
+          <Header as="h1" style={{color: '#92d8e4'}}>
             <i className='big sidebar icon' disabled={visible} onClick={this.handleShowClick} />
-            {/* /* 
+            RedditLight
+          </Header>
+
+          {/* /*
             <Button disabled={!visible} onClick={this.handleHideClick}>
               Hide
             </Button>
