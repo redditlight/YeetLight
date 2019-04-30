@@ -16,5 +16,6 @@ router.route('/subreddits').post(redditController.subreddits);
 router.route('/karma').post(redditController.karma);
 router.route('/test').post(redditController.test);
 router.route('/inbox').post(redditController.inbox);
+router.route('/posts').post(redditController.getPosts);
 
 module.exports = router;

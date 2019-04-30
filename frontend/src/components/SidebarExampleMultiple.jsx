@@ -56,7 +56,7 @@ export default class SidebarExampleMultiple extends React.Component {
                 Visit our Github
               </Menu.Item>
               <Menu.Item>
-                <SubredditSelector accessToken={this.props.accessToken} getSubredditData={this.props.getSubredditData} getTime={this.props.getTime} />
+                <SubredditSelector accessToken={this.props.accessToken} getSubredditData={this.props.getSubredditData} getTime={this.props.getTime} getPosts={this.props.getPosts} />
               </Menu.Item>
             </Sidebar>
   

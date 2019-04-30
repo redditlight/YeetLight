@@ -132,9 +132,9 @@ class RedditController extends React.Component {
         });
 
         if(this.state.unread !== 0) {
-          this.lightController.turnLight("on");
-        } else {
           this.lightController.turnLight("off");
+        } else {
+          this.lightController.turnLight("on");
         }
       } else {
         console.log("No Change.");

@@ -30,6 +30,8 @@ code {
   /* background: url('https://davidbalyeat.com/wp-content/uploads/mount-sneffels-snow-colorado-mountains-black-and-white-high-definition-hd-professional-landscape-photography.jpg') no-repeat center center fixed; */
   background-size: cover;
   margin: 0px;
+  padding: 100px;
+  height: 100%;
   padding: 100px; 
   height: 95vh;
   background-color: #24292d;
@@ -50,4 +52,8 @@ code {
 .graph {
   height: 30vh;
   width: 60vw;
+}
+
+.ui.basic.segment {
+  height: 95vh
 }

@@ -135,12 +135,31 @@ module.exports = {
     var unread = [];
     request(getHelper(req, '/message/unread'), function (err, resp, body) {
       if (err) {
-        console.log('Error :', err)
-        return
+        console.log('Error :', err);
+        return;
       }
 
+      console.log(JSON.parse(body));
       var unreadMessages = JSON.parse(body).data.children;
       return res.json({ unread: unreadMessages });
+    });
+  },
+
+  getPosts: function(req, res) {
+    var subreddit = req.body.subreddit;
+    request(getHelper(req, '/r/' + subreddit + "/hot"), function (err, resp, body) {
+      if (err) {
+        console.log('Error : ', err);
+        return;
+      }
+      // console.log(subreddit);
+      
+      console.log(JSON.parse(body).data.children);
+      var postList = JSON.parse(body).data.children;
+      console.log('GETPOSTS: ' + postList);
+      return res.json({ posts: postList});
+      // return res.json({ body: data });
+      // return res.json({body: JSON.parse(body)});
     });
   },
 }
