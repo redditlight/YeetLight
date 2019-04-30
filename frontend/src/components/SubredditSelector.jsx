@@ -105,11 +105,12 @@ class SubredditSelector extends React.Component {
 }
 
 setSelected (subreddit) {
-
+  
   if (this.state.interval != null) {
     clearInterval(this.state.interval);
   }
   if (subreddit !== "stopTracking") {
+    this.props.getPosts(this.getPosts(subreddit));
     if (this.state.interval === null) {
       this.karma(subreddit);
       this.props.getTime(0);
@@ -118,10 +119,9 @@ setSelected (subreddit) {
       interval: setInterval( () => {
                 this.setState({time: this.state.time + 5});                 
                 this.karma(subreddit);
+                
                 }, 5000)
     });
-    setInterval( () => this.getPosts(subreddit), 15000);
-    // setInterval( () => this.karma(subreddit), 5000);
   }
 
 }
@@ -144,7 +144,7 @@ async getPosts (subreddit) {
   };
   const res = await fetch(url, params);
   const json = await res.json();
-  console.log(json);
+  return json;
 
   //todo Take the response and pass it back to main component, then use to generate post text
   // Title is in res.body.body.data.children[X].data.title and test is in ....selftext I think

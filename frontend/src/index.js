@@ -19,12 +19,14 @@ export default class YeeLight extends React.Component {
     this.state = {
       accessToken: null,
       subredditData: null,
-      time: null
+      time: null,
+      posts: null
     };
 
     this.getAccessToken = this.getAccessToken.bind(this);
     this.getSubredditData = this.getSubredditData.bind(this);
     this.getTime = this.getTime.bind(this);
+    this.getPosts = this.getPosts.bind(this);
     this.value = 100;
   }
 
@@ -50,6 +52,14 @@ export default class YeeLight extends React.Component {
     if (data != null) {
       this.setState({
         time: data
+      });
+    }
+  }
+
+  getPosts(data) {
+    if (data != null) {
+      this.setState({
+        posts: data
       });
     }
   }
@@ -82,10 +92,10 @@ export default class YeeLight extends React.Component {
     return (
       <div>
           <Sidebar.Pushable as={Segment}>
-          <SidebarExampleMultiple accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} />
+          <SidebarExampleMultiple accessToken={this.state.accessToken} getSubredditData={this.getSubredditData} getTime={this.getTime} getPosts={this.getPosts}/>
             <Sidebar.Pusher>
               <Segment basic>
-                <MiddleData accessToken={this.state.accessToken} subredditData={this.state.subredditData} time={this.state.time}/>
+                <MiddleData accessToken={this.state.accessToken} subredditData={this.state.subredditData} time={this.state.time} posts={this.state.posts}/>
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>

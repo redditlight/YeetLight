@@ -11,6 +11,9 @@ export default class MiddleData extends React.Component {
       this.lightController = new LightController(props);
       // this.RedditController = new RedditController(props);
     }
+
+
+
     render() {
       return (
 
@@ -59,6 +62,7 @@ export default class MiddleData extends React.Component {
 
               <Card>
                 <Card.Content>
+                  <RedditScroller posts={this.props.posts}/>
                 </Card.Content>
               </Card>
             {this.props.subredditData != null
