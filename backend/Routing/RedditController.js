@@ -152,8 +152,9 @@ module.exports = {
         console.log('Error : ', err);
         return;
       }
-
-      // console.log(JSON.parse(body));
+      // console.log(subreddit);
+      
+      console.log(JSON.parse(body).data.children);
       var postList = JSON.parse(body).data.children;
       console.log('GETPOSTS: ' + postList);
       return res.json({ posts: postList});
