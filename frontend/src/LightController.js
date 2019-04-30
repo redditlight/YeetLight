@@ -10,7 +10,7 @@ class LightController extends React.Component {
     this.toggleLight = this.toggleLight.bind(this);
     this.turnLight = this.turnLight.bind(this);
     this.changeBrightness = this.changeBrightness.bind(this);
-    this.resetLight = this.changeBrightness.bind(this);
+    this.resetLight = this.resetLight.bind(this);
   }
 
   connectLight() {
@@ -66,6 +66,7 @@ class LightController extends React.Component {
     }
     const params = {
       headers: {
+        Accept: 'application/json',
         "content-type": "application/json"
       },
       body: JSON.stringify(data),
