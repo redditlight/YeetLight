@@ -1,9 +1,8 @@
 import React from 'react';
-
-import MiddleData from './MiddleData';
 import About from './About';
 import SubredditSelector from './SubredditSelector';
-import { Menu, Button, Sidebar, Segment } from 'semantic-ui-react';
+import { Menu, Button, Sidebar } from 'semantic-ui-react';
+import '../css/sidebar.css';
 
 export default class SidebarExampleMultiple extends React.Component {
     state = { visible: false }
@@ -25,15 +24,14 @@ export default class SidebarExampleMultiple extends React.Component {
     render() {
       const { visible } = this.state
       return (
-        <div id="sidebarmenu">
-          <Button.Group>
-            <Button disabled={visible} onClick={this.handleShowClick}>
-              Dashboard
-            </Button>
+        <div id="sidebarmenu" className="top">
+          {/* <Button.Group> */}
+            <i className='big sidebar icon' disabled={visible} onClick={this.handleShowClick} />
+            {/* /* 
             <Button disabled={!visible} onClick={this.handleHideClick}>
               Hide
             </Button>
-          </Button.Group>
+          </Button.Group> */}
   
 
             <Sidebar
@@ -43,11 +41,12 @@ export default class SidebarExampleMultiple extends React.Component {
               icon='labeled'
               onHide={this.handleSidebarHide}
               vertical
+              inverted
               visible={visible}
               width='thin'
             >
 
-              <Menu.Item as='a'>
+              <Menu.Item as='a' color={'violet'}>
                 <About />
                 About
               </Menu.Item>
